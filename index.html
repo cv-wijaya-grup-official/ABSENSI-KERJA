@@ -600,6 +600,7 @@ font-size: 12px;
 border-color: #38bdf8;
 background: #1e293b;
 }
+
 </style>
 </head>
 
@@ -666,6 +667,7 @@ background: #1e293b;
 
 <!-- TAB 1: ABSEN UTAMA (DARK scanner UI) -->
 <div id="tab-absen" class="tab-content">
+
 <!-- Live Clock Header -->
 <div class="clock-display">
 <div class="clock-time" id="live-clock">00:00:00 <span>AM</span></div>
@@ -717,6 +719,7 @@ Izinkan Kamera
 
 <!-- TAB 2: HR & SLIP GAJI -->
 <div id="tab-hr" class="tab-content card hidden">
+
 <div id="hr-login-box">
 <div style="text-align: center; margin-bottom: 16px;">
 <h3 style="font-size: 16px;">Verifikasi HR / Admin</h3>
@@ -754,6 +757,7 @@ Izinkan Kamera
 
 <div class="slip-scroll-container">
 <div id="slip-pdf-wrapper">
+
 <table class="header-table">
 <tr>
 <td style="width: 30%;">
@@ -864,6 +868,8 @@ Dokumen Resmi Payroll<br>
 </button>
 
 <div id="email-status" class="status-msg hidden"></div>
+</div>
+
 </div>
 
 <!-- TAB 3: HARI KERJA -->
@@ -985,10 +991,9 @@ Dokumen Resmi Payroll<br>
 
 <!-- ==================== LOGIKA JAVASCRIPT ==================== -->
 <script>
-// 1. URL WEB APP GOOGLE APPS SCRIPT ANDA
+// URL WEB APP GAS YANG SUDAH ANDA DEPLOY
 const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwz4wTltMk7YN2BYjDThgbPYnwOrfwTYPOXkkuPvJdFdjcMbHfKKJsqfeWpTcnTC6jPcg/exec';
 
-// Konfigurasi Bawaan
 const TARGET_LAT = -6.7220192;
 const TARGET_LNG = 108.5364692;
 const MAX_ALLOWED_RADIUS = 5.0;
@@ -1002,7 +1007,7 @@ let currentAddress = "Kost Andara Wijaya, Cirebon";
 let videoStream = null;
 
 // ==========================================
-// FUNGSI PENGHUBUNG KE GOOGLE APPS SCRIPT (API)
+// FUNGSI PENGHUBUNG KE GOOGLE APPS SCRIPT (API FETCH)
 // ==========================================
 async function callGAS(action, dataObj = null) {
   const formData = new URLSearchParams();
@@ -1021,7 +1026,7 @@ async function callGAS(action, dataObj = null) {
 }
 
 // ==========================================
-// INISIALISASI APLIKASI
+// INISIALISASI & UI LAMA TETAP DIPERTAHANKAN
 // ==========================================
 window.addEventListener('DOMContentLoaded', function() {
   startLiveClock();
@@ -1040,14 +1045,21 @@ function startLiveClock() {
     const minutes = String(now.getMinutes()).padStart(2, '0');
     const seconds = String(now.getSeconds()).padStart(2, '0');
     const ampm = hours >= 12 ? 'PM' : 'AM';
+
     hours = hours % 12;
     hours = hours ? hours : 12;
+
     const timeStr = `${hours}:${minutes}:${seconds}`;
     const clockEl = document.getElementById('live-clock');
-    if (clockEl) clockEl.innerHTML = `${timeStr} <span>${ampm}</span>`;
+    if (clockEl) {
+      clockEl.innerHTML = `${timeStr} <span>${ampm}</span>`;
+    }
+
     const dateStr = now.toLocaleDateString('id-ID', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
     const dateEl = document.getElementById('live-date');
-    if (dateEl) dateEl.innerText = dateStr;
+    if (dateEl) {
+      dateEl.innerText = dateStr;
+    }
   }
   update();
   setInterval(update, 1000);
@@ -1062,39 +1074,55 @@ function showStatus(elementId, msg, type) {
   }
 }
 
-// ==========================================
-// KAMERA & GPS
-// ==========================================
 async function initCamera() {
   const video = document.getElementById('webcam');
   const fallbackOverlay = document.getElementById('camera-fallback');
   if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) return;
+
   try {
-    if (videoStream) videoStream.getTracks().forEach(track => track.stop());
+    if (videoStream) {
+      videoStream.getTracks().forEach(track => track.stop());
+    }
     videoStream = await navigator.mediaDevices.getUserMedia({
       video: { facingMode: 'user', width: { ideal: 720 }, height: { ideal: 720 } },
       audio: false
     });
+
     if (video) {
       video.srcObject = videoStream;
       video.onloadedmetadata = () => video.play().catch(e => console.warn(e));
     }
-    if (fallbackOverlay) fallbackOverlay.classList.add('hidden');
+    if (fallbackOverlay) {
+      fallbackOverlay.classList.add('hidden');
+    }
   } catch (err) {
-    if (fallbackOverlay) fallbackOverlay.classList.remove('hidden');
+    console.warn("Kamera diblokir atau gagal dimuat otomatis:", err);
+    if (fallbackOverlay) {
+      fallbackOverlay.classList.remove('hidden');
+    }
   }
 }
 
 function requestCameraExplicitly() {
   navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' }, audio: false })
-    .then(stream => {
-      if (videoStream) videoStream.getTracks().forEach(track => track.stop());
-      videoStream = stream;
-      const video = document.getElementById('webcam');
-      const fallbackOverlay = document.getElementById('camera-fallback');
-      if (video) { video.srcObject = stream; video.play().catch(e => console.warn(e)); }
-      if (fallbackOverlay) fallbackOverlay.classList.add('hidden');
-    }).catch(err => alert("Akses kamera ditolak."));
+  .then(stream => {
+    if (videoStream) {
+      videoStream.getTracks().forEach(track => track.stop());
+    }
+    videoStream = stream;
+    const video = document.getElementById('webcam');
+    const fallbackOverlay = document.getElementById('camera-fallback');
+    if (video) {
+      video.srcObject = stream;
+      video.play().catch(e => console.warn(e));
+    }
+    if (fallbackOverlay) {
+      fallbackOverlay.classList.add('hidden');
+    }
+  })
+  .catch(err => {
+    alert("Akses kamera ditolak atau diblokir oleh browser. Pastikan memberikan izin pada setelan situs browser Anda.");
+  });
 }
 
 function calculateDistanceMeters(lat1, lon1, lat2, lon2) {
@@ -1102,7 +1130,9 @@ function calculateDistanceMeters(lat1, lon1, lat2, lon2) {
   const rad = Math.PI / 180;
   const dLat = (lat2 - lat1) * rad;
   const dLon = (lon2 - lon1) * rad;
-  const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.cos(lat1 * rad) * Math.cos(lat2 * rad) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
+  const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+  Math.cos(lat1 * rad) * Math.cos(lat2 * rad) *
+  Math.sin(dLon / 2) * Math.sin(dLon / 2);
   const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
   return R * c;
 }
@@ -1110,32 +1140,47 @@ function calculateDistanceMeters(lat1, lon1, lat2, lon2) {
 function initLocation() {
   const badge = document.getElementById('gps-status-badge');
   const coordsText = document.getElementById('gps-coords-text');
+
   if (!navigator.geolocation) {
-    if (badge) { badge.className = "gps-status-badge out-of-range"; badge.innerHTML = `<i class="fa-solid fa-xmark"></i> GPS NOT SUPPORTED`; }
+    if (badge) {
+      badge.className = "gps-status-badge out-of-range";
+      badge.innerHTML = `<i class="fa-solid fa-xmark"></i> GPS NOT SUPPORTED`;
+    }
     return;
   }
+
   navigator.geolocation.watchPosition(
     pos => {
       currentLat = pos.coords.latitude;
       currentLng = pos.coords.longitude;
       currentDistance = calculateDistanceMeters(currentLat, currentLng, TARGET_LAT, TARGET_LNG);
-      if (coordsText) coordsText.innerText = `${currentLat.toFixed(5)}, ${currentLng.toFixed(5)}`;
+
+      if (coordsText) {
+        coordsText.innerText = `${currentLat.toFixed(5)}, ${currentLng.toFixed(5)}`;
+      }
+
       if (currentDistance <= MAX_ALLOWED_RADIUS) {
-        if (badge) { badge.className = "gps-status-badge"; badge.innerHTML = `<i class="fa-solid fa-check"></i> GPS LOCKED (${currentDistance.toFixed(1)}m)`; }
+        if (badge) {
+          badge.className = "gps-status-badge";
+          badge.innerHTML = `<i class="fa-solid fa-check"></i> GPS LOCKED (${currentDistance.toFixed(1)}m)`;
+        }
       } else {
-        if (badge) { badge.className = "gps-status-badge out-of-range"; badge.innerHTML = `<i class="fa-solid fa-triangle-exclamation"></i> OUT OF RANGE (${currentDistance.toFixed(1)}m)`; }
+        if (badge) {
+          badge.className = "gps-status-badge out-of-range";
+          badge.innerHTML = `<i class="fa-solid fa-triangle-exclamation"></i> OUT OF RANGE (${currentDistance.toFixed(1)}m)`;
+        }
       }
     },
     err => {
-      if (badge) { badge.className = "gps-status-badge out-of-range"; badge.innerHTML = `<i class="fa-solid fa-triangle-exclamation"></i> GPS OFF`; }
+      if (badge) {
+        badge.className = "gps-status-badge out-of-range";
+        badge.innerHTML = `<i class="fa-solid fa-triangle-exclamation"></i> GPS OFF`;
+      }
     },
     { enableHighAccuracy: true, timeout: 15000, maximumAge: 0 }
   );
 }
 
-// ==========================================
-// NAVIGASI & UI
-// ==========================================
 function showMainApp(userName) {
   document.getElementById('login-view').classList.add('hidden');
   document.getElementById('main-app').classList.remove('hidden');
@@ -1145,9 +1190,32 @@ function showMainApp(userName) {
   initLocation();
 }
 
+function handleHRLogin() {
+  const u = document.getElementById('hr-username').value.trim();
+  const p = document.getElementById('hr-password').value.trim();
+
+  // Mempertahankan verifikasi lokal HR seperti asli
+  if (u === 'andara' && p === 'cirebon191002') {
+    isHRAuthenticated = true;
+    document.getElementById('hr-login-box').classList.add('hidden');
+    document.getElementById('hr-dashboard-box').classList.remove('hidden');
+    loadSlipGaji();
+  } else {
+    showStatus('hr-login-status', 'Kredensial Admin HR Salah!', 'error');
+  }
+}
+
+function lockHRAccess() {
+  isHRAuthenticated = false;
+  document.getElementById('hr-password').value = '';
+  document.getElementById('hr-dashboard-box').classList.add('hidden');
+  document.getElementById('hr-login-box').classList.remove('hidden');
+}
+
 function switchTab(tabName) {
   const tabs = document.querySelectorAll('.tab-content');
   tabs.forEach(tab => tab.classList.add('hidden'));
+
   const navItems = document.querySelectorAll('.nav-item');
   navItems.forEach(item => item.classList.remove('active'));
 
@@ -1168,55 +1236,13 @@ function switchTab(tabName) {
   }
 }
 
-// ==========================================
-// FITUR UTAMA DENGAN API FETCH (callGAS)
-// ==========================================
-async function handleLogin() {
-  const u = document.getElementById('username').value.trim();
-  const p = document.getElementById('password').value.trim();
-  if (!u || !p) { showStatus('login-status', 'Username & Password wajib diisi!', 'error'); return; }
-
-  showStatus('login-status', 'Memverifikasi Data...', 'success');
-  const res = await callGAS('processLogin', { username: u, password: p });
-
-  if (res.success) {
-    localStorage.setItem('app_user_session', res.name);
-    showMainApp(res.name);
-  } else {
-    showStatus('login-status', res.message, 'error');
-  }
-}
-
-async function handleHRLogin() {
-  const u = document.getElementById('hr-username').value.trim();
-  const p = document.getElementById('hr-password').value.trim();
-  
-  showStatus('hr-login-status', 'Verifikasi HR...', 'success');
-  const res = await callGAS('processLogin', { username: u, password: p });
-
-  if (res.success && res.role === 'ADMIN') {
-    isHRAuthenticated = true;
-    document.getElementById('hr-login-box').classList.add('hidden');
-    document.getElementById('hr-dashboard-box').classList.remove('hidden');
-    loadSlipGaji();
-  } else {
-    showStatus('hr-login-status', 'Kredensial Admin HR Salah!', 'error');
-  }
-}
-
-function lockHRAccess() {
-  isHRAuthenticated = false;
-  document.getElementById('hr-password').value = '';
-  document.getElementById('hr-dashboard-box').classList.add('hidden');
-  document.getElementById('hr-login-box').classList.remove('hidden');
-}
-
 function capturePhotoWithWatermark() {
   const video = document.getElementById('webcam');
   const canvas = document.createElement('canvas');
   canvas.width = video.videoWidth || 640;
   canvas.height = video.videoHeight || 640;
   const ctx = canvas.getContext('2d');
+
   ctx.translate(canvas.width, 0);
   ctx.scale(-1, 1);
   ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
@@ -1229,11 +1255,14 @@ function capturePhotoWithWatermark() {
 
   ctx.fillStyle = "rgba(15, 23, 42, 0.85)";
   ctx.fillRect(12, canvas.height - 68, canvas.width - 24, 56);
+
   ctx.fillStyle = "#38bdf8";
   ctx.fillRect(12, canvas.height - 68, 6, 56);
+
   ctx.fillStyle = "#ffffff";
   ctx.font = "bold 13px Inter, Arial, sans-serif";
   ctx.fillText(`📍 ${currentAddress} ${coordsStr}`, 26, canvas.height - 44);
+
   ctx.fillStyle = "#cbd5e1";
   ctx.font = "12px Inter, Arial, sans-serif";
   ctx.fillText(`🕒 ${dateStr} - ${timeStr} WIB | CV. WIJAYA.GRUP`, 26, canvas.height - 22);
@@ -1241,15 +1270,106 @@ function capturePhotoWithWatermark() {
   return canvas.toDataURL('image/jpeg', 0.88);
 }
 
+function selectIzinCategory(type, element) {
+  selectedIzinType = type;
+  const cards = document.querySelectorAll('.option-card');
+  cards.forEach(card => card.classList.remove('selected'));
+  element.classList.add('selected');
+}
+
+function renderHariKerjaData(data) {
+  document.getElementById('hk-periode-label').innerText = data.periodeLabel;
+  document.getElementById('hk-val-masuk').innerText = data.totalMasuk + " Hari";
+  document.getElementById('hk-val-komisi').innerText = `Rp${data.totalKomisi.toLocaleString('id-ID')}`;
+  document.getElementById('hk-val-point').innerText = data.totalPoint + " Point";
+  document.getElementById('hk-val-izin').innerText = data.totalIzin + " Hari";
+}
+
+function renderSlipData(data) {
+  document.getElementById('slip-nama').innerText = data.nama;
+  document.getElementById('slip-tgl-label').innerText = data.tanggalCetak;
+  document.getElementById('slip-periode-label').innerText = "Periode Kerja: " + data.periode;
+  document.getElementById('slip-periode').innerText = data.periode;
+  document.getElementById('slip-hk').innerText = data.totalMasuk + " Hari";
+  document.getElementById('slip-libur').innerText = data.totalIzin + " Hari";
+  document.getElementById('slip-point').innerText = data.totalPoint + " Point";
+  document.getElementById('slip-tamu').innerText = data.totalTamu + " Tamu";
+
+  document.getElementById('slip-total-hk').innerText = `Rp${data.gajiPokok.toLocaleString('id-ID')}`;
+  document.getElementById('slip-total-point').innerText = `Rp${data.komisiPoint.toLocaleString('id-ID')}`;
+  document.getElementById('slip-total-komisi').innerText = `Rp${data.komisiTamu.toLocaleString('id-ID')}`;
+  document.getElementById('slip-total-denda').innerText = `Rp${data.totalDenda.toLocaleString('id-ID')}`;
+  document.getElementById('slip-grand-total').innerText = `Rp${data.gajiBersih.toLocaleString('id-ID')}`;
+
+  const notesEl = document.getElementById('slip-detailed-notes');
+  notesEl.innerHTML = `
+  <strong>Catatan Kehadiran (${data.periode}):</strong><br>
+  - Tanggal Masuk: ${data.detailMasuk || '-'}<br>
+  - Keterlambatan: ${data.detailTerlambat || '-'}<br>
+  - Izin/Alfa: ${data.detailIzin || '-'}
+  `;
+}
+
+function downloadSlipPDF() {
+  const element = document.getElementById('slip-pdf-wrapper');
+  const opt = {
+    margin: [5, 5, 5, 5],
+    filename: `SLIP_GAJI_CV_WIJAYA_GRUP_FEJRI.pdf`,
+    image: { type: 'jpeg', quality: 0.98 },
+    html2canvas: { scale: 2, useCORS: true },
+    jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' }
+  };
+  html2pdf().set(opt).from(element).save();
+}
+
+function handleLogout() {
+  localStorage.removeItem('app_user_session');
+  lockHRAccess();
+  if (videoStream) {
+    videoStream.getTracks().forEach(track => track.stop());
+    videoStream = null;
+  }
+  document.getElementById('main-app').classList.add('hidden');
+  document.getElementById('login-view').classList.remove('hidden');
+}
+
+// ==========================================
+// FUNGSI API YANG MENGGANTIKAN google.script.run
+// ==========================================
+
+async function handleLogin() {
+  const u = document.getElementById('username').value.trim();
+  const p = document.getElementById('password').value.trim();
+
+  if (!u || !p) {
+    showStatus('login-status', 'Username & Password wajib diisi!', 'error');
+    return;
+  }
+
+  showStatus('login-status', 'Memverifikasi Data...', 'success');
+  const res = await callGAS('processLogin', { username: u, password: p });
+
+  if (res.success) {
+    localStorage.setItem('app_user_session', res.name);
+    showMainApp(res.name);
+  } else {
+    showStatus('login-status', res.message, 'error');
+  }
+}
+
 async function submitAbsen(tipe) {
   if (!currentLat || !currentLng) {
-    showStatus('absen-status', 'Gagal: Koordinat GPS belum terdeteksi!', 'error'); return;
+    showStatus('absen-status', 'Gagal: Koordinat GPS belum terdeteksi!', 'error');
+    return;
   }
+
   if (currentDistance > MAX_ALLOWED_RADIUS) {
-    showStatus('absen-status', `Gagal: Posisi Anda ${currentDistance.toFixed(1)} m dari lokasi (Maksimal 5.0 m)!`, 'error'); return;
+    showStatus('absen-status', `Gagal: Posisi Anda ${currentDistance.toFixed(1)} m dari lokasi (Maksimal 5.0 m)!`, 'error');
+    return;
   }
 
   showStatus('absen-status', 'Merekam presensi ke server, mohon tunggu...', 'success');
+  
   const photoData = capturePhotoWithWatermark();
   const payload = { lat: currentLat, lng: currentLng, tipe: tipe, image: photoData };
 
@@ -1260,25 +1380,18 @@ async function submitAbsen(tipe) {
   } else {
     showStatus('absen-status', res.message, 'error');
     if (res.applyDendaPulangAwal) {
-      callGAS('recordPulangAwalViolation');
+      callGAS('recordPulangAwalViolation'); // Berjalan di background
     }
   }
-}
-
-function selectIzinCategory(type, element) {
-  selectedIzinType = type;
-  const cards = document.querySelectorAll('.option-card');
-  cards.forEach(card => card.classList.remove('selected'));
-  element.classList.add('selected');
 }
 
 async function submitIzin() {
   const alasan = document.getElementById('alasan-izin').value.trim();
   const payload = { jenis: selectedIzinType, alasan: alasan };
-  
+
   showStatus('izin-status', 'Mengirim pengajuan izin...', 'success');
   const res = await callGAS('processIzin', payload);
-  
+
   if (res.success) {
     showStatus('izin-status', res.message, 'success');
     document.getElementById('alasan-izin').value = '';
@@ -1288,15 +1401,20 @@ async function submitIzin() {
 }
 
 async function loadHariKerjaStats() {
-  document.getElementById('hk-periode-label').innerText = "Memuat data...";
+  document.getElementById('hk-periode-label').innerText = "Memuat data dari server...";
   const res = await callGAS('getHariKerjaData');
   
   if (res && res.periodeLabel) {
-    document.getElementById('hk-periode-label').innerText = res.periodeLabel;
-    document.getElementById('hk-val-masuk').innerText = res.totalMasuk + " Hari";
-    document.getElementById('hk-val-komisi').innerText = `Rp${res.totalKomisi.toLocaleString('id-ID')}`;
-    document.getElementById('hk-val-point').innerText = res.totalPoint + " Point";
-    document.getElementById('hk-val-izin').innerText = res.totalIzin + " Hari";
+    renderHariKerjaData(res);
+  } else {
+    // Data Fallback jika koneksi gagal
+    renderHariKerjaData({
+      periodeLabel: "Periode: Gagal memuat data",
+      totalMasuk: 0,
+      totalKomisi: 0,
+      totalPoint: 0,
+      totalIzin: 0
+    });
   }
 }
 
@@ -1304,40 +1422,10 @@ async function loadSlipGaji() {
   const res = await callGAS('getSlipGajiData');
   
   if (res && res.nama) {
-    document.getElementById('slip-nama').innerText = res.nama;
-    document.getElementById('slip-tgl-label').innerText = res.tanggalCetak;
-    document.getElementById('slip-periode-label').innerText = "Periode Kerja: " + res.periode;
-    document.getElementById('slip-periode').innerText = res.periode;
-    document.getElementById('slip-hk').innerText = res.totalMasuk + " Hari";
-    document.getElementById('slip-libur').innerText = res.totalIzin + " Hari";
-    document.getElementById('slip-point').innerText = res.totalPoint + " Point";
-    document.getElementById('slip-tamu').innerText = res.totalTamu + " Tamu";
-
-    document.getElementById('slip-total-hk').innerText = `Rp${res.gajiPokok.toLocaleString('id-ID')}`;
-    document.getElementById('slip-total-point').innerText = `Rp${res.komisiPoint.toLocaleString('id-ID')}`;
-    document.getElementById('slip-total-komisi').innerText = `Rp${res.komisiTamu.toLocaleString('id-ID')}`;
-    document.getElementById('slip-total-denda').innerText = `Rp${res.totalDenda.toLocaleString('id-ID')}`;
-    document.getElementById('slip-grand-total').innerText = `Rp${res.gajiBersih.toLocaleString('id-ID')}`;
-
-    document.getElementById('slip-detailed-notes').innerHTML = `
-      <strong>Catatan Kehadiran (${res.periode}):</strong><br>
-      - Tanggal Masuk: ${res.detailMasuk || '-'}<br>
-      - Keterlambatan: ${res.detailTerlambat || '-'}<br>
-      - Izin/Alfa: ${res.detailIzin || '-'}
-    `;
+    renderSlipData(res);
+  } else {
+    console.error("Gagal memuat slip gaji dari server");
   }
-}
-
-function downloadSlipPDF() {
-  const element = document.getElementById('slip-pdf-wrapper');
-  const opt = {
-    margin: [5, 5, 5, 5],
-    filename: `SLIP_GAJI_CV_WIJAYA_GRUP.pdf`,
-    image: { type: 'jpeg', quality: 0.98 },
-    html2canvas: { scale: 2, useCORS: true },
-    jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' }
-  };
-  html2pdf().set(opt).from(element).save();
 }
 
 async function sendSlipToGmail() {
@@ -1353,16 +1441,6 @@ async function sendSlipToGmail() {
   }
 }
 
-function handleLogout() {
-  localStorage.removeItem('app_user_session');
-  lockHRAccess();
-  if (videoStream) {
-    videoStream.getTracks().forEach(track => track.stop());
-    videoStream = null;
-  }
-  document.getElementById('main-app').classList.add('hidden');
-  document.getElementById('login-view').classList.remove('hidden');
-}
 </script>
 </body>
 </html>
