@@ -184,7 +184,6 @@
             transform: scaleX(-1);
         }
 
-        /* Fallback tombol jika kamera diblokir otomatis */
         .camera-fallback-overlay {
             position: absolute;
             top: 0;
@@ -202,7 +201,6 @@
             border-radius: 50%;
         }
 
-        /* Scanning Laser Overlay */
         .scan-line {
             position: absolute;
             top: 0;
@@ -319,7 +317,7 @@
             background: #b91c1c;
         }
 
-        /* Card Box for forms/other tabs */
+        /* Card Box */
         .card {
             background: #1e293b;
             border-radius: 20px;
@@ -610,7 +608,7 @@
         }
 
         /* ========================================================
-           CSS BARU UNTUK FILTER & KARTU HISTORY 31 HARI
+           CSS UNTUK HISTORY 31 HARI DI DALAM HR MENU (FORMAT TABEL)
            ======================================================== */
         .filter-tabs {
             display: flex;
@@ -639,114 +637,6 @@
             border-color: #60a5fa;
         }
 
-        .history-card {
-            background: #0f172a;
-            border: 1px solid #334155;
-            border-radius: 12px;
-            padding: 12px;
-            margin-bottom: 10px;
-            display: flex;
-            gap: 12px;
-            align-items: center;
-        }
-
-        .history-img {
-            width: 50px;
-            height: 50px;
-            border-radius: 10px;
-            background: #1e293b;
-            object-fit: cover;
-            flex-shrink: 0;
-            border: 1px solid #334155;
-        }
-
-        .history-icon-fallback {
-            width: 50px;
-            height: 50px;
-            border-radius: 10px;
-            background: #1e293b;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            color: #64748b;
-            flex-shrink: 0;
-        }
-
-        .history-details {
-            flex-grow: 1;
-        }
-
-        .history-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 4px;
-        }
-
-        .history-date {
-            font-size: 12px;
-            font-weight: 700;
-            color: #fff;
-        }
-
-        .history-badge {
-            font-size: 9px;
-            font-weight: 700;
-            padding: 2px 6px;
-            border-radius: 6px;
-        }
-
-        .history-badge.hadir {
-            background: #064e3b;
-            color: #34d399;
-            border: 1px solid #047857;
-        }
-
-        .history-badge.terlambat {
-            background: #7f1d1d;
-            color: #fca5a5;
-            border: 1px solid #991b1b;
-        }
-
-        .history-badge.izin {
-            background: #581c87;
-            color: #d8b4fe;
-            border: 1px solid #6b21a8;
-        }
-
-        .history-badge.sakit {
-            background: #1e3a8a;
-            color: #93c5fd;
-            border: 1px solid #1e40af;
-        }
-
-        .history-badge.alfa {
-            background: #450a0a;
-            color: #ef4444;
-            border: 1px solid #7f1d1d;
-        }
-
-        .history-time {
-            font-size: 11px;
-            color: #94a3b8;
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 4px;
-        }
-
-        .history-location {
-            font-size: 9px;
-            color: #64748b;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            max-width: 200px;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-
         .filter-summary {
             font-size: 11px;
             color: #38bdf8;
@@ -756,6 +646,94 @@
             margin-bottom: 12px;
             font-weight: 500;
             border: 1px solid #334155;
+        }
+        
+        .history-table-container {
+            width: 100%;
+            overflow-x: auto;
+            border: 1px solid #334155;
+            border-radius: 12px;
+            background: #0f172a;
+        }
+        
+        .history-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 320px;
+            text-align: left;
+        }
+        
+        .history-table th {
+            background: #1e293b;
+            color: #94a3b8;
+            font-size: 10px;
+            padding: 10px 8px;
+            border-bottom: 1px solid #334155;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .history-table td {
+            padding: 8px;
+            border-bottom: 1px solid #1e293b;
+            font-size: 11px;
+            color: #cbd5e1;
+            vertical-align: middle;
+        }
+        
+        .history-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .td-date {
+            font-weight: 700;
+            color: #fff;
+            white-space: nowrap;
+        }
+        
+        .td-photo img {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            object-fit: cover;
+            border: 1px solid #334155;
+        }
+        
+        .td-photo .photo-fallback {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            background: #1e293b;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            color: #64748b;
+        }
+        
+        .td-status {
+            white-space: nowrap;
+        }
+        
+        .td-status .badge {
+            font-size: 9px;
+            font-weight: 700;
+            padding: 3px 6px;
+            border-radius: 6px;
+            display: inline-block;
+        }
+        
+        .td-status .hadir { background: #064e3b; color: #34d399; border: 1px solid #047857; }
+        .td-status .terlambat { background: #7f1d1d; color: #fca5a5; border: 1px solid #991b1b; }
+        .td-status .izin { background: #581c87; color: #d8b4fe; border: 1px solid #6b21a8; }
+        .td-status .sakit { background: #1e3a8a; color: #93c5fd; border: 1px solid #1e40af; }
+        .td-status .alfa { background: #450a0a; color: #ef4444; border: 1px solid #7f1d1d; }
+        
+        .td-time {
+            font-size: 10px;
+            color: #94a3b8;
+            line-height: 1.4;
+            margin-top: 4px;
         }
     </style>
 </head>
@@ -835,6 +813,7 @@
                     <div class="circular-camera-container">
                         <div class="circular-camera-inner">
                             <video id="webcam" autoplay playsinline muted></video>
+                            
                             <!-- Tombol Fallback manual untuk memicu izin kamera jika diblokir otomatis browser -->
                             <div id="camera-fallback" class="camera-fallback-overlay hidden">
                                 <i class="fa-solid fa-camera" style="font-size: 24px; color: #38bdf8; margin-bottom: 6px;"></i>
@@ -843,6 +822,7 @@
                                     Izinkan Kamera
                                 </button>
                             </div>
+                            
                             <div class="scan-line"></div>
                         </div>
                     </div>
@@ -873,7 +853,7 @@
                 <div id="absen-status" class="status-msg hidden"></div>
             </div>
 
-            <!-- TAB 2: HR & SLIP GAJI -->
+            <!-- TAB 2: HR MENU (SLIP GAJI & HISTORY 31 HARI) -->
             <div id="tab-hr" class="tab-content card hidden">
 
                 <div id="hr-login-box">
@@ -906,6 +886,8 @@
                 </div>
 
                 <div id="hr-dashboard-box" class="hidden">
+                    
+                    <!-- ==================== BAGIAN SLIP GAJI ==================== -->
                     <div style="text-align: center; margin-bottom: 12px;">
                         <h3 style="font-size: 16px;">Slip Gaji Mingguan</h3>
                         <p style="font-size: 11px; color: #38bdf8;" id="slip-periode-label">Periode Kerja</p>
@@ -1002,15 +984,10 @@
                                     <div class="signature-footer">DANA : 082262839119<br>Pegawai</div>
                                 </div>
                             </div>
-
-                            <div style="margin-top: 8px; font-size: 8.5px; color: #334155;" id="slip-detailed-notes">
-                                <strong>Catatan Kehadiran:</strong> Rincian otomatis...
-                            </div>
-
                         </div>
                     </div>
 
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 25px;">
                         <button class="btn" style="background: #10b981;" onclick="downloadSlipPDF()">
                             <i class="fa-solid fa-file-pdf"></i> Unduh PDF
                         </button>
@@ -1019,16 +996,44 @@
                         </button>
                     </div>
 
-                    <button class="btn btn-secondary" style="margin-top: 10px;" onclick="lockHRAccess()">
+                    <div id="email-status" class="status-msg hidden"></div>
+
+                    <!-- ==================== BAGIAN HISTORY 31 HARI HR ==================== -->
+                    <hr style="border-color: #334155; margin-bottom: 15px;">
+                    <h3 style="font-size: 14px; margin-bottom: 12px; text-align: center;">Riwayat Presensi (31 Hari)</h3>
+
+                    <div class="filter-tabs">
+                        <button class="filter-btn active" onclick="applyFilter('SEMUA', this)">Semua</button>
+                        <button class="filter-btn" onclick="applyFilter('TERLAMBAT', this)">Terlambat</button>
+                        <button class="filter-btn" onclick="applyFilter('IZIN', this)">Izin</button>
+                        <button class="filter-btn" onclick="applyFilter('SAKIT', this)">Sakit</button>
+                        <button class="filter-btn" onclick="applyFilter('ALFA', this)">Alfa</button>
+                    </div>
+
+                    <div id="filter-summary" class="filter-summary">Memuat riwayat absen...</div>
+                    
+                    <div class="history-table-container">
+                        <table class="history-table">
+                            <thead>
+                                <tr>
+                                    <th>TANGGAL</th>
+                                    <th style="text-align: center;">FOTO</th>
+                                    <th>STATUS</th>
+                                </tr>
+                            </thead>
+                            <tbody id="history-table-body">
+                                <!-- Data akan dirender di sini oleh Javascript -->
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <button class="btn btn-secondary" style="margin-top: 20px;" onclick="lockHRAccess()">
                         <i class="fa-solid fa-lock"></i> Kunci Akses HR
                     </button>
-
-                    <div id="email-status" class="status-msg hidden"></div>
                 </div>
-
             </div>
 
-            <!-- TAB 3: HARI KERJA & HISTORY 31 HARI -->
+            <!-- TAB 3: HARI KERJA (RINGKASAN MINGGUAN SAJA) -->
             <div id="tab-hari-kerja" class="tab-content card hidden">
                 <div style="text-align: center; margin-bottom: 16px;">
                     <h3 style="font-size: 16px;">Ringkasan Minggu Ini</h3>
@@ -1046,13 +1051,14 @@
                         </div>
                     </div>
 
+                    <!-- PERMINTAAN PERUBAHAN: TOTAL TAMU -->
                     <div class="stat-card">
                         <div class="stat-icon" style="background: #713f12; color: #facc15;">
-                            <i class="fa-solid fa-hand-holding-dollar"></i>
+                            <i class="fa-solid fa-users"></i>
                         </div>
                         <div class="stat-info">
-                            <div class="title">Total Komisi</div>
-                            <div class="value" id="hk-val-komisi">Rp0</div>
+                            <div class="title">Total Tamu</div>
+                            <div class="value" id="hk-val-tamu">0 Tamu</div>
                         </div>
                     </div>
 
@@ -1076,7 +1082,6 @@
                         </div>
                     </div>
 
-                    <!-- TAMBAHAN TOTAL TELAT DAN POTONGAN MINGGU INI -->
                     <div class="stat-card">
                         <div class="stat-icon" style="background: #7f1d1d; color: #fca5a5;">
                             <i class="fa-solid fa-clock-rotate-left"></i>
@@ -1088,40 +1093,21 @@
                         </div>
                     </div>
 
+                    <!-- PERMINTAAN PERUBAHAN: TOTAL SAKIT -->
                     <div class="stat-card">
                         <div class="stat-icon" style="background: #450a0a; color: #ef4444;">
-                            <i class="fa-solid fa-money-bill-transfer"></i>
+                            <i class="fa-solid fa-notes-medical"></i>
                         </div>
                         <div class="stat-info">
-                            <div class="title">Total Potongan</div>
-                            <div class="value" id="hk-val-potongan">Rp0</div>
-                            <div style="font-size:8.5px; color:#94a3b8" id="hk-ket-potongan">-</div>
+                            <div class="title">Total Sakit</div>
+                            <div class="value" id="hk-val-sakit">0 Hari</div>
                         </div>
                     </div>
                 </div>
 
-                <button class="btn btn-secondary" style="margin-bottom: 25px;" onclick="loadHariKerjaStats()">
+                <button class="btn btn-secondary" style="margin-bottom: 10px;" onclick="loadHariKerjaStats()">
                     <i class="fa-solid fa-arrows-rotate"></i> Refresh Data Mingguan
                 </button>
-
-                <!-- BAGIAN RIWAYAT 31 HARI -->
-                <hr style="border-color: #334155; margin-bottom: 15px;">
-                <h3 style="font-size: 14px; margin-bottom: 12px; text-align: center;">Riwayat Detail (31 Hari)</h3>
-
-                <div class="filter-tabs">
-                    <button class="filter-btn active" onclick="applyFilter('SEMUA', this)">Semua</button>
-                    <button class="filter-btn" onclick="applyFilter('TERLAMBAT', this)">Terlambat</button>
-                    <button class="filter-btn" onclick="applyFilter('IZIN', this)">Izin</button>
-                    <button class="filter-btn" onclick="applyFilter('SAKIT', this)">Sakit</button>
-                    <button class="filter-btn" onclick="applyFilter('ALFA', this)">Alfa</button>
-                </div>
-
-                <div id="filter-summary" class="filter-summary">Memuat riwayat absen...</div>
-
-                <div id="history-list-container">
-                    <!-- Card History 31 hari akan dimuat otomatis oleh Javascript di sini -->
-                </div>
-
             </div>
 
             <!-- TAB 4: PERIZINAN -->
@@ -1190,11 +1176,11 @@
     <!-- ==================== LOGIKA JAVASCRIPT ==================== -->
     <script>
         // URL WEB APP GAS ANDA
-        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyZGt-oZayADLruZ9J2og34kPy5e0er-GTzu_tsweR3JpPw1JG9Re6EFEN7hYlNLBbz/exec';
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzbsbLJKcNc1TrxGvMcZbS97y-_TFmH44cXQKJSqPI2inrvDpFppS5qmrpq4xVTGORqFQ/exec';
 
         const TARGET_LAT = -6.7220192;
         const TARGET_LNG = 108.5364692;
-        const MAX_ALLOWED_RADIUS = 5.0;
+        const MAX_ALLOWED_RADIUS = 15.0; // Telah disesuaikan 15m
 
         let isHRAuthenticated = false;
         let selectedIzinType = 'SAKIT';
@@ -1211,6 +1197,7 @@
         async function callGAS(action, dataObj = null) {
             const formData = new URLSearchParams();
             formData.append('action', action);
+            
             if (dataObj) {
                 formData.append('data', JSON.stringify(dataObj));
             }
@@ -1225,11 +1212,12 @@
         }
 
         // ==========================================
-        // INISIALISASI & UI LAMA (DIPERTAHANKAN 100%)
+        // INISIALISASI WAKTU, KAMERA, DAN LOKASI
         // ==========================================
         window.addEventListener('DOMContentLoaded', function() {
             startLiveClock();
             const savedUser = localStorage.getItem('app_user_session');
+            
             if (savedUser) {
                 showMainApp(savedUser);
             } else {
@@ -1276,6 +1264,7 @@
         async function initCamera() {
             const video = document.getElementById('webcam');
             const fallbackOverlay = document.getElementById('camera-fallback');
+            
             if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) return;
 
             try {
@@ -1311,6 +1300,7 @@
                 videoStream = stream;
                 const video = document.getElementById('webcam');
                 const fallbackOverlay = document.getElementById('camera-fallback');
+                
                 if (video) {
                     video.srcObject = stream;
                     video.play().catch(e => console.warn(e));
@@ -1320,7 +1310,7 @@
                 }
             })
             .catch(err => {
-                alert("Akses kamera ditolak atau diblokir oleh browser. Pastikan memberikan izin pada setelan situs browser Anda.");
+                alert("Akses kamera ditolak atau diblokir oleh browser.");
             });
         }
 
@@ -1380,6 +1370,9 @@
             );
         }
 
+        // ==========================================
+        // KONTROL TAB & NAVIGASI
+        // ==========================================
         function showMainApp(userName) {
             document.getElementById('login-view').classList.add('hidden');
             document.getElementById('main-app').classList.remove('hidden');
@@ -1397,7 +1390,10 @@
                 isHRAuthenticated = true;
                 document.getElementById('hr-login-box').classList.add('hidden');
                 document.getElementById('hr-dashboard-box').classList.remove('hidden');
+                
+                // Panggil Slip Gaji dan History 31 Hari secara bersamaan
                 loadSlipGaji();
+                loadHistory31Days(); 
             } else {
                 showStatus('hr-login-status', 'Kredensial Admin HR Salah!', 'error');
             }
@@ -1463,7 +1459,7 @@
 
             ctx.fillStyle = "#cbd5e1";
             ctx.font = "12px Inter, Arial, sans-serif";
-            ctx.fillText(`🕒 ${dateStr} - ${timeStr} WIB | CV. WIJAYA.GRUP`, 26, canvas.height - 22);
+            ctx.fillText(`🕒 ${dateStr} - ${timeStr} WIB`, 26, canvas.height - 22);
 
             return canvas.toDataURL('image/jpeg', 0.88);
         }
@@ -1476,9 +1472,8 @@
         }
 
         // ==========================================
-        // FUNGSI API BARU
+        // LOGIKA PEMANGGILAN API
         // ==========================================
-
         async function handleLogin() {
             const u = document.getElementById('username').value.trim();
             const p = document.getElementById('password').value.trim();
@@ -1506,7 +1501,7 @@
             }
 
             if (currentDistance > MAX_ALLOWED_RADIUS) {
-                showStatus('absen-status', `Gagal: Posisi Anda ${currentDistance.toFixed(1)} m dari lokasi (Maksimal 5.0 m)!`, 'error');
+                showStatus('absen-status', `Gagal: Posisi Anda ${currentDistance.toFixed(1)} m dari lokasi (Maksimal ${MAX_ALLOWED_RADIUS} m)!`, 'error');
                 return;
             }
 
@@ -1549,34 +1544,20 @@
             if (res && res.periodeLabel) {
                 document.getElementById('hk-periode-label').innerText = res.periodeLabel;
                 document.getElementById('hk-val-masuk').innerText = (res.totalMasuk || 0) + " Hari";
-                document.getElementById('hk-val-komisi').innerText = `Rp${(res.totalKomisi || 0).toLocaleString('id-ID')}`;
-                document.getElementById('hk-val-point').innerText = (res.totalPoint || 0) + " Point";
-                document.getElementById('hk-val-izin').innerText = (res.totalIzin || 0) + " Hari";
                 
-                // Tambahan Fitur Total Telat & Potongan
+                // PERUBAHAN PERMINTAAN USER:
+                document.getElementById('hk-val-tamu').innerText = (res.totalTamu || 0) + " Tamu";
+                document.getElementById('hk-val-sakit').innerText = (res.totalSakit || 0) + " Hari";
+                
+                document.getElementById('hk-val-point').innerText = (res.totalPoint || 0) + " Point";
+                document.getElementById('hk-val-izin').innerText = (res.totalIzinAlfa || 0) + " Hari";
                 document.getElementById('hk-val-telat').innerText = (res.totalTelat || 0) + " Kali";
                 document.getElementById('hk-ket-telat').innerText = res.detailTelat || "-";
-                document.getElementById('hk-val-potongan').innerText = `Rp${(res.potonganTelat || 0).toLocaleString('id-ID')}`;
-                document.getElementById('hk-ket-potongan').innerText = res.detailPotongan || "-";
-            } else {
-                // Fallback kosong saat sheet belum ada isinya
-                document.getElementById('hk-periode-label').innerText = "Periode Minggu Ini";
-                document.getElementById('hk-val-masuk').innerText = "0 Hari";
-                document.getElementById('hk-val-komisi').innerText = "Rp0";
-                document.getElementById('hk-val-point').innerText = "0 Point";
-                document.getElementById('hk-val-izin').innerText = "0 Hari";
-                document.getElementById('hk-val-telat').innerText = "0 Kali";
-                document.getElementById('hk-ket-telat').innerText = "-";
-                document.getElementById('hk-val-potongan').innerText = "Rp0";
-                document.getElementById('hk-ket-potongan').innerText = "-";
             }
-
-            // Jalankan juga fungsi panggil history 31 hari
-            loadHistory31Days();
         }
 
         // ==========================================
-        // LOGIKA FILTER HISTORY 31 HARI
+        // LOGIKA HISTORY 31 HARI DI TAB HR
         // ==========================================
         async function loadHistory31Days() {
             document.getElementById('filter-summary').innerText = "Mengambil data 31 hari terakhir dari server...";
@@ -1584,37 +1565,38 @@
             
             if (res && res.success) {
                 globalHistoryData = res.history || [];
-                renderHistoryCards("SEMUA"); // Menampilkan semua data
+                renderHistoryTable("SEMUA");
             } else {
                 document.getElementById('filter-summary').innerText = "Gagal memuat riwayat / Data masih kosong.";
             }
         }
 
         function applyFilter(type, btnElement) {
-            // Hapus status aktif dari semua tombol filter
             const filterBtns = document.querySelectorAll('.filter-btn');
             filterBtns.forEach(btn => btn.classList.remove('active'));
-            
-            // Tambahkan status aktif ke tombol yang diklik
             if(btnElement) btnElement.classList.add('active');
             
-            // Render ulang kartu berdasarkan tipe
-            renderHistoryCards(type);
+            renderHistoryTable(type);
         }
 
-        function renderHistoryCards(filterType) {
-            const container = document.getElementById('history-list-container');
-            container.innerHTML = "";
+        function renderHistoryTable(filterType) {
+            const tBody = document.getElementById('history-table-body');
+            tBody.innerHTML = "";
             
             let filteredData = globalHistoryData;
             
-            // Jika bukan SEMUA, maka filter array berdasarkan kategori
             if (filterType !== "SEMUA") {
                 filteredData = globalHistoryData.filter(item => item.filterType === filterType);
             }
 
             if (filteredData.length === 0) {
-                container.innerHTML = `<div style="text-align:center; font-size:12px; color:#64748b; padding: 20px;">Tidak ada catatan ${filterType !== "SEMUA" ? filterType.toLowerCase() : "absen"} ditemukan.</div>`;
+                tBody.innerHTML = `
+                    <tr>
+                        <td colspan="3" style="text-align:center; padding: 20px;">
+                            Tidak ada catatan ${filterType !== "SEMUA" ? filterType.toLowerCase() : "absen"} ditemukan.
+                        </td>
+                    </tr>
+                `;
                 document.getElementById('filter-summary').innerText = `Total ${filterType}: 0 Data`;
                 return;
             }
@@ -1626,46 +1608,39 @@
                 let badgeText = "Hadir";
                 
                 if (item.kategori === "TERLAMBAT") {
-                    badgeClass = "terlambat";
-                    badgeText = "Terlambat";
+                    badgeClass = "terlambat"; badgeText = "Terlambat";
                 } else if (item.kategori === "IZIN") {
-                    badgeClass = "izin";
-                    badgeText = "Izin";
+                    badgeClass = "izin"; badgeText = "Izin";
                 } else if (item.kategori === "SAKIT") {
-                    badgeClass = "sakit";
-                    badgeText = "Sakit";
+                    badgeClass = "sakit"; badgeText = "Sakit";
                 } else if (item.kategori === "ALFA") {
-                    badgeClass = "alfa";
-                    badgeText = "Alfa";
+                    badgeClass = "alfa"; badgeText = "Alfa";
                 }
 
-                // Render Foto atau Icon placeholder
+                // Render Foto atau Icon
                 let fotoHtml = item.foto && item.foto !== "-" 
-                    ? `<img src="${item.foto}" class="history-img" alt="Foto Absen">` 
-                    : `<div class="history-icon-fallback"><i class="fa-solid fa-image"></i></div>`;
+                    ? `<img src="${item.foto}" alt="Foto Absen">` 
+                    : `<div class="photo-fallback"><i class="fa-solid fa-image"></i></div>`;
 
-                let cardHtml = `
-                    <div class="history-card">
-                        ${fotoHtml}
-                        <div class="history-details">
-                            <div class="history-header">
-                                <span class="history-date">${item.tanggalDisplay}</span>
-                                <span class="history-badge ${badgeClass}">${badgeText}</span>
+                let rowHtml = `
+                    <tr>
+                        <td class="td-date">${item.tanggalDisplay}</td>
+                        <td class="td-photo" style="text-align: center;">${fotoHtml}</td>
+                        <td class="td-status">
+                            <span class="badge ${badgeClass}">${badgeText}</span>
+                            <div class="td-time">
+                                In: ${item.masuk}<br>Out: ${item.pulang}
                             </div>
-                            <div class="history-time">
-                                <span>In: ${item.masuk}</span>
-                                <span>Out: ${item.pulang}</span>
-                            </div>
-                            <div class="history-location">
-                                <i class="fa-solid fa-location-dot" style="color: #ef4444;"></i> ${item.lokasi}
-                            </div>
-                        </div>
-                    </div>
+                        </td>
+                    </tr>
                 `;
-                container.innerHTML += cardHtml;
+                tBody.innerHTML += rowHtml;
             });
         }
 
+        // ==========================================
+        // LOGIKA SLIP GAJI
+        // ==========================================
         async function loadSlipGaji() {
             const res = await callGAS('getSlipGajiData');
             
@@ -1684,14 +1659,6 @@
                 document.getElementById('slip-total-komisi').innerText = `Rp${res.komisiTamu.toLocaleString('id-ID')}`;
                 document.getElementById('slip-total-denda').innerText = `Rp${res.totalDenda.toLocaleString('id-ID')}`;
                 document.getElementById('slip-grand-total').innerText = `Rp${res.gajiBersih.toLocaleString('id-ID')}`;
-
-                const notesEl = document.getElementById('slip-detailed-notes');
-                notesEl.innerHTML = `
-                <strong>Catatan Kehadiran (${res.periode}):</strong><br>
-                - Tanggal Masuk: ${res.detailMasuk || '-'}<br>
-                - Keterlambatan: ${res.detailTerlambat || '-'}<br>
-                - Izin/Alfa: ${res.detailIzin || '-'}
-                `;
             } else {
                 console.error("Gagal memuat slip gaji / Data masih kosong");
             }
