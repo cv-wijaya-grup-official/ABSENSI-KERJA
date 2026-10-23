@@ -3,35 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Nama Judul Tab Browser -->
     <title>ABSENSI KERJA</title>
+    
+    <!-- Logo Favicon -->
     <link rel="icon" type="image/jpeg" href="https://lh3.googleusercontent.com/d/1wH24NLk-9yBbliOL5sOfz5ud-8nzGLur">
-    
-    <script>
-        // Mengalihkan langsung ke Web App Google Apps Script agar Kamera & GPS Aktif 100%
-        window.location.href = "https://script.google.com/macros/s/AKfycbxeD_LwxfprZZVC1C4oiN_Zj8LTqt_fdSqitAkFFGbnbH69j48mVcM3lP9ecWhae_OBww/exec";
-    </script>
-    
+
     <style>
-        body {
-            background-color: #0d1117;
-            color: #ffffff;
-            font-family: sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+        body, html {
             margin: 0;
-            text-align: center;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+            background-color: #0d1117;
         }
-        .loading {
-            font-size: 16px;
-            color: #8b949e;
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
         }
     </style>
 </head>
 <body>
-    <div class="loading">
-        <p>Membuka Sistem Absensi Kerja...</p>
-    </div>
+
+    <!-- Link Web App Absensi Kerja dengan Izin Kamera & Geolocation -->
+    <iframe 
+        src="https://script.google.com/macros/s/AKfycbxeD_LwxfprZZVC1C4oiN_Zj8LTqt_fdSqitAkFFGbnbH69j48mVcM3lP9ecWhae_OBww/exec"
+        allow="camera *; microphone *; geolocation *; display-capture *">
+    </iframe>
+
 </body>
 </html>
