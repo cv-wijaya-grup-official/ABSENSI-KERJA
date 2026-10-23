@@ -1,997 +1,8 @@
-<!DOCTYPE html>
-<html lang="id">
-
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Attendance Pro - Sistem Presensi</title>
-
-<!-- Font & Icons -->
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-
-<style>
-:root {
---primary: #3b82f6;
---primary-neon: #60a5fa;
---bg: #0b1329;
---card-bg: #111c3a;
---card-bg-light: #1a274d;
---text-main: #ffffff;
---text-muted: #94a3b8;
---border: #1e293b;
---success: #10b981;
---danger: #ef4444;
-}
-
-* {
-box-sizing: border-box;
-font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-margin: 0;
-padding: 0;
-}
-
-body {
-background: var(--bg);
-color: var(--text-main);
-display: flex;
-justify-content: center;
-align-items: center;
-min-height: 100vh;
-padding: 0;
-margin: 0;
-}
-
-.app-container {
-width: 100%;
-max-width: 480px;
-min-height: 100vh;
-background: #0f172a;
-position: relative;
-padding: 20px 20px 90px 20px;
-display: flex;
-flex-direction: column;
-}
-
-/* Top Bar Header */
-.app-topbar {
-display: flex;
-justify-content: space-between;
-align-items: center;
-margin-bottom: 20px;
-padding-top: 10px;
-}
-
-.user-profile-header {
-display: flex;
-align-items: center;
-gap: 10px;
-}
-
-.avatar-icon {
-width: 40px;
-height: 40px;
-border-radius: 50%;
-background: #1e293b;
-border: 1px solid #334155;
-display: flex;
-align-items: center;
-justify-content: center;
-color: #38bdf8;
-font-size: 18px;
-}
-
-.user-meta h3 {
-font-size: 14px;
-font-weight: 700;
-color: #ffffff;
-}
-
-.user-meta p {
-font-size: 11px;
-color: #64748b;
-}
-
-.topbar-actions {
-display: flex;
-gap: 12px;
-}
-
-.icon-btn {
-width: 36px;
-height: 36px;
-border-radius: 50%;
-background: #1e293b;
-border: 1px solid #334155;
-color: #cbd5e1;
-display: flex;
-align-items: center;
-justify-content: center;
-cursor: pointer;
-transition: all 0.2s;
-}
-
-.icon-btn:hover {
-background: #334155;
-color: #fff;
-}
-
-/* Live Digital Clock */
-.clock-display {
-text-align: center;
-margin-bottom: 25px;
-}
-
-.clock-time {
-font-size: 42px;
-font-weight: 800;
-color: #ffffff;
-letter-spacing: -1px;
-line-height: 1;
-}
-
-.clock-time span {
-font-size: 18px;
-font-weight: 600;
-color: #94a3b8;
-margin-left: 4px;
-}
-
-.clock-date {
-font-size: 13px;
-color: #64748b;
-margin-top: 6px;
-font-weight: 500;
-}
-
-/* Circular Face Scanning Area */
-.face-scan-wrapper {
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: center;
-margin-bottom: 25px;
-}
-
-.circular-camera-container {
-width: 240px;
-height: 240px;
-border-radius: 50%;
-position: relative;
-padding: 8px;
-background: radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, rgba(15, 23, 42, 0) 70%);
-box-shadow: 0 0 30px rgba(37, 99, 235, 0.25);
-border: 2px solid rgba(59, 130, 246, 0.4);
-}
-
-.circular-camera-inner {
-width: 100%;
-height: 100%;
-border-radius: 50%;
-overflow: hidden;
-position: relative;
-background: #020617;
-display: flex;
-align-items: center;
-justify-content: center;
-}
-
-.circular-camera-inner video {
-width: 100%;
-height: 100%;
-object-fit: cover;
-transform: scaleX(-1);
-}
-
-/* Fallback tombol jika kamera diblokir otomatis */
-.camera-fallback-overlay {
-position: absolute;
-top: 0;
-left: 0;
-width: 100%;
-height: 100%;
-background: rgba(15, 23, 42, 0.92);
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: center;
-padding: 15px;
-text-align: center;
-z-index: 25;
-border-radius: 50%;
-}
-
-/* Scanning Laser Overlay */
-.scan-line {
-position: absolute;
-top: 0;
-left: 0;
-width: 100%;
-height: 3px;
-background: linear-gradient(90deg, transparent, #38bdf8, transparent);
-box-shadow: 0 0 10px #38bdf8;
-animation: scanAnimation 2.5s infinite ease-in-out;
-z-index: 10;
-}
-
-@keyframes scanAnimation {
-0% { top: 0%; opacity: 0.3; }
-50% { top: 95%; opacity: 1; }
-100% { top: 0%; opacity: 0.3; }
-}
-
-.gps-status-badge {
-margin-top: -18px;
-z-index: 20;
-background: #022c22;
-border: 1px solid #10b981;
-color: #34d399;
-font-size: 11px;
-font-weight: 700;
-padding: 5px 16px;
-border-radius: 20px;
-display: inline-flex;
-align-items: center;
-gap: 6px;
-letter-spacing: 0.5px;
-box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
-}
-
-.gps-status-badge.out-of-range {
-background: #450a0a;
-border-color: #ef4444;
-color: #fca5a5;
-box-shadow: 0 4px 12px rgba(239, 68, 68, 0.2);
-}
-
-.scan-instruction {
-font-size: 12px;
-color: #64748b;
-margin-top: 14px;
-text-align: center;
-}
-
-/* Location Bar Below Camera */
-.location-info-card {
-background: #1e293b;
-border: 1px solid #334155;
-border-radius: 14px;
-padding: 12px 16px;
-display: flex;
-justify-content: space-between;
-align-items: center;
-margin-bottom: 20px;
-font-size: 11px;
-}
-
-.location-label {
-color: #94a3b8;
-font-weight: 600;
-letter-spacing: 0.5px;
-text-transform: uppercase;
-}
-
-.location-value {
-color: #38bdf8;
-font-weight: 700;
-letter-spacing: 0.5px;
-}
-
-/* Action Buttons */
-.action-grid {
-display: grid;
-grid-template-columns: 1fr 1fr;
-gap: 12px;
-margin-bottom: 15px;
-}
-
-.btn-absen {
-padding: 14px;
-border-radius: 14px;
-border: none;
-font-size: 13px;
-font-weight: 700;
-cursor: pointer;
-display: flex;
-align-items: center;
-justify-content: center;
-gap: 8px;
-transition: all 0.2s;
-}
-
-.btn-absen-masuk {
-background: #2563eb;
-color: #ffffff;
-box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
-}
-
-.btn-absen-masuk:hover { background: #1d4ed8; }
-
-.btn-absen-pulang {
-background: #dc2626;
-color: #ffffff;
-box-shadow: 0 4px 15px rgba(220, 38, 38, 0.3);
-}
-
-.btn-absen-pulang:hover { background: #b91c1c; }
-
-/* Card Box for forms/other tabs */
-.card {
-background: #1e293b;
-border-radius: 20px;
-border: 1px solid #334155;
-padding: 20px;
-margin-bottom: 20px;
-}
-
-.form-group {
-margin-bottom: 16px;
-text-align: left;
-}
-
-.form-group label {
-display: block;
-margin-bottom: 6px;
-font-size: 12px;
-color: #cbd5e1;
-font-weight: 600;
-}
-
-.input-wrapper {
-position: relative;
-}
-
-.input-wrapper i {
-position: absolute;
-left: 14px;
-top: 50%;
-transform: translateY(-50%);
-color: #64748b;
-font-size: 14px;
-}
-
-.input-wrapper input,
-.input-wrapper select,
-.input-wrapper textarea {
-width: 100%;
-padding: 12px 14px 12px 42px;
-border: 1px solid #334155;
-border-radius: 12px;
-font-size: 13px;
-color: #ffffff;
-background: #0f172a;
-outline: none;
-}
-
-.input-wrapper input:focus,
-.input-wrapper textarea:focus {
-border-color: #3b82f6;
-}
-
-.btn {
-width: 100%;
-padding: 12px;
-border: none;
-border-radius: 12px;
-background-color: var(--primary);
-color: white;
-font-size: 13px;
-font-weight: 600;
-cursor: pointer;
-display: inline-flex;
-align-items: center;
-justify-content: center;
-gap: 8px;
-}
-
-.btn-secondary {
-background-color: #334155;
-color: #f8fafc;
-}
-
-.hidden {
-display: none !important;
-}
-
-/* Bottom Nav Bar */
-.bottom-nav {
-position: fixed;
-bottom: 0;
-left: 50%;
-transform: translateX(-50%);
-width: 100%;
-max-width: 480px;
-background: #0f172a;
-border-top: 1px solid #1e293b;
-display: flex;
-justify-content: space-around;
-padding: 12px 0;
-z-index: 100;
-}
-
-.nav-item {
-display: flex;
-flex-direction: column;
-align-items: center;
-gap: 4px;
-font-size: 10px;
-color: #64748b;
-cursor: pointer;
-transition: all 0.2s;
-flex: 1;
-}
-
-.nav-item i { font-size: 18px; }
-
-.nav-item.active {
-color: #38bdf8;
-font-weight: 700;
-}
-
-/* Grid Stats Menu Hari Kerja */
-.stats-grid {
-display: grid;
-grid-template-columns: repeat(2, 1fr);
-gap: 10px;
-margin-bottom: 16px;
-}
-
-.stat-card {
-background: #0f172a;
-border: 1px solid #334155;
-border-radius: 14px;
-padding: 12px;
-display: flex;
-align-items: center;
-gap: 10px;
-}
-
-.stat-icon {
-width: 38px;
-height: 38px;
-border-radius: 10px;
-display: flex;
-align-items: center;
-justify-content: center;
-font-size: 16px;
-}
-
-.stat-info .title {
-font-size: 10px;
-color: #64748b;
-}
-
-.stat-info .value {
-font-size: 14px;
-font-weight: 700;
-color: #fff;
-}
-
-/* Slip Gaji & Custom Scroll */
-.slip-scroll-container {
-width: 100%;
-overflow-x: auto;
-border: 1px solid #334155;
-border-radius: 8px;
-background: #fff;
-margin-bottom: 14px;
-}
-
-#slip-pdf-wrapper {
-background: #ffffff;
-padding: 12px;
-color: #000;
-font-family: Arial, sans-serif;
-font-size: 10px;
-min-width: 760px;
-}
-
-.slip-table {
-width: 100%;
-border-collapse: collapse;
-margin-bottom: -1px;
-text-align: center;
-}
-
-.slip-table th,
-.slip-table td {
-border: 1px solid #000;
-padding: 5px 3px;
-font-size: 9.5px;
-}
-
-.slip-section-header {
-background-color: #d9ea22;
-font-weight: bold;
-text-align: center;
-border: 1px solid #000;
-padding: 4px;
-font-size: 10px;
-}
-
-.header-table {
-width: 100%;
-border-collapse: collapse;
-}
-
-.header-table td {
-border: 1px solid #000;
-padding: 6px;
-font-weight: bold;
-text-align: center;
-}
-
-.signature-grid {
-display: grid;
-grid-template-columns: repeat(4, 1fr);
-border: 1px solid #000;
-margin-top: -1px;
-text-align: center;
-}
-
-.signature-box {
-border-right: 1px solid #000;
-}
-
-.signature-box:last-child {
-border-right: none;
-}
-
-.signature-title {
-font-weight: bold;
-border-bottom: 1px solid #000;
-padding: 3px;
-font-size: 9.5px;
-}
-
-.signature-space {
-height: 35px;
-}
-
-.signature-footer {
-background: #dcfce7;
-border-top: 1px solid #000;
-padding: 4px 2px;
-font-weight: bold;
-font-size: 8.5px;
-}
-
-.status-msg {
-margin-top: 12px;
-padding: 10px;
-border-radius: 10px;
-font-size: 12px;
-text-align: center;
-}
-
-.status-msg.error {
-background: #450a0a;
-color: #fca5a5;
-border: 1px solid #7f1d1d;
-}
-
-.status-msg.success {
-background: #022c22;
-color: #6ee7b7;
-border: 1px solid #047857;
-}
-
-.option-cards {
-display: grid;
-grid-template-columns: repeat(3, 1fr);
-gap: 10px;
-}
-
-.option-card {
-background: #0f172a;
-border: 1px solid #334155;
-border-radius: 12px;
-padding: 12px 6px;
-text-align: center;
-cursor: pointer;
-display: flex;
-flex-direction: column;
-align-items: center;
-gap: 6px;
-font-size: 12px;
-}
-
-.option-card.selected {
-border-color: #38bdf8;
-background: #1e293b;
-}
-</style>
-</head>
-
-<body>
-
-<div class="app-container">
-
-<!-- ==================== FORM LOGIN KARYAWAN ==================== -->
-<div id="login-view" class="card" style="margin-top: auto; margin-bottom: auto;">
-<div style="text-align: center; margin-bottom: 20px;">
-<div style="width: 50px; height: 50px; background: #1e293b; border-radius: 16px; display: inline-flex; align-items: center; justify-content: center; color: #38bdf8; font-size: 22px; margin-bottom: 10px;">
-<i class="fa-solid fa-fingerprint"></i>
-</div>
-<h2 style="font-size: 18px; font-weight: 700;">Attendance Pro</h2>
-<p style="font-size: 12px; color: #64748b;">Masuk untuk melakukan presensi</p>
-</div>
-
-<div class="form-group">
-<label>Username</label>
-<div class="input-wrapper">
-<i class="fa-regular fa-user"></i>
-<input type="text" id="username" value="user1" placeholder="Username">
-</div>
-</div>
-
-<div class="form-group">
-<label>Password</label>
-<div class="input-wrapper">
-<i class="fa-solid fa-lock"></i>
-<input type="password" id="password" value="" placeholder="Password">
-</div>
-</div>
-
-<button class="btn" onclick="handleLogin()">
-<i class="fa-solid fa-right-to-bracket"></i> Masuk Sekarang
-</button>
-
-<div id="login-status" class="status-msg hidden"></div>
-</div>
-
-<!-- ==================== MAIN APP CONTENT ==================== -->
-<div id="main-app" class="hidden">
-
-<!-- TOPBAR HEADER -->
-<div class="app-topbar">
-<div class="user-profile-header">
-<div class="avatar-icon">
-<i class="fa-solid fa-user-astronaut"></i>
-</div>
-<div class="user-meta">
-<h3 id="topbar-user-name">Muhammad Fejri Febriyan</h3>
-<p>ID: #327405260107</p>
-</div>
-</div>
-<div class="topbar-actions">
-<div class="icon-btn">
-<i class="fa-regular fa-bell"></i>
-</div>
-<div class="icon-btn" onclick="handleLogout()">
-<i class="fa-solid fa-arrow-right-from-bracket"></i>
-</div>
-</div>
-</div>
-
-<!-- TAB 1: ABSEN UTAMA (DARK scanner UI) -->
-<div id="tab-absen" class="tab-content">
-
-<!-- Live Clock Header -->
-<div class="clock-display">
-<div class="clock-time" id="live-clock">00:00:00 <span>AM</span></div>
-<div class="clock-date" id="live-date">Hari, 00 Bulan 2026</div>
-</div>
-
-<!-- Circular Face Scanner -->
-<div class="face-scan-wrapper">
-<div class="circular-camera-container">
-<div class="circular-camera-inner">
-<video id="webcam" autoplay playsinline muted></video>
-<!-- Tombol Fallback manual untuk memicu izin kamera jika diblokir otomatis browser -->
-<div id="camera-fallback" class="camera-fallback-overlay hidden">
-<i class="fa-solid fa-camera" style="font-size: 24px; color: #38bdf8; margin-bottom: 6px;"></i>
-<p style="font-size: 10px; color: #cbd5e1; margin-bottom: 8px;">Ketuk untuk aktifkan kamera</p>
-<button class="btn" style="padding: 6px 12px; font-size: 10px; width: auto;" onclick="requestCameraExplicitly()">
-Izinkan Kamera
-</button>
-</div>
-<div class="scan-line"></div>
-</div>
-</div>
-
-<div id="gps-status-badge" class="gps-status-badge">
-<i class="fa-solid fa-circle-notch fa-spin"></i> GPS LOCATING...
-</div>
-
-<div class="scan-instruction">Scanning... Keep your face within the frame</div>
-</div>
-
-<!-- Location Bar -->
-<div class="location-info-card">
-<span class="location-label">Current Location</span>
-<span class="location-value" id="gps-coords-text">LOCATION FOUND</span>
-</div>
-
-<!-- Action Buttons -->
-<div class="action-grid">
-<button class="btn-absen btn-absen-masuk" onclick="submitAbsen('MASUK')">
-<i class="fa-solid fa-right-to-bracket"></i> Absen Masuk
-</button>
-<button class="btn-absen btn-absen-pulang" onclick="submitAbsen('PULANG')">
-<i class="fa-solid fa-right-from-bracket"></i> Absen Pulang
-</button>
-</div>
-
-<div id="absen-status" class="status-msg hidden"></div>
-</div>
-
-<!-- TAB 2: HR & SLIP GAJI -->
-<div id="tab-hr" class="tab-content card hidden">
-
-<div id="hr-login-box">
-<div style="text-align: center; margin-bottom: 16px;">
-<h3 style="font-size: 16px;">Verifikasi HR / Admin</h3>
-<p style="font-size: 12px; color: #64748b;">Akses khusus laporan & rekap gaji</p>
-</div>
-
-<div class="form-group">
-<label>Username Admin</label>
-<div class="input-wrapper">
-<i class="fa-solid fa-user-shield"></i>
-<input type="text" id="hr-username" value="andara">
-</div>
-</div>
-
-<div class="form-group">
-<label>Password Admin</label>
-<div class="input-wrapper">
-<i class="fa-solid fa-key"></i>
-<input type="password" id="hr-password" value="">
-</div>
-</div>
-
-<button class="btn" onclick="handleHRLogin()">
-<i class="fa-solid fa-unlock"></i> Verifikasi
-</button>
-
-<div id="hr-login-status" class="status-msg hidden"></div>
-</div>
-
-<div id="hr-dashboard-box" class="hidden">
-<div style="text-align: center; margin-bottom: 12px;">
-<h3 style="font-size: 16px;">Slip Gaji Mingguan</h3>
-<p style="font-size: 11px; color: #38bdf8;" id="slip-periode-label">Periode Kerja</p>
-</div>
-
-<div class="slip-scroll-container">
-<div id="slip-pdf-wrapper">
-
-<table class="header-table">
-<tr>
-<td style="width: 30%;">
-SLIP GAJI MINGGUAN<br>
-<span style="font-weight: normal; font-size: 8.5px;" id="slip-tgl-label">24 Oktober 2026</span>
-</td>
-<td style="width: 42%; font-size: 14px; color: #2563eb; font-weight: bold;">CV. WIJAYA.GRUP</td>
-<td style="width: 28%; font-size: 8.5px; font-weight: normal;">
-Dokumen Resmi Payroll<br>
-<em>Confidential</em>
-</td>
-</tr>
-</table>
-
-<div class="slip-section-header">Hari Kerja & Kehadiran</div>
-
-<table class="slip-table">
-<thead>
-<tr style="background: #d9ea22;">
-<th style="width: 5%;">NO</th>
-<th style="width: 20%;">Nama</th>
-<th style="width: 10%;">Jabatan</th>
-<th style="width: 20%;">Periode</th>
-<th style="width: 11%; background: #93c5fd;">Total Masuk</th>
-<th style="width: 12%; background: #fca5a5;">Izin / Alfa</th>
-<th style="width: 11%; background: #86efac;">Total Point</th>
-<th style="width: 11%; background: #fde047;">Total Komisi</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td style="text-align: left; font-weight: bold; padding-left: 4px;" id="slip-nama">Muhammad Fejri Febriyan</td>
-<td>Staff</td>
-<td id="slip-periode">18 Okt - 24 Okt</td>
-<td style="font-weight: bold; background: #eff6ff;" id="slip-hk">5 Hari</td>
-<td style="font-weight: bold; background: #fef2f2; color: #dc2626;" id="slip-libur">1 Hari</td>
-<td id="slip-point">0 Point</td>
-<td id="slip-tamu">2 Tamu</td>
-</tr>
-</tbody>
-</table>
-
-<div class="slip-section-header" style="margin-top: -1px;">Rincian Upah & Hasil Akhir</div>
-
-<table class="slip-table">
-<thead>
-<tr style="background: #d9ea22;">
-<th style="width: 10%;">Upah Pokok</th>
-<th style="width: 10%;">Rp Point</th>
-<th style="width: 11%;">Rp Komisi</th>
-<th style="width: 13%; background: #fecaca; color: #991b1b;">Total Potongan</th>
-<th style="width: 16%; background: #bfdbfe; color: #1e3a8a;">Gaji Bersih (Net)</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td id="slip-total-hk">Rp250.000</td>
-<td id="slip-total-point">Rp0</td>
-<td id="slip-total-komisi">Rp30.000</td>
-<td style="font-weight: bold; background: #fef2f2; color: #dc2626;" id="slip-total-denda">Rp0</td>
-<td style="font-weight: bold; font-size: 11px; background: #bfdbfe; color: #1e3a8a;" id="slip-grand-total">Rp280.000</td>
-</tr>
-</tbody>
-</table>
-
-<div class="signature-grid">
-<div class="signature-box">
-<div class="signature-title">Disetujui oleh</div>
-<div class="signature-space"></div>
-<div class="signature-footer">Finance</div>
-</div>
-<div class="signature-box">
-<div class="signature-title">Mengetahui Oleh</div>
-<div class="signature-space"></div>
-<div class="signature-footer">Project Cordinator</div>
-</div>
-<div class="signature-box">
-<div class="signature-title">Dipriksa Oleh</div>
-<div class="signature-space"></div>
-<div class="signature-footer">Project Manager</div>
-</div>
-<div class="signature-box">
-<div class="signature-title">Diterima</div>
-<div class="signature-space"></div>
-<div class="signature-footer">DANA : 082262839119<br>Pegawai</div>
-</div>
-</div>
-
-<div style="margin-top: 8px; font-size: 8.5px; color: #334155;" id="slip-detailed-notes">
-<strong>Catatan Kehadiran:</strong> Rincian otomatis...
-</div>
-
-</div>
-</div>
-
-<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-<button class="btn" style="background: #10b981;" onclick="downloadSlipPDF()">
-<i class="fa-solid fa-file-pdf"></i> Unduh PDF
-</button>
-<button class="btn" style="background: #ea580c;" onclick="sendSlipToGmail()">
-<i class="fa-solid fa-paper-plane"></i> Kirim Email
-</button>
-</div>
-
-<button class="btn btn-secondary" style="margin-top: 10px;" onclick="lockHRAccess()">
-<i class="fa-solid fa-lock"></i> Kunci Akses HR
-</button>
-
-<div id="email-status" class="status-msg hidden"></div>
-</div>
-
-</div>
-
-<!-- TAB 3: HARI KERJA -->
-<div id="tab-hari-kerja" class="tab-content card hidden">
-<div style="text-align: center; margin-bottom: 16px;">
-<h3 style="font-size: 16px;">Ringkasan Hari Kerja</h3>
-<p style="font-size: 11px; color: #38bdf8;" id="hk-periode-label">Periode Kerja Minggu Ini</p>
-</div>
-
-<div class="stats-grid">
-<div class="stat-card">
-<div class="stat-icon" style="background: #1e3a8a; color: #38bdf8;">
-<i class="fa-solid fa-user-check"></i>
-</div>
-<div class="stat-info">
-<div class="title">Total Masuk</div>
-<div class="value" id="hk-val-masuk">5 Hari</div>
-</div>
-</div>
-
-<div class="stat-card">
-<div class="stat-icon" style="background: #713f12; color: #facc15;">
-<i class="fa-solid fa-hand-holding-dollar"></i>
-</div>
-<div class="stat-info">
-<div class="title">Komisi Tamu</div>
-<div class="value" id="hk-val-komisi">Rp30.000</div>
-</div>
-</div>
-
-<div class="stat-card">
-<div class="stat-icon" style="background: #064e3b; color: #34d399;">
-<i class="fa-solid fa-star"></i>
-</div>
-<div class="stat-info">
-<div class="title">Total Point</div>
-<div class="value" id="hk-val-point">0 Point</div>
-</div>
-</div>
-
-<div class="stat-card">
-<div class="stat-icon" style="background: #581c87; color: #c084fc;">
-<i class="fa-solid fa-bed"></i>
-</div>
-<div class="stat-info">
-<div class="title">Total Izin</div>
-<div class="value" id="hk-val-izin">1 Hari</div>
-</div>
-</div>
-</div>
-
-<button class="btn btn-secondary" onclick="loadHariKerjaStats()">
-<i class="fa-solid fa-arrows-rotate"></i> Refresh Data
-</button>
-</div>
-
-<!-- TAB 4: PERIZINAN -->
-<div id="tab-izin" class="tab-content card hidden">
-<div style="text-align: center; margin-bottom: 16px;">
-<h3 style="font-size: 16px;">Form Perizinan</h3>
-<p style="font-size: 11px; color: #64748b;">Pilih jenis perizinan yang diajukan</p>
-</div>
-
-<div class="form-group">
-<label>Pilih Kategori</label>
-<div class="option-cards">
-<div class="option-card selected" onclick="selectIzinCategory('SAKIT', this)">
-<i class="fa-solid fa-notes-medical" style="color: #38bdf8;"></i>
-<span>Sakit</span>
-</div>
-<div class="option-card" onclick="selectIzinCategory('IZIN', this)">
-<i class="fa-solid fa-user-gear" style="color: #c084fc;"></i>
-<span>Izin</span>
-</div>
-<div class="option-card" onclick="selectIzinCategory('ALFA', this)">
-<i class="fa-solid fa-circle-exclamation" style="color: #f87171;"></i>
-<span>Alfa</span>
-</div>
-</div>
-</div>
-
-<div class="form-group">
-<label>Alasan / Keterangan</label>
-<div class="input-wrapper">
-<i class="fa-regular fa-comment-dots"></i>
-<textarea id="alasan-izin" placeholder="Tuliskan keterangan perizinan..."></textarea>
-</div>
-</div>
-
-<button class="btn" style="background: #8b5cf6;" onclick="submitIzin()">
-<i class="fa-solid fa-paper-plane"></i> Kirim Pengajuan
-</button>
-
-<div id="izin-status" class="status-msg hidden"></div>
-</div>
-
-<!-- BOTTOM NAVIGATION -->
-<div class="bottom-nav">
-<div class="nav-item active" onclick="switchTab('absen')">
-<i class="fa-solid fa-house"></i>
-<span>Home</span>
-</div>
-<div class="nav-item" onclick="switchTab('hr')">
-<i class="fa-solid fa-shield-halved"></i>
-<span>HR Menu</span>
-</div>
-<div class="nav-item" onclick="switchTab('hari-kerja')">
-<i class="fa-solid fa-calendar-days"></i>
-<span>History</span>
-</div>
-<div class="nav-item" onclick="switchTab('izin')">
-<i class="fa-solid fa-file-signature"></i>
-<span>Izin</span>
-</div>
-</div>
-
-</div>
-
-</div>
-
-<!-- ==================== LOGIKA JAVASCRIPT ==================== -->
 <script>
+// 1. URL WEB APP GOOGLE APPS SCRIPT ANDA
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwz4wTltMk7YN2BYjDThgbPYnwOrfwTYPOXkkuPvJdFdjcMbHfKKJsqfeWpTcnTC6jPcg/exec';
+
+// Konfigurasi Bawaan
 const TARGET_LAT = -6.7220192;
 const TARGET_LNG = 108.5364692;
 const MAX_ALLOWED_RADIUS = 5.0;
@@ -1004,451 +15,366 @@ let currentDistance = null;
 let currentAddress = "Kost Andara Wijaya, Cirebon";
 let videoStream = null;
 
-window.addEventListener('DOMContentLoaded', function() {
-startLiveClock();
-const savedUser = localStorage.getItem('app_user_session');
-if (savedUser) {
-showMainApp(savedUser);
-} else {
-initCamera();
+// ==========================================
+// FUNGSI PENGHUBUNG KE GOOGLE APPS SCRIPT (API)
+// ==========================================
+async function callGAS(action, dataObj = null) {
+  const formData = new URLSearchParams();
+  formData.append('action', action);
+  if (dataObj) {
+    formData.append('data', JSON.stringify(dataObj));
+  }
+
+  try {
+    const response = await fetch(SCRIPT_URL, { method: 'POST', body: formData });
+    return await response.json();
+  } catch (error) {
+    console.error('Fetch error:', error);
+    return { success: false, message: 'Gagal terhubung ke server database (GAS).' };
+  }
 }
+
+// ==========================================
+// INISIALISASI APLIKASI
+// ==========================================
+window.addEventListener('DOMContentLoaded', function() {
+  startLiveClock();
+  const savedUser = localStorage.getItem('app_user_session');
+  if (savedUser) {
+    showMainApp(savedUser);
+  } else {
+    initCamera();
+  }
 });
 
 function startLiveClock() {
-function update() {
-const now = new Date();
-let hours = now.getHours();
-const minutes = String(now.getMinutes()).padStart(2, '0');
-const seconds = String(now.getSeconds()).padStart(2, '0');
-const ampm = hours >= 12 ? 'PM' : 'AM';
-
-hours = hours % 12;
-hours = hours ? hours : 12;
-
-const timeStr = `${hours}:${minutes}:${seconds}`;
-const clockEl = document.getElementById('live-clock');
-if (clockEl) {
-clockEl.innerHTML = `${timeStr} <span>${ampm}</span>`;
-}
-
-const dateStr = now.toLocaleDateString('id-ID', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
-const dateEl = document.getElementById('live-date');
-if (dateEl) {
-dateEl.innerText = dateStr;
-}
-}
-update();
-setInterval(update, 1000);
+  function update() {
+    const now = new Date();
+    let hours = now.getHours();
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const seconds = String(now.getSeconds()).padStart(2, '0');
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+    hours = hours % 12;
+    hours = hours ? hours : 12;
+    const timeStr = `${hours}:${minutes}:${seconds}`;
+    const clockEl = document.getElementById('live-clock');
+    if (clockEl) clockEl.innerHTML = `${timeStr} <span>${ampm}</span>`;
+    const dateStr = now.toLocaleDateString('id-ID', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
+    const dateEl = document.getElementById('live-date');
+    if (dateEl) dateEl.innerText = dateStr;
+  }
+  update();
+  setInterval(update, 1000);
 }
 
 function showStatus(elementId, msg, type) {
-const el = document.getElementById(elementId);
-if (el) {
-el.innerText = msg;
-el.className = `status-msg ${type}`;
-el.classList.remove('hidden');
-}
+  const el = document.getElementById(elementId);
+  if (el) {
+    el.innerText = msg;
+    el.className = `status-msg ${type}`;
+    el.classList.remove('hidden');
+  }
 }
 
+// ==========================================
+// KAMERA & GPS
+// ==========================================
 async function initCamera() {
-const video = document.getElementById('webcam');
-const fallbackOverlay = document.getElementById('camera-fallback');
-if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) return;
-
-try {
-if (videoStream) {
-videoStream.getTracks().forEach(track => track.stop());
+  const video = document.getElementById('webcam');
+  const fallbackOverlay = document.getElementById('camera-fallback');
+  if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) return;
+  try {
+    if (videoStream) videoStream.getTracks().forEach(track => track.stop());
+    videoStream = await navigator.mediaDevices.getUserMedia({
+      video: { facingMode: 'user', width: { ideal: 720 }, height: { ideal: 720 } },
+      audio: false
+    });
+    if (video) {
+      video.srcObject = videoStream;
+      video.onloadedmetadata = () => video.play().catch(e => console.warn(e));
+    }
+    if (fallbackOverlay) fallbackOverlay.classList.add('hidden');
+  } catch (err) {
+    if (fallbackOverlay) fallbackOverlay.classList.remove('hidden');
+  }
 }
 
-videoStream = await navigator.mediaDevices.getUserMedia({
-video: { facingMode: 'user', width: { ideal: 720 }, height: { ideal: 720 } },
-audio: false
-});
-
-if (video) {
-video.srcObject = videoStream;
-video.onloadedmetadata = () => video.play().catch(e => console.warn(e));
-}
-if (fallbackOverlay) {
-fallbackOverlay.classList.add('hidden');
-}
-} catch (err) {
-console.warn("Kamera diblokir atau gagal dimuat otomatis:", err);
-if (fallbackOverlay) {
-fallbackOverlay.classList.remove('hidden');
-}
-}
-}
-
-// Fungsi manual untuk memicu izin kamera via interaksi ketukan user
 function requestCameraExplicitly() {
-navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' }, audio: false })
-.then(stream => {
-if (videoStream) {
-videoStream.getTracks().forEach(track => track.stop());
-}
-videoStream = stream;
-const video = document.getElementById('webcam');
-const fallbackOverlay = document.getElementById('camera-fallback');
-if (video) {
-video.srcObject = stream;
-video.play().catch(e => console.warn(e));
-}
-if (fallbackOverlay) {
-fallbackOverlay.classList.add('hidden');
-}
-})
-.catch(err => {
-alert("Akses kamera ditolak atau diblokir oleh browser. Pastikan memberikan izin pada setelan situs browser Anda.");
-});
+  navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' }, audio: false })
+    .then(stream => {
+      if (videoStream) videoStream.getTracks().forEach(track => track.stop());
+      videoStream = stream;
+      const video = document.getElementById('webcam');
+      const fallbackOverlay = document.getElementById('camera-fallback');
+      if (video) { video.srcObject = stream; video.play().catch(e => console.warn(e)); }
+      if (fallbackOverlay) fallbackOverlay.classList.add('hidden');
+    }).catch(err => alert("Akses kamera ditolak."));
 }
 
 function calculateDistanceMeters(lat1, lon1, lat2, lon2) {
-const R = 6371e3;
-const rad = Math.PI / 180;
-const dLat = (lat2 - lat1) * rad;
-const dLon = (lon2 - lon1) * rad;
-const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-Math.cos(lat1 * rad) * Math.cos(lat2 * rad) *
-Math.sin(dLon / 2) * Math.sin(dLon / 2);
-const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-return R * c;
+  const R = 6371e3;
+  const rad = Math.PI / 180;
+  const dLat = (lat2 - lat1) * rad;
+  const dLon = (lon2 - lon1) * rad;
+  const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.cos(lat1 * rad) * Math.cos(lat2 * rad) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  return R * c;
 }
 
 function initLocation() {
-const badge = document.getElementById('gps-status-badge');
-const coordsText = document.getElementById('gps-coords-text');
-
-if (!navigator.geolocation) {
-if (badge) {
-badge.className = "gps-status-badge out-of-range";
-badge.innerHTML = `<i class="fa-solid fa-xmark"></i> GPS NOT SUPPORTED`;
-}
-return;
-}
-
-navigator.geolocation.watchPosition(
-pos => {
-currentLat = pos.coords.latitude;
-currentLng = pos.coords.longitude;
-currentDistance = calculateDistanceMeters(currentLat, currentLng, TARGET_LAT, TARGET_LNG);
-
-if (coordsText) {
-coordsText.innerText = `${currentLat.toFixed(5)}, ${currentLng.toFixed(5)}`;
-}
-
-if (currentDistance <= MAX_ALLOWED_RADIUS) {
-if (badge) {
-badge.className = "gps-status-badge";
-badge.innerHTML = `<i class="fa-solid fa-check"></i> GPS LOCKED (${currentDistance.toFixed(1)}m)`;
-}
-} else {
-if (badge) {
-badge.className = "gps-status-badge out-of-range";
-badge.innerHTML = `<i class="fa-solid fa-triangle-exclamation"></i> OUT OF RANGE (${currentDistance.toFixed(1)}m)`;
-}
-}
-},
-err => {
-if (badge) {
-badge.className = "gps-status-badge out-of-range";
-badge.innerHTML = `<i class="fa-solid fa-triangle-exclamation"></i> GPS OFF`;
-}
-},
-{ enableHighAccuracy: true, timeout: 15000, maximumAge: 0 }
-);
+  const badge = document.getElementById('gps-status-badge');
+  const coordsText = document.getElementById('gps-coords-text');
+  if (!navigator.geolocation) {
+    if (badge) { badge.className = "gps-status-badge out-of-range"; badge.innerHTML = `<i class="fa-solid fa-xmark"></i> GPS NOT SUPPORTED`; }
+    return;
+  }
+  navigator.geolocation.watchPosition(
+    pos => {
+      currentLat = pos.coords.latitude;
+      currentLng = pos.coords.longitude;
+      currentDistance = calculateDistanceMeters(currentLat, currentLng, TARGET_LAT, TARGET_LNG);
+      if (coordsText) coordsText.innerText = `${currentLat.toFixed(5)}, ${currentLng.toFixed(5)}`;
+      if (currentDistance <= MAX_ALLOWED_RADIUS) {
+        if (badge) { badge.className = "gps-status-badge"; badge.innerHTML = `<i class="fa-solid fa-check"></i> GPS LOCKED (${currentDistance.toFixed(1)}m)`; }
+      } else {
+        if (badge) { badge.className = "gps-status-badge out-of-range"; badge.innerHTML = `<i class="fa-solid fa-triangle-exclamation"></i> OUT OF RANGE (${currentDistance.toFixed(1)}m)`; }
+      }
+    },
+    err => {
+      if (badge) { badge.className = "gps-status-badge out-of-range"; badge.innerHTML = `<i class="fa-solid fa-triangle-exclamation"></i> GPS OFF`; }
+    },
+    { enableHighAccuracy: true, timeout: 15000, maximumAge: 0 }
+  );
 }
 
+// ==========================================
+// NAVIGASI & UI
+// ==========================================
 function showMainApp(userName) {
-document.getElementById('login-view').classList.add('hidden');
-document.getElementById('main-app').classList.remove('hidden');
-document.getElementById('topbar-user-name').innerText = userName;
-switchTab('absen');
-initCamera();
-initLocation();
-}
-
-function handleLogin() {
-const u = document.getElementById('username').value.trim();
-const p = document.getElementById('password').value.trim();
-
-if (!u || !p) {
-showStatus('login-status', 'Username & Password wajib diisi!', 'error');
-return;
-}
-
-if (typeof google !== 'undefined' && google.script && google.script.run) {
-google.script.run.withSuccessHandler(function(res) {
-if (res.success) {
-localStorage.setItem('app_user_session', res.name);
-showMainApp(res.name);
-} else {
-showStatus('login-status', res.message, 'error');
-}
-}).processLogin(u, p);
-} else {
-if ((u === 'user1' && p === 'cirebon123') || (u === 'andara' && p === 'cirebon191002')) {
-const name = u === 'andara' ? "HR / Admin" : "Muhammad Fejri Febriyan";
-localStorage.setItem('app_user_session', name);
-showMainApp(name);
-} else {
-showStatus('login-status', 'Username atau Password salah!', 'error');
-}
-}
-}
-
-function handleHRLogin() {
-const u = document.getElementById('hr-username').value.trim();
-const p = document.getElementById('hr-password').value.trim();
-
-if (u === 'andara' && p === 'cirebon191002') {
-isHRAuthenticated = true;
-document.getElementById('hr-login-box').classList.add('hidden');
-document.getElementById('hr-dashboard-box').classList.remove('hidden');
-loadSlipGaji();
-} else {
-showStatus('hr-login-status', 'Kredensial Admin HR Salah!', 'error');
-}
-}
-
-function lockHRAccess() {
-isHRAuthenticated = false;
-document.getElementById('hr-password').value = '';
-document.getElementById('hr-dashboard-box').classList.add('hidden');
-document.getElementById('hr-login-box').classList.remove('hidden');
+  document.getElementById('login-view').classList.add('hidden');
+  document.getElementById('main-app').classList.remove('hidden');
+  document.getElementById('topbar-user-name').innerText = userName;
+  switchTab('absen');
+  initCamera();
+  initLocation();
 }
 
 function switchTab(tabName) {
-const tabs = document.querySelectorAll('.tab-content');
-tabs.forEach(tab => tab.classList.add('hidden'));
+  const tabs = document.querySelectorAll('.tab-content');
+  tabs.forEach(tab => tab.classList.add('hidden'));
+  const navItems = document.querySelectorAll('.nav-item');
+  navItems.forEach(item => item.classList.remove('active'));
 
-const navItems = document.querySelectorAll('.nav-item');
-navItems.forEach(item => item.classList.remove('active'));
-
-if (tabName === 'absen') {
-document.getElementById('tab-absen').classList.remove('hidden');
-if (navItems[0]) navItems[0].classList.add('active');
-if (!videoStream) initCamera();
-} else if (tabName === 'hr') {
-document.getElementById('tab-hr').classList.remove('hidden');
-if (navItems[1]) navItems[1].classList.add('active');
-} else if (tabName === 'hari-kerja') {
-document.getElementById('tab-hari-kerja').classList.remove('hidden');
-if (navItems[2]) navItems[2].classList.add('active');
-loadHariKerjaStats();
-} else if (tabName === 'izin') {
-document.getElementById('tab-izin').classList.remove('hidden');
-if (navItems[3]) navItems[3].classList.add('active');
+  if (tabName === 'absen') {
+    document.getElementById('tab-absen').classList.remove('hidden');
+    if (navItems[0]) navItems[0].classList.add('active');
+    if (!videoStream) initCamera();
+  } else if (tabName === 'hr') {
+    document.getElementById('tab-hr').classList.remove('hidden');
+    if (navItems[1]) navItems[1].classList.add('active');
+  } else if (tabName === 'hari-kerja') {
+    document.getElementById('tab-hari-kerja').classList.remove('hidden');
+    if (navItems[2]) navItems[2].classList.add('active');
+    loadHariKerjaStats();
+  } else if (tabName === 'izin') {
+    document.getElementById('tab-izin').classList.remove('hidden');
+    if (navItems[3]) navItems[3].classList.add('active');
+  }
 }
+
+// ==========================================
+// FITUR UTAMA DENGAN API FETCH (callGAS)
+// ==========================================
+async function handleLogin() {
+  const u = document.getElementById('username').value.trim();
+  const p = document.getElementById('password').value.trim();
+  if (!u || !p) { showStatus('login-status', 'Username & Password wajib diisi!', 'error'); return; }
+
+  showStatus('login-status', 'Memverifikasi Data...', 'success');
+  const res = await callGAS('processLogin', { username: u, password: p });
+
+  if (res.success) {
+    localStorage.setItem('app_user_session', res.name);
+    showMainApp(res.name);
+  } else {
+    showStatus('login-status', res.message, 'error');
+  }
+}
+
+async function handleHRLogin() {
+  const u = document.getElementById('hr-username').value.trim();
+  const p = document.getElementById('hr-password').value.trim();
+  
+  showStatus('hr-login-status', 'Verifikasi HR...', 'success');
+  const res = await callGAS('processLogin', { username: u, password: p });
+
+  if (res.success && res.role === 'ADMIN') {
+    isHRAuthenticated = true;
+    document.getElementById('hr-login-box').classList.add('hidden');
+    document.getElementById('hr-dashboard-box').classList.remove('hidden');
+    loadSlipGaji();
+  } else {
+    showStatus('hr-login-status', 'Kredensial Admin HR Salah!', 'error');
+  }
+}
+
+function lockHRAccess() {
+  isHRAuthenticated = false;
+  document.getElementById('hr-password').value = '';
+  document.getElementById('hr-dashboard-box').classList.add('hidden');
+  document.getElementById('hr-login-box').classList.remove('hidden');
 }
 
 function capturePhotoWithWatermark() {
-const video = document.getElementById('webcam');
-const canvas = document.createElement('canvas');
-canvas.width = video.videoWidth || 640;
-canvas.height = video.videoHeight || 640;
-const ctx = canvas.getContext('2d');
+  const video = document.getElementById('webcam');
+  const canvas = document.createElement('canvas');
+  canvas.width = video.videoWidth || 640;
+  canvas.height = video.videoHeight || 640;
+  const ctx = canvas.getContext('2d');
+  ctx.translate(canvas.width, 0);
+  ctx.scale(-1, 1);
+  ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+  ctx.setTransform(1, 0, 0, 1, 0, 0);
 
-ctx.translate(canvas.width, 0);
-ctx.scale(-1, 1);
-ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-ctx.setTransform(1, 0, 0, 1, 0, 0);
+  const now = new Date();
+  const dateStr = now.toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' });
+  const timeStr = now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+  const coordsStr = currentLat && currentLng ? `(${currentLat.toFixed(6)}, ${currentLng.toFixed(6)})` : '';
 
-const now = new Date();
-const dateStr = now.toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' });
-const timeStr = now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-const coordsStr = currentLat && currentLng ? `(${currentLat.toFixed(6)}, ${currentLng.toFixed(6)})` : '';
+  ctx.fillStyle = "rgba(15, 23, 42, 0.85)";
+  ctx.fillRect(12, canvas.height - 68, canvas.width - 24, 56);
+  ctx.fillStyle = "#38bdf8";
+  ctx.fillRect(12, canvas.height - 68, 6, 56);
+  ctx.fillStyle = "#ffffff";
+  ctx.font = "bold 13px Inter, Arial, sans-serif";
+  ctx.fillText(`📍 ${currentAddress} ${coordsStr}`, 26, canvas.height - 44);
+  ctx.fillStyle = "#cbd5e1";
+  ctx.font = "12px Inter, Arial, sans-serif";
+  ctx.fillText(`🕒 ${dateStr} - ${timeStr} WIB | CV. WIJAYA.GRUP`, 26, canvas.height - 22);
 
-ctx.fillStyle = "rgba(15, 23, 42, 0.85)";
-ctx.fillRect(12, canvas.height - 68, canvas.width - 24, 56);
-
-ctx.fillStyle = "#38bdf8";
-ctx.fillRect(12, canvas.height - 68, 6, 56);
-
-ctx.fillStyle = "#ffffff";
-ctx.font = "bold 13px Inter, Arial, sans-serif";
-ctx.fillText(`📍 ${currentAddress} ${coordsStr}`, 26, canvas.height - 44);
-
-ctx.fillStyle = "#cbd5e1";
-ctx.font = "12px Inter, Arial, sans-serif";
-ctx.fillText(`🕒 ${dateStr} - ${timeStr} WIB | CV. WIJAYA.GRUP`, 26, canvas.height - 22);
-
-return canvas.toDataURL('image/jpeg', 0.88);
+  return canvas.toDataURL('image/jpeg', 0.88);
 }
 
-function submitAbsen(tipe) {
-if (!currentLat || !currentLng) {
-showStatus('absen-status', 'Gagal: Koordinat GPS belum terdeteksi!', 'error');
-return;
-}
+async function submitAbsen(tipe) {
+  if (!currentLat || !currentLng) {
+    showStatus('absen-status', 'Gagal: Koordinat GPS belum terdeteksi!', 'error'); return;
+  }
+  if (currentDistance > MAX_ALLOWED_RADIUS) {
+    showStatus('absen-status', `Gagal: Posisi Anda ${currentDistance.toFixed(1)} m dari lokasi (Maksimal 5.0 m)!`, 'error'); return;
+  }
 
-if (currentDistance > MAX_ALLOWED_RADIUS) {
-showStatus('absen-status', `Gagal: Posisi Anda ${currentDistance.toFixed(1)} m dari lokasi (Maksimal 5.0 m)!`, 'error');
-return;
-}
+  showStatus('absen-status', 'Merekam presensi ke server, mohon tunggu...', 'success');
+  const photoData = capturePhotoWithWatermark();
+  const payload = { lat: currentLat, lng: currentLng, tipe: tipe, image: photoData };
 
-const photoData = capturePhotoWithWatermark();
-const payload = { lat: currentLat, lng: currentLng, tipe: tipe, image: photoData };
+  const res = await callGAS('processAbsen', payload);
 
-if (typeof google !== 'undefined' && google.script && google.script.run) {
-google.script.run.withSuccessHandler(function(res) {
-if (res.success) {
-showStatus('absen-status', res.message, 'success');
-} else {
-showStatus('absen-status', res.message, 'error');
-if (res.applyDendaPulangAwal) {
-google.script.run.recordPulangAwalViolation();
-}
-}
-}).processAbsen(payload);
-} else {
-showStatus('absen-status', `Presensi ${tipe} Berhasil (Simulasi)!`, 'success');
-}
+  if (res.success) {
+    showStatus('absen-status', res.message, 'success');
+  } else {
+    showStatus('absen-status', res.message, 'error');
+    if (res.applyDendaPulangAwal) {
+      callGAS('recordPulangAwalViolation');
+    }
+  }
 }
 
 function selectIzinCategory(type, element) {
-selectedIzinType = type;
-const cards = document.querySelectorAll('.option-card');
-cards.forEach(card => card.classList.remove('selected'));
-element.classList.add('selected');
+  selectedIzinType = type;
+  const cards = document.querySelectorAll('.option-card');
+  cards.forEach(card => card.classList.remove('selected'));
+  element.classList.add('selected');
 }
 
-function submitIzin() {
-const alasan = document.getElementById('alasan-izin').value.trim();
-const payload = { jenis: selectedIzinType, alasan: alasan };
-
-if (typeof google !== 'undefined' && google.script && google.script.run) {
-google.script.run.withSuccessHandler(function(res) {
-if (res.success) {
-showStatus('izin-status', res.message, 'success');
-document.getElementById('alasan-izin').value = '';
-} else {
-showStatus('izin-status', res.message, 'error');
-}
-}).processIzin(payload);
-} else {
-showStatus('izin-status', `Pengajuan ${selectedIzinType} berhasil dicatat!`, 'success');
-document.getElementById('alasan-izin').value = '';
-}
+async function submitIzin() {
+  const alasan = document.getElementById('alasan-izin').value.trim();
+  const payload = { jenis: selectedIzinType, alasan: alasan };
+  
+  showStatus('izin-status', 'Mengirim pengajuan izin...', 'success');
+  const res = await callGAS('processIzin', payload);
+  
+  if (res.success) {
+    showStatus('izin-status', res.message, 'success');
+    document.getElementById('alasan-izin').value = '';
+  } else {
+    showStatus('izin-status', res.message, 'error');
+  }
 }
 
-function loadHariKerjaStats() {
-if (typeof google !== 'undefined' && google.script && google.script.run) {
-google.script.run.withSuccessHandler(function(data) {
-renderHariKerjaData(data);
-}).getHariKerjaData();
-} else {
-renderHariKerjaData({
-periodeLabel: "Periode: 18 Okt - 24 Okt 2026",
-totalMasuk: 5,
-totalKomisi: 30000,
-totalPoint: 0,
-totalIzin: 1
-});
-}
+async function loadHariKerjaStats() {
+  document.getElementById('hk-periode-label').innerText = "Memuat data...";
+  const res = await callGAS('getHariKerjaData');
+  
+  if (res && res.periodeLabel) {
+    document.getElementById('hk-periode-label').innerText = res.periodeLabel;
+    document.getElementById('hk-val-masuk').innerText = res.totalMasuk + " Hari";
+    document.getElementById('hk-val-komisi').innerText = `Rp${res.totalKomisi.toLocaleString('id-ID')}`;
+    document.getElementById('hk-val-point').innerText = res.totalPoint + " Point";
+    document.getElementById('hk-val-izin').innerText = res.totalIzin + " Hari";
+  }
 }
 
-function renderHariKerjaData(data) {
-document.getElementById('hk-periode-label').innerText = data.periodeLabel;
-document.getElementById('hk-val-masuk').innerText = data.totalMasuk + " Hari";
-document.getElementById('hk-val-komisi').innerText = `Rp${data.totalKomisi.toLocaleString('id-ID')}`;
-document.getElementById('hk-val-point').innerText = data.totalPoint + " Point";
-document.getElementById('hk-val-izin').innerText = data.totalIzin + " Hari";
-}
+async function loadSlipGaji() {
+  const res = await callGAS('getSlipGajiData');
+  
+  if (res && res.nama) {
+    document.getElementById('slip-nama').innerText = res.nama;
+    document.getElementById('slip-tgl-label').innerText = res.tanggalCetak;
+    document.getElementById('slip-periode-label').innerText = "Periode Kerja: " + res.periode;
+    document.getElementById('slip-periode').innerText = res.periode;
+    document.getElementById('slip-hk').innerText = res.totalMasuk + " Hari";
+    document.getElementById('slip-libur').innerText = res.totalIzin + " Hari";
+    document.getElementById('slip-point').innerText = res.totalPoint + " Point";
+    document.getElementById('slip-tamu').innerText = res.totalTamu + " Tamu";
 
-function loadSlipGaji() {
-if (typeof google !== 'undefined' && google.script && google.script.run) {
-google.script.run.withSuccessHandler(function(data) {
-renderSlipData(data);
-}).getSlipGajiData();
-} else {
-renderSlipData({
-nama: "Muhammad Fejri Febriyan",
-periode: "18 Okt 2026 - 24 Okt 2026",
-tanggalCetak: "24 Oktober 2026",
-totalMasuk: 5,
-totalIzin: 1,
-totalPoint: 0,
-totalTamu: 2,
-gajiPokok: 250000,
-komisiPoint: 0,
-komisiTamu: 30000,
-totalDenda: 0,
-gajiBersih: 280000,
-detailMasuk: "19 Okt, 20 Okt, 21 Okt, 22 Okt, 23 Okt",
-detailTerlambat: "Tidak ada keterlambatan",
-detailIzin: "18 Okt - IZIN (Izin 1X)"
-});
-}
-}
+    document.getElementById('slip-total-hk').innerText = `Rp${res.gajiPokok.toLocaleString('id-ID')}`;
+    document.getElementById('slip-total-point').innerText = `Rp${res.komisiPoint.toLocaleString('id-ID')}`;
+    document.getElementById('slip-total-komisi').innerText = `Rp${res.komisiTamu.toLocaleString('id-ID')}`;
+    document.getElementById('slip-total-denda').innerText = `Rp${res.totalDenda.toLocaleString('id-ID')}`;
+    document.getElementById('slip-grand-total').innerText = `Rp${res.gajiBersih.toLocaleString('id-ID')}`;
 
-function renderSlipData(data) {
-document.getElementById('slip-nama').innerText = data.nama;
-document.getElementById('slip-tgl-label').innerText = data.tanggalCetak;
-document.getElementById('slip-periode-label').innerText = "Periode Kerja: " + data.periode;
-document.getElementById('slip-periode').innerText = data.periode;
-document.getElementById('slip-hk').innerText = data.totalMasuk + " Hari";
-document.getElementById('slip-libur').innerText = data.totalIzin + " Hari";
-document.getElementById('slip-point').innerText = data.totalPoint + " Point";
-document.getElementById('slip-tamu').innerText = data.totalTamu + " Tamu";
-
-document.getElementById('slip-total-hk').innerText = `Rp${data.gajiPokok.toLocaleString('id-ID')}`;
-document.getElementById('slip-total-point').innerText = `Rp${data.komisiPoint.toLocaleString('id-ID')}`;
-document.getElementById('slip-total-komisi').innerText = `Rp${data.komisiTamu.toLocaleString('id-ID')}`;
-document.getElementById('slip-total-denda').innerText = `Rp${data.totalDenda.toLocaleString('id-ID')}`;
-document.getElementById('slip-grand-total').innerText = `Rp${data.gajiBersih.toLocaleString('id-ID')}`;
-
-const notesEl = document.getElementById('slip-detailed-notes');
-notesEl.innerHTML = `
-<strong>Catatan Kehadiran (${data.periode}):</strong><br>
-- Tanggal Masuk: ${data.detailMasuk || '-'}<br>
-- Keterlambatan: ${data.detailTerlambat || '-'}<br>
-- Izin/Alfa: ${data.detailIzin || '-'}
-`;
+    document.getElementById('slip-detailed-notes').innerHTML = `
+      <strong>Catatan Kehadiran (${res.periode}):</strong><br>
+      - Tanggal Masuk: ${res.detailMasuk || '-'}<br>
+      - Keterlambatan: ${res.detailTerlambat || '-'}<br>
+      - Izin/Alfa: ${res.detailIzin || '-'}
+    `;
+  }
 }
 
 function downloadSlipPDF() {
-const element = document.getElementById('slip-pdf-wrapper');
-const opt = {
-margin: [5, 5, 5, 5],
-filename: `SLIP_GAJI_CV_WIJAYA_GRUP_FEJRI.pdf`,
-image: { type: 'jpeg', quality: 0.98 },
-html2canvas: { scale: 2, useCORS: true },
-jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' }
-};
-html2pdf().set(opt).from(element).save();
+  const element = document.getElementById('slip-pdf-wrapper');
+  const opt = {
+    margin: [5, 5, 5, 5],
+    filename: `SLIP_GAJI_CV_WIJAYA_GRUP.pdf`,
+    image: { type: 'jpeg', quality: 0.98 },
+    html2canvas: { scale: 2, useCORS: true },
+    jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' }
+  };
+  html2pdf().set(opt).from(element).save();
 }
 
-function sendSlipToGmail() {
-const htmlContent = document.getElementById('slip-pdf-wrapper').innerHTML;
-showStatus('email-status', 'Mengirim slip gaji ke Gmail karyawan...', 'success');
-
-if (typeof google !== 'undefined' && google.script && google.script.run) {
-google.script.run.withSuccessHandler(function(res) {
-if (res.success) {
-showStatus('email-status', res.message, 'success');
-} else {
-showStatus('email-status', res.message, 'error');
-}
-}).sendSlipGajiEmail(htmlContent);
-} else {
-setTimeout(() => {
-showStatus('email-status', 'Slip gaji berhasil dikirim ke Gmail (Simulasi)!', 'success');
-}, 1500);
-}
+async function sendSlipToGmail() {
+  const htmlContent = document.getElementById('slip-pdf-wrapper').innerHTML;
+  showStatus('email-status', 'Mengirim slip gaji ke Gmail karyawan...', 'success');
+  
+  const res = await callGAS('sendSlipGajiEmail', { htmlContent: htmlContent });
+  
+  if (res.success) {
+    showStatus('email-status', res.message, 'success');
+  } else {
+    showStatus('email-status', res.message, 'error');
+  }
 }
 
 function handleLogout() {
-localStorage.removeItem('app_user_session');
-lockHRAccess();
-if (videoStream) {
-videoStream.getTracks().forEach(track => track.stop());
-videoStream = null;
-}
-document.getElementById('main-app').classList.add('hidden');
-document.getElementById('login-view').classList.remove('hidden');
+  localStorage.removeItem('app_user_session');
+  lockHRAccess();
+  if (videoStream) {
+    videoStream.getTracks().forEach(track => track.stop());
+    videoStream = null;
+  }
+  document.getElementById('main-app').classList.add('hidden');
+  document.getElementById('login-view').classList.remove('hidden');
 }
 </script>
-
-</body>
-</html>
