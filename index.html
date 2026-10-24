@@ -920,23 +920,27 @@
                                         <th style="width: 10%;">Jabatan</th>
                                         <th style="width: 20%;">Periode</th>
                                         <th style="width: 11%; background: #93c5fd;">Total Masuk</th>
-                                        <th style="width: 12%; background: #fca5a5;">Izin / Alfa</th>
+                                        <th style="width: 10%; background: #c084fc;">Total Izin</th>
+                                        <th style="width: 10%; background: #fca5a5;">Total Alfa</th>
+
                                         <th style="width: 11%; background: #86efac;">Total Point</th>
                                         <th style="width: 11%; background: #fde047;">Total Komisi</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                                                <tbody>
                                     <tr>
                                         <td>1</td>
                                         <td style="text-align: left; font-weight: bold; padding-left: 4px;" id="slip-nama">Muhammad Fejri Febriyan</td>
                                         <td>Staff</td>
                                         <td id="slip-periode">-</td>
                                         <td style="font-weight: bold; background: #eff6ff;" id="slip-hk">0 Hari</td>
-                                        <td style="font-weight: bold; background: #fef2f2; color: #dc2626;" id="slip-libur">0 Hari</td>
+                                        <td style="font-weight: bold; background: #f5f3ff; color: #7e22ce;" id="slip-izin">0 Hari</td>
+                                        <td style="font-weight: bold; background: #fef2f2; color: #dc2626;" id="slip-alfa">0 Hari</td>
                                         <td id="slip-point">0 Point</td>
                                         <td id="slip-tamu">0 Tamu</td>
                                     </tr>
                                 </tbody>
+
                             </table>
 
                             <div class="slip-section-header" style="margin-top: -1px;">Rincian Upah & Hasil Akhir</div>
@@ -1661,7 +1665,9 @@ document.getElementById('hk-val-telat').innerText = (res.totalTelat || 0) + " Ka
                 document.getElementById('slip-periode-label').innerText = "Periode Kerja: " + res.periode;
                 document.getElementById('slip-periode').innerText = res.periode;
                 document.getElementById('slip-hk').innerText = res.totalMasuk + " Hari";
-                document.getElementById('slip-libur').innerText = res.totalIzin + " Hari";
+                
+                document.getElementById('slip-izin').innerText = (res.totalIzin || 0) + " Hari";
+                document.getElementById('slip-alfa').innerText = (res.totalAlfa || 0) + " Hari";
                 document.getElementById('slip-point').innerText = res.totalPoint + " Point";
                 document.getElementById('slip-tamu').innerText = res.totalTamu + " Tamu";
 
