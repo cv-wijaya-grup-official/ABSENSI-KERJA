@@ -61,6 +61,7 @@
             align-items: center;
             margin-bottom: 20px;
             padding-top: 10px;
+            position: relative;
         }
 
         .user-profile-header {
@@ -117,7 +118,7 @@
             color: #fff;
         }
 
-        /* Live Digital Clock */
+        /* Live Digital Clock (24 Jam) */
         .clock-display {
             text-align: center;
             margin-bottom: 25px;
@@ -129,13 +130,6 @@
             color: #ffffff;
             letter-spacing: -1px;
             line-height: 1;
-        }
-
-        .clock-time span {
-            font-size: 18px;
-            font-weight: 600;
-            color: #94a3b8;
-            margin-left: 4px;
         }
 
         .clock-date {
@@ -299,12 +293,17 @@
             color: #ffffff;
         }
 
+        .btn-absen:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
         .btn-absen-masuk {
             background: #2563eb;
             box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
         }
 
-        .btn-absen-masuk:hover {
+        .btn-absen-masuk:hover:not(:disabled) {
             background: #1d4ed8;
         }
 
@@ -313,7 +312,7 @@
             box-shadow: 0 4px 15px rgba(220, 38, 38, 0.3);
         }
 
-        .btn-absen-pulang:hover {
+        .btn-absen-pulang:hover:not(:disabled) {
             background: #b91c1c;
         }
 
@@ -607,9 +606,7 @@
             background: #1e293b;
         }
 
-        /* ========================================================
-           CSS UNTUK HISTORY 31 HARI DI DALAM HR MENU (FORMAT TABEL)
-           ======================================================== */
+        /* History Table Styles */
         .filter-tabs {
             display: flex;
             gap: 8px;
@@ -790,19 +787,31 @@
                     </div>
                 </div>
                 <div class="topbar-actions">
-                    <div class="icon-btn">
+                    <div class="icon-btn" onclick="openNotifications()" style="position: relative;">
                         <i class="fa-regular fa-bell"></i>
+                        <span id="notif-badge" class="hidden" style="position: absolute; top: 2px; right: 2px; width: 8px; height: 8px; background: #ef4444; border-radius: 50%;"></span>
                     </div>
                     <div class="icon-btn" onclick="handleLogout()">
                         <i class="fa-solid fa-arrow-right-from-bracket"></i>
                     </div>
                 </div>
+
+                <!-- MODAL / MENU NOTIFIKASI -->
+                <div id="notif-modal" class="card hidden" style="position: absolute; top: 60px; left: 0; right: 0; z-index: 1000; max-height: 380px; overflow-y: auto; background: #1e293b; border: 1px solid #334155; box-shadow: 0 10px 25px rgba(0,0,0,0.5);">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; border-bottom: 1px solid #334155; padding-bottom: 8px;">
+                        <h3 style="font-size: 13px; color: #fff;"><i class="fa-solid fa-bell" style="color: #38bdf8;"></i> Riwayat Notifikasi Absen</h3>
+                        <i class="fa-solid fa-xmark" style="cursor: pointer; font-size: 16px; color: #94a3b8;" onclick="closeNotifications()"></i>
+                    </div>
+                    <div id="notif-list" style="font-size: 11px; color: #cbd5e1;">
+                        <p style="color: #64748b; text-align: center; padding: 10px;">Belum ada notifikasi.</p>
+                    </div>
+                </div>
             </div>
 
-            <!-- TAB 1: ABSEN UTAMA (DARK scanner UI) -->
+            <!-- TAB 1: ABSEN UTAMA -->
             <div id="tab-absen" class="tab-content">
 
-                <!-- Live Clock Header -->
+                <!-- Live Digital Clock (24 Jam) -->
                 <div class="clock-display">
                     <div class="clock-time" id="live-clock">00:00:00</div>
                     <div class="clock-date" id="live-date">Hari, 00 Bulan 2026</div>
@@ -814,7 +823,6 @@
                         <div class="circular-camera-inner">
                             <video id="webcam" autoplay playsinline muted></video>
                             
-                            <!-- Tombol Fallback manual untuk memicu izin kamera jika diblokir otomatis browser -->
                             <div id="camera-fallback" class="camera-fallback-overlay hidden">
                                 <i class="fa-solid fa-camera" style="font-size: 24px; color: #38bdf8; margin-bottom: 6px;"></i>
                                 <p style="font-size: 10px; color: #cbd5e1; margin-bottom: 8px;">Ketuk untuk aktifkan kamera</p>
@@ -912,7 +920,7 @@
 
                             <div class="slip-section-header">Hari Kerja & Kehadiran</div>
 
-                                                        <table class="slip-table">
+                            <table class="slip-table">
                                 <thead>
                                     <tr style="background: #d9ea22;">
                                         <th style="width: 4%;">NO</th>
@@ -1038,7 +1046,7 @@
                 </div>
             </div>
 
-            <!-- TAB 3: HARI KERJA (RINGKASAN MINGGUAN SAJA) -->
+            <!-- TAB 3: HARI KERJA -->
             <div id="tab-hari-kerja" class="tab-content card hidden">
                 <div style="text-align: center; margin-bottom: 16px;">
                     <h3 style="font-size: 16px;">Ringkasan Minggu Ini</h3>
@@ -1056,7 +1064,6 @@
                         </div>
                     </div>
 
-                    <!-- PERMINTAAN PERUBAHAN: TOTAL TAMU -->
                     <div class="stat-card">
                         <div class="stat-icon" style="background: #713f12; color: #facc15;">
                             <i class="fa-solid fa-users"></i>
@@ -1077,7 +1084,7 @@
                         </div>
                     </div>
 
-                                        <div class="stat-card">
+                    <div class="stat-card">
                         <div class="stat-icon" style="background: #581c87; color: #c084fc;">
                             <i class="fa-solid fa-bed"></i>
                         </div>
@@ -1108,7 +1115,6 @@
                         </div>
                     </div>
 
-                    <!-- PERMINTAAN PERUBAHAN: TOTAL SAKIT -->
                     <div class="stat-card">
                         <div class="stat-icon" style="background: #450a0a; color: #ef4444;">
                             <i class="fa-solid fa-notes-medical"></i>
@@ -1190,12 +1196,11 @@
 
     <!-- ==================== LOGIKA JAVASCRIPT ==================== -->
     <script>
-        // URL WEB APP GAS ANDA
-        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwvBK9S9363pOfMg7TIueyv_Z0l11db5jeorFPFUi98BB94sxDY0lN9QJiU_1WZuzqfQw/exec';
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw-HcixO7pUCY9X5EWqzvc8wYJNvljDXbJZ8DAJVoNeV7H-dR_ftMIlIUcpmGydl3zPWA/exec';
 
         const TARGET_LAT = -6.7220192;
         const TARGET_LNG = 108.5364692;
-        const MAX_ALLOWED_RADIUS = 15.0; // Telah disesuaikan 15m
+        const MAX_ALLOWED_RADIUS = 15.0;
 
         let isHRAuthenticated = false;
         let selectedIzinType = 'SAKIT';
@@ -1205,14 +1210,11 @@
         let currentAddress = "Kost Andara Wijaya, Cirebon";
         let videoStream = null;
         let globalHistoryData = [];
+        let appNotifications = JSON.parse(localStorage.getItem('app_notifications') || '[]');
 
-        // ==========================================
-        // FUNGSI PENGHUBUNG API
-        // ==========================================
         async function callGAS(action, dataObj = null) {
             const formData = new URLSearchParams();
             formData.append('action', action);
-            
             if (dataObj) {
                 formData.append('data', JSON.stringify(dataObj));
             }
@@ -1226,11 +1228,9 @@
             }
         }
 
-        // ==========================================
-        // INISIALISASI WAKTU, KAMERA, DAN LOKASI
-        // ==========================================
         window.addEventListener('DOMContentLoaded', function() {
             startLiveClock();
+            updateNotificationBadge();
             const savedUser = localStorage.getItem('app_user_session');
             
             if (savedUser) {
@@ -1240,6 +1240,7 @@
             }
         });
 
+        // 24 Jam Digital Clock dengan ID live-date yang benar
         function startLiveClock() {
             function update() {
                 const now = new Date();
@@ -1254,7 +1255,7 @@
                 }
 
                 const dateStr = now.toLocaleDateString('id-ID', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
-                const dateEl = document.getElementById('live-date'); // <-- Memakai live-date
+                const dateEl = document.getElementById('live-date');
                 if (dateEl) {
                     dateEl.innerText = dateStr;
                 }
@@ -1263,7 +1264,53 @@
             setInterval(update, 1000);
         }
 
+        // ==========================================
+        // LOGIKA NOTIFIKASI & POP-UP
+        // ==========================================
+        function addNotification(title, message, time, status) {
+            const notif = { title, message, time, status, date: new Date().toLocaleDateString('id-ID', {day: 'numeric', month: 'short', year: 'numeric'}) };
+            appNotifications.unshift(notif);
+            if (appNotifications.length > 20) appNotifications.pop();
+            localStorage.setItem('app_notifications', JSON.stringify(appNotifications));
+            updateNotificationBadge();
+        }
 
+        function updateNotificationBadge() {
+            const badge = document.getElementById('notif-badge');
+            if (badge) {
+                if (appNotifications.length > 0) {
+                    badge.classList.remove('hidden');
+                } else {
+                    badge.classList.add('hidden');
+                }
+            }
+        }
+
+        function openNotifications() {
+            const modal = document.getElementById('notif-modal');
+            const list = document.getElementById('notif-list');
+            modal.classList.remove('hidden');
+            
+            if (appNotifications.length === 0) {
+                list.innerHTML = '<p style="color: #64748b; text-align: center; padding: 10px;">Belum ada notifikasi.</p>';
+                return;
+            }
+            
+            list.innerHTML = appNotifications.map(n => `
+                <div style="background: #0f172a; padding: 10px; border-radius: 8px; margin-bottom: 8px; border-left: 4px solid ${n.status.toLowerCase().includes('terlambat') || n.status.toLowerCase().includes('alfa') ? '#ef4444' : '#10b981'};">
+                    <div style="font-weight: bold; color: #fff; margin-bottom: 2px; display: flex; justify-content: space-between;">
+                        <span>${n.title}</span>
+                        <span style="font-size: 10px; color: #94a3b8;">${n.date}</span>
+                    </div>
+                    <div style="color: #cbd5e1; margin-bottom: 4px;">${n.message}</div>
+                    <div style="font-size: 10px; color: #38bdf8;">🕒 Jam: <b>${n.time} WIB</b> | Status: <b style="color: ${n.status.toLowerCase().includes('terlambat') ? '#fca5a5' : '#34d399'};">${n.status}</b></div>
+                </div>
+            `).join('');
+        }
+
+        function closeNotifications() {
+            document.getElementById('notif-modal').classList.add('hidden');
+        }
 
         function showStatus(elementId, msg, type) {
             const el = document.getElementById(elementId);
@@ -1383,9 +1430,6 @@
             );
         }
 
-        // ==========================================
-        // KONTROL TAB & NAVIGASI
-        // ==========================================
         function showMainApp(userName) {
             document.getElementById('login-view').classList.add('hidden');
             document.getElementById('main-app').classList.remove('hidden');
@@ -1403,8 +1447,6 @@
                 isHRAuthenticated = true;
                 document.getElementById('hr-login-box').classList.add('hidden');
                 document.getElementById('hr-dashboard-box').classList.remove('hidden');
-                
-                // Panggil Slip Gaji dan History 31 Hari secara bersamaan
                 loadSlipGaji();
                 loadHistory31Days(); 
             } else {
@@ -1484,9 +1526,6 @@
             element.classList.add('selected');
         }
 
-        // ==========================================
-        // LOGIKA PEMANGGILAN API
-        // ==========================================
         async function handleLogin() {
             const u = document.getElementById('username').value.trim();
             const p = document.getElementById('password').value.trim();
@@ -1507,6 +1546,7 @@
             }
         }
 
+        // Fungsi Absen dengan Proteksi Tombol & Pop-up Notifikasi
         async function submitAbsen(tipe) {
             if (!currentLat || !currentLng) {
                 showStatus('absen-status', 'Gagal: Koordinat GPS belum terdeteksi!', 'error');
@@ -1518,6 +1558,11 @@
                 return;
             }
 
+            // Kunci tombol agar tidak bisa diklik 2x
+            const btnClass = tipe === 'MASUK' ? '.btn-absen-masuk' : '.btn-absen-pulang';
+            const actionBtn = document.querySelector(btnClass);
+            if (actionBtn) actionBtn.disabled = true;
+
             showStatus('absen-status', 'Merekam presensi ke server, mohon tunggu...', 'success');
             
             const photoData = capturePhotoWithWatermark();
@@ -1527,11 +1572,21 @@
 
             if (res.success) {
                 showStatus('absen-status', res.message, 'success');
+                
+                // Munculkan Pop-up Berhasil
+                alert(res.message);
+
+                // Masukkan ke Menu Notifikasi
+                const timeNow = new Date().toLocaleTimeString('id-ID', { hour12: false });
+                const statusKeterangan = res.message.includes(':') ? res.message.split(':')[1].trim() : 'Berhasil';
+                addNotification(`Absen ${tipe} Berhasil`, `Anda telah berhasil melakukan pencatatan absen ${tipe.toLowerCase()}.`, timeNow, statusKeterangan);
+
             } else {
                 showStatus('absen-status', res.message, 'error');
                 if (res.applyDendaPulangAwal) {
-                    callGAS('recordPulangAwalViolation'); // Berjalan di background
+                    callGAS('recordPulangAwalViolation');
                 }
+                if (actionBtn) actionBtn.disabled = false;
             }
         }
 
@@ -1557,22 +1612,16 @@
             if (res && res.periodeLabel) {
                 document.getElementById('hk-periode-label').innerText = res.periodeLabel;
                 document.getElementById('hk-val-masuk').innerText = (res.totalMasuk || 0) + " Hari";
-                
-                // PERUBAHAN PERMINTAAN USER:
                 document.getElementById('hk-val-tamu').innerText = (res.totalTamu || 0) + " Tamu";
                 document.getElementById('hk-val-sakit').innerText = (res.totalSakit || 0) + " Hari";
-                
-   document.getElementById('hk-val-point').innerText = (res.totalPoint || 0) + " Point";
-document.getElementById('hk-val-izin').innerText = (res.totalIzin || 0) + " Hari";
-document.getElementById('hk-val-alfa').innerText = (res.totalAlfa || 0) + " Hari";
-document.getElementById('hk-val-telat').innerText = (res.totalTelat || 0) + " Kali";
+                document.getElementById('hk-val-point').innerText = (res.totalPoint || 0) + " Point";
+                document.getElementById('hk-val-izin').innerText = (res.totalIzin || 0) + " Hari";
+                document.getElementById('hk-val-alfa').innerText = (res.totalAlfa || 0) + " Hari";
+                document.getElementById('hk-val-telat').innerText = (res.totalTelat || 0) + " Kali";
                 document.getElementById('hk-ket-telat').innerText = res.detailTelat || "-";
             }
         }
 
-        // ==========================================
-        // LOGIKA HISTORY 31 HARI DI TAB HR
-        // ==========================================
         async function loadHistory31Days() {
             document.getElementById('filter-summary').innerText = "Mengambil data 31 hari terakhir dari server...";
             const res = await callGAS('getHistory31Days');
@@ -1631,7 +1680,6 @@ document.getElementById('hk-val-telat').innerText = (res.totalTelat || 0) + " Ka
                     badgeClass = "alfa"; badgeText = "Alfa";
                 }
 
-                // Render Foto atau Icon
                 let fotoHtml = item.foto && item.foto !== "-" 
                     ? `<img src="${item.foto}" alt="Foto Absen">` 
                     : `<div class="photo-fallback"><i class="fa-solid fa-image"></i></div>`;
@@ -1652,34 +1700,30 @@ document.getElementById('hk-val-telat').innerText = (res.totalTelat || 0) + " Ka
             });
         }
 
-        // ==========================================
-        // LOGIKA SLIP GAJI
-        // ==========================================
-async function loadSlipGaji() {
-    const res = await callGAS('getSlipGajiData');
-    
-    if (res && res.nama) {
-        document.getElementById('slip-nama').innerText = res.nama;
-        document.getElementById('slip-tgl-label').innerText = res.tanggalCetak;
-        document.getElementById('slip-periode-label').innerText = "Periode Kerja: " + res.periode;
-        document.getElementById('slip-periode').innerText = res.periode;
-        document.getElementById('slip-hk').innerText = res.totalMasuk + " Hari";
-        document.getElementById('slip-izin').innerText = (res.totalIzin || 0) + " Hari";
-        document.getElementById('slip-alfa').innerText = (res.totalAlfa || 0) + " Hari";
-        document.getElementById('slip-telat').innerText = (res.totalTelat || 0) + " Kali"; // <-- Tambahkan ini
-        document.getElementById('slip-point').innerText = res.totalPoint + " Point";
-        document.getElementById('slip-tamu').innerText = res.totalTamu + " Tamu";
+        async function loadSlipGaji() {
+            const res = await callGAS('getSlipGajiData');
+            
+            if (res && res.nama) {
+                document.getElementById('slip-nama').innerText = res.nama;
+                document.getElementById('slip-tgl-label').innerText = res.tanggalCetak;
+                document.getElementById('slip-periode-label').innerText = "Periode Kerja: " + res.periode;
+                document.getElementById('slip-periode').innerText = res.periode;
+                document.getElementById('slip-hk').innerText = res.totalMasuk + " Hari";
+                document.getElementById('slip-izin').innerText = (res.totalIzin || 0) + " Hari";
+                document.getElementById('slip-alfa').innerText = (res.totalAlfa || 0) + " Hari";
+                document.getElementById('slip-telat').innerText = (res.totalTelat || 0) + " Kali";
+                document.getElementById('slip-point').innerText = res.totalPoint + " Point";
+                document.getElementById('slip-tamu').innerText = res.totalTamu + " Tamu";
 
-        document.getElementById('slip-total-hk').innerText = `Rp${res.gajiPokok.toLocaleString('id-ID')}`;
-        document.getElementById('slip-total-point').innerText = `Rp${res.komisiPoint.toLocaleString('id-ID')}`;
-        document.getElementById('slip-total-komisi').innerText = `Rp${res.komisiTamu.toLocaleString('id-ID')}`;
-        document.getElementById('slip-total-denda').innerText = `Rp${res.totalDenda.toLocaleString('id-ID')}`;
-        document.getElementById('slip-grand-total').innerText = `Rp${res.gajiBersih.toLocaleString('id-ID')}`;
-    } else {
-        console.error("Gagal memuat slip gaji / Data masih kosong");
-    }
-}
-
+                document.getElementById('slip-total-hk').innerText = `Rp${res.gajiPokok.toLocaleString('id-ID')}`;
+                document.getElementById('slip-total-point').innerText = `Rp${res.komisiPoint.toLocaleString('id-ID')}`;
+                document.getElementById('slip-total-komisi').innerText = `Rp${res.komisiTamu.toLocaleString('id-ID')}`;
+                document.getElementById('slip-total-denda').innerText = `Rp${res.totalDenda.toLocaleString('id-ID')}`;
+                document.getElementById('slip-grand-total').innerText = `Rp${res.gajiBersih.toLocaleString('id-ID')}`;
+            } else {
+                console.error("Gagal memuat slip gaji / Data masih kosong");
+            }
+        }
 
         function downloadSlipPDF() {
             const element = document.getElementById('slip-pdf-wrapper');
