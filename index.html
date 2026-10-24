@@ -912,22 +912,23 @@
 
                             <div class="slip-section-header">Hari Kerja & Kehadiran</div>
 
-                            <table class="slip-table">
+                                                        <table class="slip-table">
                                 <thead>
                                     <tr style="background: #d9ea22;">
-                                        <th style="width: 5%;">NO</th>
-                                        <th style="width: 20%;">Nama</th>
-                                        <th style="width: 10%;">Jabatan</th>
-                                        <th style="width: 20%;">Periode</th>
-                                        <th style="width: 11%; background: #93c5fd;">Total Masuk</th>
-                                        <th style="width: 10%; background: #c084fc;">Total Izin</th>
-                                        <th style="width: 10%; background: #fca5a5;">Total Alfa</th>
-
-                                        <th style="width: 11%; background: #86efac;">Total Point</th>
-                                        <th style="width: 11%; background: #fde047;">Total Komisi</th>
+                                        <th style="width: 4%;">NO</th>
+                                        <th style="width: 17%;">Nama</th>
+                                        <th style="width: 9%;">Jabatan</th>
+                                        <th style="width: 17%;">Periode</th>
+                                        <th style="width: 9%; background: #93c5fd;">Total Masuk</th>
+                                        <th style="width: 9%; background: #c084fc;">Total Izin</th>
+                                        <th style="width: 9%; background: #fef08a;">Total Alfa</th>
+                                        <th style="width: 9%; background: #fca5a5;">Total Telat</th>
+                                        <th style="width: 9%; background: #86efac;">Total Point</th>
+                                        <th style="width: 9%; background: #fde047;">Total Komisi</th>
                                     </tr>
                                 </thead>
-                                                                <tbody>
+
+                                <tbody>
                                     <tr>
                                         <td>1</td>
                                         <td style="text-align: left; font-weight: bold; padding-left: 4px;" id="slip-nama">Muhammad Fejri Febriyan</td>
@@ -935,12 +936,12 @@
                                         <td id="slip-periode">-</td>
                                         <td style="font-weight: bold; background: #eff6ff;" id="slip-hk">0 Hari</td>
                                         <td style="font-weight: bold; background: #f5f3ff; color: #7e22ce;" id="slip-izin">0 Hari</td>
-                                        <td style="font-weight: bold; background: #fef2f2; color: #dc2626;" id="slip-alfa">0 Hari</td>
+                                        <td style="font-weight: bold; background: #fefce8; color: #ca8a04;" id="slip-alfa">0 Hari</td>
+                                        <td style="font-weight: bold; background: #fff1f2; color: #e11d48;" id="slip-telat">0 Kali</td>
                                         <td id="slip-point">0 Point</td>
                                         <td id="slip-tamu">0 Tamu</td>
                                     </tr>
                                 </tbody>
-
                             </table>
 
                             <div class="slip-section-header" style="margin-top: -1px;">Rincian Upah & Hasil Akhir</div>
@@ -1190,7 +1191,7 @@
     <!-- ==================== LOGIKA JAVASCRIPT ==================== -->
     <script>
         // URL WEB APP GAS ANDA
-        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyHi6R2O9Jf0-ZVMlVY4dvvT5bEKsC2OwqWiu2NNeAZi03I3OoXmTm_2xq9TdTkqNSvjw/exec';
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwvBK9S9363pOfMg7TIueyv_Z0l11db5jeorFPFUi98BB94sxDY0lN9QJiU_1WZuzqfQw/exec';
 
         const TARGET_LAT = -6.7220192;
         const TARGET_LNG = 108.5364692;
@@ -1656,30 +1657,31 @@ document.getElementById('hk-val-telat').innerText = (res.totalTelat || 0) + " Ka
         // ==========================================
         // LOGIKA SLIP GAJI
         // ==========================================
-        async function loadSlipGaji() {
-            const res = await callGAS('getSlipGajiData');
-            
-            if (res && res.nama) {
-                document.getElementById('slip-nama').innerText = res.nama;
-                document.getElementById('slip-tgl-label').innerText = res.tanggalCetak;
-                document.getElementById('slip-periode-label').innerText = "Periode Kerja: " + res.periode;
-                document.getElementById('slip-periode').innerText = res.periode;
-                document.getElementById('slip-hk').innerText = res.totalMasuk + " Hari";
-                
-                document.getElementById('slip-izin').innerText = (res.totalIzin || 0) + " Hari";
-                document.getElementById('slip-alfa').innerText = (res.totalAlfa || 0) + " Hari";
-                document.getElementById('slip-point').innerText = res.totalPoint + " Point";
-                document.getElementById('slip-tamu').innerText = res.totalTamu + " Tamu";
+async function loadSlipGaji() {
+    const res = await callGAS('getSlipGajiData');
+    
+    if (res && res.nama) {
+        document.getElementById('slip-nama').innerText = res.nama;
+        document.getElementById('slip-tgl-label').innerText = res.tanggalCetak;
+        document.getElementById('slip-periode-label').innerText = "Periode Kerja: " + res.periode;
+        document.getElementById('slip-periode').innerText = res.periode;
+        document.getElementById('slip-hk').innerText = res.totalMasuk + " Hari";
+        document.getElementById('slip-izin').innerText = (res.totalIzin || 0) + " Hari";
+        document.getElementById('slip-alfa').innerText = (res.totalAlfa || 0) + " Hari";
+        document.getElementById('slip-telat').innerText = (res.totalTelat || 0) + " Kali"; // <-- Tambahkan ini
+        document.getElementById('slip-point').innerText = res.totalPoint + " Point";
+        document.getElementById('slip-tamu').innerText = res.totalTamu + " Tamu";
 
-                document.getElementById('slip-total-hk').innerText = `Rp${res.gajiPokok.toLocaleString('id-ID')}`;
-                document.getElementById('slip-total-point').innerText = `Rp${res.komisiPoint.toLocaleString('id-ID')}`;
-                document.getElementById('slip-total-komisi').innerText = `Rp${res.komisiTamu.toLocaleString('id-ID')}`;
-                document.getElementById('slip-total-denda').innerText = `Rp${res.totalDenda.toLocaleString('id-ID')}`;
-                document.getElementById('slip-grand-total').innerText = `Rp${res.gajiBersih.toLocaleString('id-ID')}`;
-            } else {
-                console.error("Gagal memuat slip gaji / Data masih kosong");
-            }
-        }
+        document.getElementById('slip-total-hk').innerText = `Rp${res.gajiPokok.toLocaleString('id-ID')}`;
+        document.getElementById('slip-total-point').innerText = `Rp${res.komisiPoint.toLocaleString('id-ID')}`;
+        document.getElementById('slip-total-komisi').innerText = `Rp${res.komisiTamu.toLocaleString('id-ID')}`;
+        document.getElementById('slip-total-denda').innerText = `Rp${res.totalDenda.toLocaleString('id-ID')}`;
+        document.getElementById('slip-grand-total').innerText = `Rp${res.gajiBersih.toLocaleString('id-ID')}`;
+    } else {
+        console.error("Gagal memuat slip gaji / Data masih kosong");
+    }
+}
+
 
         function downloadSlipPDF() {
             const element = document.getElementById('slip-pdf-wrapper');
