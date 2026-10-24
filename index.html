@@ -1327,7 +1327,6 @@
             }
         });
 
-        // 24 Jam Digital Clock
         function startLiveClock() {
             function update() {
                 const now = new Date();
@@ -1677,7 +1676,6 @@
                 setTimeout(() => { loadHistory31Days(); }, 1500);
             } else {
                 showStatus('absen-status', res.message, 'error');
-                // Jika percobaan pertama pulang awal, tampilkan popup peringatan (tidak kena denda dulu)
                 if (res.isWarningOnly) {
                     showCustomModal("Peringatan Jam Pulang", res.message);
                 } else {
@@ -1752,17 +1750,18 @@
             return url;
         }
 
+        // AMBIL TEKS MENTAH DARI SHEET TANPA KONVERSI APAPUN
         function formatTimeOnly(timeStr) {
             if (!timeStr || timeStr === "-" || timeStr === "") return "-";
-            if (timeStr.includes("T") || timeStr.includes("Z") || timeStr.includes("1899-") || timeStr.includes("-")) {
-                const date = new Date(timeStr);
-                if (!isNaN(date.getTime())) {
-                    const h = String(date.getHours()).padStart(2, '0');
-                    const m = String(date.getMinutes()).padStart(2, '0');
-                    const s = String(date.getSeconds()).padStart(2, '0');
-                    return `${h}:${m}:${s}`;
+            
+            // Jika string dari sheet mengandung format tanggal/ISO, potong ambil bagian jamnya saja secara mentah
+            if (timeStr.includes("T")) {
+                const parts = timeStr.split("T");
+                if (parts.length > 1) {
+                    return parts[1].split(".")[0]; // Ambil format HH:mm:ss mentah
                 }
             }
+            
             return timeStr;
         }
 
