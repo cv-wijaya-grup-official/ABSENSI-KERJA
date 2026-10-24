@@ -1283,7 +1283,7 @@
 
     <!-- ==================== LOGIKA JAVASCRIPT ==================== -->
     <script>
-        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwvBK9S9363pOfMg7TIueyv_Z0l11db5jeorFPFUi98BB94sxDY0lN9QJiU_1WZuzqfQw/exec';
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx3xwjSV3u7J6LPj0CsX1iW6eU9L-uoH_8mK8e-qyE9ZsTUtBRdqpP5hephRsGkJ-M6sg/exec';
 
         const TARGET_LAT = -6.7220192;
         const TARGET_LNG = 108.5364692;
@@ -1327,7 +1327,7 @@
             }
         });
 
-        // 24 Jam Digital Clock dengan ID live-date yang benar
+        // 24 Jam Digital Clock
         function startLiveClock() {
             function update() {
                 const now = new Date();
@@ -1351,9 +1351,6 @@
             setInterval(update, 1000);
         }
 
-        // ==========================================
-        // LOGIKA NOTIFIKASI & MODAL CUSTOM NEON
-        // ==========================================
         function showCustomModal(title, message) {
             const modal = document.getElementById('custom-modal-popup');
             document.getElementById('custom-modal-title').innerText = title;
@@ -1583,7 +1580,6 @@
             }
         }
 
-        // FOTO DENGAN AUTO-COMPRESS & WATERMARK
         function capturePhotoWithWatermark() {
             const video = document.getElementById('webcam');
             const canvas = document.createElement('canvas');
@@ -1648,7 +1644,6 @@
             }
         }
 
-        // Fungsi Absen dengan Proteksi Tombol & Pop-up Custom Neon
         async function submitAbsen(tipe) {
             if (!currentLat || !currentLng) {
                 showStatus('absen-status', 'Gagal: Koordinat GPS belum terdeteksi!', 'error');
@@ -1673,22 +1668,20 @@
 
             if (res.success) {
                 showStatus('absen-status', res.message, 'success');
-                
-                // Menampilkan Modal Custom Menyala Berdenyut
                 showCustomModal(`Presensi ${tipe} Berhasil`, res.message);
 
                 const timeNow = new Date().toLocaleTimeString('id-ID', { hour12: false });
                 const statusKeterangan = res.message.includes(':') ? res.message.split(':')[1].trim() : 'Berhasil';
                 addNotification(`Absen ${tipe} Berhasil`, `Anda telah berhasil melakukan pencatatan absen ${tipe.toLowerCase()}.`, timeNow, statusKeterangan);
 
-                // Refresh history otomatis setelah absen
                 setTimeout(() => { loadHistory31Days(); }, 1500);
-
             } else {
                 showStatus('absen-status', res.message, 'error');
-                showCustomModal("Gagal Presensi", res.message);
-                if (res.applyDendaPulangAwal) {
-                    callGAS('recordPulangAwalViolation');
+                // Jika percobaan pertama pulang awal, tampilkan popup peringatan (tidak kena denda dulu)
+                if (res.isWarningOnly) {
+                    showCustomModal("Peringatan Jam Pulang", res.message);
+                } else {
+                    showCustomModal("Gagal Presensi", res.message);
                 }
                 if (actionBtn) actionBtn.disabled = false;
             }
@@ -1748,7 +1741,6 @@
             renderHistoryTable(type);
         }
 
-        // Helper untuk mengubah Google Drive URL agar bisa langsung dirender & dibuka
         function getDriveDirectUrl(url) {
             if (!url || url === "-" || url === "") return "";
             if (url.includes("drive.google.com/file/d/")) {
@@ -1760,11 +1752,8 @@
             return url;
         }
 
-        // Helper untuk memformat waktu ke 24 jam (Jam:Menit:Detik) yang bersih dari format UTC
         function formatTimeOnly(timeStr) {
             if (!timeStr || timeStr === "-" || timeStr === "") return "-";
-            
-            // Jika string mengandung waktu standar ISO atau format Date
             if (timeStr.includes("T") || timeStr.includes("Z") || timeStr.includes("1899-") || timeStr.includes("-")) {
                 const date = new Date(timeStr);
                 if (!isNaN(date.getTime())) {
@@ -1774,8 +1763,6 @@
                     return `${h}:${m}:${s}`;
                 }
             }
-            
-            // Jika string sudah format waktu jam, bersihkan jika ada karakter berlebih
             return timeStr;
         }
 
@@ -1817,21 +1804,16 @@
                     badgeClass = "alfa"; badgeText = "Alfa";
                 }
 
-                // Foto Masuk (Mendukung properti foto, fotoMasuk, atau fotoIn)
-                let rawFotoMasuk = item.foto || item.fotoMasuk || item.fotoIn || "-";
-                let directFotoMasuk = getDriveDirectUrl(rawFotoMasuk);
+                let directFotoMasuk = getDriveDirectUrl(item.foto);
                 let fotoMasukHtml = directFotoMasuk 
                     ? `<a href="${directFotoMasuk}" target="_blank" title="Buka Foto Masuk"><img src="${directFotoMasuk}" alt="Foto Masuk"></a>` 
                     : `<div class="photo-fallback"><i class="fa-solid fa-image"></i></div>`;
 
-                // Foto Pulang (Mendukung properti fotoPulang, fotoOut, atau fotoKeluar)
-                let rawFotoPulang = item.fotoPulang || item.fotoOut || item.fotoKeluar || "-";
-                let directFotoPulang = getDriveDirectUrl(rawFotoPulang);
+                let directFotoPulang = getDriveDirectUrl(item.fotoPulang);
                 let fotoPulangHtml = directFotoPulang 
                     ? `<a href="${directFotoPulang}" target="_blank" title="Buka Foto Pulang"><img src="${directFotoPulang}" alt="Foto Pulang"></a>` 
                     : `<div class="photo-fallback"><i class="fa-solid fa-image"></i></div>`;
 
-                // Format Waktu In & Out 24 Jam
                 let inTimeFormatted = formatTimeOnly(item.masuk);
                 let outTimeFormatted = formatTimeOnly(item.pulang);
 
@@ -1877,7 +1859,6 @@
             }
         }
 
-        // Pengaturan PDF Portrait
         function downloadSlipPDF() {
             const element = document.getElementById('slip-pdf-wrapper');
             const opt = {
