@@ -1283,8 +1283,8 @@
     <!-- CUSTOM NEON MODAL POPUP -->
     <div id="custom-modal-popup" class="custom-modal-overlay hidden">
         <div class="custom-modal-box">
-            <div id="custom-modal-icon" style="font-size: 32px; color: #38bdf8; margin-bottom: 10px;">
-                <i class="fa-solid fa-circle-check"></i>
+            <div id="custom-modal-icon" style="font-size: 32px; color: #f59e0b; margin-bottom: 10px;">
+                <i class="fa-solid fa-triangle-exclamation"></i>
             </div>
             <h3 id="custom-modal-title" style="font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 8px;">Informasi Presensi</h3>
             <p id="custom-modal-message" style="font-size: 12px; color: #cbd5e1; margin-bottom: 20px; line-height: 1.4;"></p>
@@ -1296,7 +1296,7 @@
 
     <!-- ==================== LOGIKA JAVASCRIPT ==================== -->
     <script>
-        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwu0VP8uYiYchza1elorvQ5BUa30CBixRSo9ovM002HQh5BODaDJc7b_o-szejs6lU-fQ/exec';
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxbZevpKb5tzfrVloWy9vruVqHwuMcT4u4VlpMpfLi_gPa4Hw9htxuNFsmgMOvK5y3B0A/exec';
 
         const TARGET_LAT = -6.7220192;
         const TARGET_LNG = 108.5364692;
@@ -1363,10 +1363,15 @@
             setInterval(update, 1000);
         }
 
-        function showCustomModal(title, message) {
+        function showCustomModal(title, message, iconClass = 'fa-triangle-exclamation', iconColor = '#f59e0b') {
             const modal = document.getElementById('custom-modal-popup');
             document.getElementById('custom-modal-title').innerText = title;
             document.getElementById('custom-modal-message').innerText = message;
+            const iconEl = document.getElementById('custom-modal-icon');
+            if (iconEl) {
+                iconEl.innerHTML = `<i class="fa-solid ${iconClass}"></i>`;
+                iconEl.style.color = iconColor;
+            }
             modal.classList.remove('hidden');
         }
 
@@ -1393,7 +1398,6 @@
             }
         }
 
-        // SWIPE TO DELETE NOTIFICATION LOGIC
         function setupNotificationSwipe() {
             const items = document.querySelectorAll('.notif-card-item');
             items.forEach((card, index) => {
@@ -1422,17 +1426,15 @@
                     card.style.transition = 'transform 0.3s ease, opacity 0.3s ease';
 
                     if (Math.abs(diffX) > 100) {
-                        // Geser lebih dari 100px: Hapus notifikasi
                         card.style.transform = `translateX(${diffX > 0 ? 300 : -300}px)`;
                         card.style.opacity = '0';
                         setTimeout(() => {
                             appNotifications.splice(index, 1);
                             localStorage.setItem('app_notifications', JSON.stringify(appNotifications));
                             updateNotificationBadge();
-                            openNotifications(); // Refresh list
+                            openNotifications();
                         }, 300);
                     } else {
-                        // Kembali ke posisi semula
                         card.style.transform = 'translateX(0px)';
                         card.style.opacity = '1';
                     }
@@ -1729,7 +1731,7 @@
 
             if (res.success) {
                 showStatus('absen-status', res.message, 'success');
-                showCustomModal(`Presensi ${tipe} Berhasil`, res.message);
+                showCustomModal(`Presensi ${tipe} Berhasil`, res.message, 'fa-circle-check', '#38bdf8');
 
                 const timeNow = new Date().toLocaleTimeString('id-ID', { hour12: false });
                 const statusKeterangan = res.message.includes(':') ? res.message.split(':')[1].trim() : 'Berhasil';
@@ -1739,9 +1741,9 @@
             } else {
                 showStatus('absen-status', res.message, 'error');
                 if (res.isWarningOnly) {
-                    showCustomModal("Peringatan Jam Pulang", res.message);
+                    showCustomModal("Peringatan Jam Pulang", res.message, 'fa-triangle-exclamation', '#f59e0b');
                 } else {
-                    showCustomModal("Gagal Presensi", res.message);
+                    showCustomModal("Gagal Presensi", res.message, 'fa-circle-xmark', '#ef4444');
                 }
                 if (actionBtn) actionBtn.disabled = false;
             }
@@ -1756,11 +1758,11 @@
 
             if (res.success) {
                 showStatus('izin-status', res.message, 'success');
-                showCustomModal("Pengajuan Izin", res.message);
+                showCustomModal("Pengajuan Izin", res.message, 'fa-circle-check', '#38bdf8');
                 document.getElementById('alasan-izin').value = '';
             } else {
                 showStatus('izin-status', res.message, 'error');
-                showCustomModal("Gagal Izin", res.message);
+                showCustomModal("Gagal Izin", res.message, 'fa-circle-xmark', '#ef4444');
             }
         }
 
