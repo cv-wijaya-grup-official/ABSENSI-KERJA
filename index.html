@@ -473,7 +473,7 @@
         }
 
         /* ========================================================
-           DESAIN SLIP GAJI MODERN & ELEGAN
+           DESAIN SLIP GAJI MODERN & ELEGAN (OPTIMASI PDF)
            ======================================================== */
         .slip-scroll-container {
             width: 100%;
@@ -487,11 +487,11 @@
 
         #slip-pdf-wrapper {
             background: #ffffff;
-            padding: 20px;
+            padding: 15px;
             color: #1e293b;
             font-family: 'Inter', Arial, sans-serif;
-            font-size: 10.5px;
-            min-width: 760px;
+            font-size: 10px;
+            width: 800px;
         }
 
         .header-table {
@@ -501,13 +501,13 @@
             border: 1px solid #cbd5e1;
             border-radius: 8px;
             overflow: hidden;
-            margin-bottom: 12px;
+            margin-bottom: 8px;
         }
 
         .header-table td {
             border-bottom: 1px solid #cbd5e1;
             border-right: 1px solid #cbd5e1;
-            padding: 8px 10px;
+            padding: 6px 8px;
             font-weight: bold;
             text-align: center;
             background: #f8fafc;
@@ -523,12 +523,12 @@
             color: #ffffff;
             font-weight: 700;
             text-align: center;
-            padding: 6px;
-            font-size: 10.5px;
+            padding: 5px;
+            font-size: 10px;
             letter-spacing: 0.5px;
             text-transform: uppercase;
             border-radius: 6px 6px 0 0;
-            margin-top: 10px;
+            margin-top: 8px;
         }
 
         .slip-table {
@@ -543,15 +543,15 @@
             color: #475569;
             font-weight: 700;
             border: 1px solid #cbd5e1;
-            padding: 7px 4px;
-            font-size: 9.5px;
+            padding: 6px 3px;
+            font-size: 9px;
             text-transform: uppercase;
         }
 
         .slip-table td {
             border: 1px solid #cbd5e1;
-            padding: 7px 4px;
-            font-size: 10px;
+            padding: 6px 3px;
+            font-size: 9.5px;
             color: #1e293b;
             background: #ffffff;
         }
@@ -560,7 +560,7 @@
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             border: 1px solid #cbd5e1;
-            margin-top: 12px;
+            margin-top: 8px;
             text-align: center;
             border-radius: 0 0 8px 8px;
             overflow: hidden;
@@ -579,21 +579,21 @@
             font-weight: 700;
             background: #f1f5f9;
             border-bottom: 1px solid #cbd5e1;
-            padding: 5px;
-            font-size: 9.5px;
+            padding: 4px;
+            font-size: 9px;
             color: #475569;
         }
 
         .signature-space {
-            height: 40px;
+            height: 32px;
         }
 
         .signature-footer {
             background: #f0fdf4;
             border-top: 1px solid #cbd5e1;
-            padding: 5px 3px;
+            padding: 4px 2px;
             font-weight: 700;
-            font-size: 8.5px;
+            font-size: 8px;
             color: #166534;
         }
 
@@ -944,12 +944,12 @@
                                 <tr>
                                     <td style="width: 30%; background: #f1f5f9;">
                                         <span style="font-size: 9px; color: #64748b; text-transform: uppercase;">Slip Gaji Mingguan</span><br>
-                                        <span style="font-size: 11px; color: #0f172a;" id="slip-tgl-label">24 Oktober 2026</span>
+                                        <span style="font-size: 10.5px; color: #0f172a;" id="slip-tgl-label">24 Oktober 2026</span>
                                     </td>
-                                    <td style="width: 42%; font-size: 14px; color: #2563eb; font-weight: 800; letter-spacing: 0.5px;">
+                                    <td style="width: 42%; font-size: 13px; color: #2563eb; font-weight: 800; letter-spacing: 0.5px;">
                                         CV. WIJAYA.GRUP
                                     </td>
-                                    <td style="width: 28%; font-size: 8.5px; color: #64748b; background: #f1f5f9;">
+                                    <td style="width: 28%; font-size: 8px; color: #64748b; background: #f1f5f9;">
                                         Dokumen Resmi Payroll<br>
                                         <strong style="color: #0f172a;">Confidential</strong>
                                     </td>
@@ -1008,7 +1008,7 @@
                                         <td id="slip-total-point" style="font-weight: 600;">Rp0</td>
                                         <td id="slip-total-komisi" style="font-weight: 600;">Rp0</td>
                                         <td style="font-weight: bold; color: #dc2626; background: #fef2f2;" id="slip-total-denda">Rp0</td>
-                                        <td style="font-weight: 800; font-size: 11.5px; color: #1e3a8a; background: #eff6ff;" id="slip-grand-total">Rp0</td>
+                                        <td style="font-weight: 800; font-size: 11px; color: #1e3a8a; background: #eff6ff;" id="slip-grand-total">Rp0</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -1777,14 +1777,14 @@
             }
         }
 
-        // Pengaturan PDF agar pas memenuhi ukuran kertas landscape
+        // Pengaturan PDF agar tampil FULL tanpa terpotong
         function downloadSlipPDF() {
             const element = document.getElementById('slip-pdf-wrapper');
             const opt = {
                 margin: [5, 5, 5, 5],
                 filename: `SLIP_GAJI_CV_WIJAYA_GRUP.pdf`,
                 image: { type: 'jpeg', quality: 0.98 },
-                html2canvas: { scale: 3, useCORS: true, letterRendering: true },
+                html2canvas: { scale: 2, useCORS: true, letterRendering: true, windowWidth: 800 },
                 jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' }
             };
             html2pdf().set(opt).from(element).save();
