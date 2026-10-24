@@ -473,7 +473,7 @@
         }
 
         /* ========================================================
-           DESAIN SLIP GAJI MODERN & ELEGAN (OPTIMASI PDF)
+           DESAIN SLIP GAJI MODERN & ELEGAN (PORTRAIT OPTIMIZED)
            ======================================================== */
         .slip-scroll-container {
             width: 100%;
@@ -487,11 +487,12 @@
 
         #slip-pdf-wrapper {
             background: #ffffff;
-            padding: 15px;
+            padding: 10px;
             color: #1e293b;
             font-family: 'Inter', Arial, sans-serif;
-            font-size: 10px;
-            width: 800px;
+            font-size: 8.5px;
+            width: 100%;
+            max-width: 550px;
         }
 
         .header-table {
@@ -499,15 +500,15 @@
             border-collapse: separate;
             border-spacing: 0;
             border: 1px solid #cbd5e1;
-            border-radius: 8px;
+            border-radius: 6px;
             overflow: hidden;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
 
         .header-table td {
             border-bottom: 1px solid #cbd5e1;
             border-right: 1px solid #cbd5e1;
-            padding: 6px 8px;
+            padding: 5px 6px;
             font-weight: bold;
             text-align: center;
             background: #f8fafc;
@@ -523,12 +524,12 @@
             color: #ffffff;
             font-weight: 700;
             text-align: center;
-            padding: 5px;
-            font-size: 10px;
+            padding: 4px;
+            font-size: 9px;
             letter-spacing: 0.5px;
             text-transform: uppercase;
-            border-radius: 6px 6px 0 0;
-            margin-top: 8px;
+            border-radius: 4px 4px 0 0;
+            margin-top: 6px;
         }
 
         .slip-table {
@@ -543,15 +544,15 @@
             color: #475569;
             font-weight: 700;
             border: 1px solid #cbd5e1;
-            padding: 6px 3px;
-            font-size: 9px;
+            padding: 4px 2px;
+            font-size: 8px;
             text-transform: uppercase;
         }
 
         .slip-table td {
             border: 1px solid #cbd5e1;
-            padding: 6px 3px;
-            font-size: 9.5px;
+            padding: 4px 2px;
+            font-size: 8.5px;
             color: #1e293b;
             background: #ffffff;
         }
@@ -560,9 +561,9 @@
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             border: 1px solid #cbd5e1;
-            margin-top: 8px;
+            margin-top: 6px;
             text-align: center;
-            border-radius: 0 0 8px 8px;
+            border-radius: 0 0 6px 6px;
             overflow: hidden;
         }
 
@@ -579,21 +580,21 @@
             font-weight: 700;
             background: #f1f5f9;
             border-bottom: 1px solid #cbd5e1;
-            padding: 4px;
-            font-size: 9px;
+            padding: 3px;
+            font-size: 8px;
             color: #475569;
         }
 
         .signature-space {
-            height: 32px;
+            height: 28px;
         }
 
         .signature-footer {
             background: #f0fdf4;
             border-top: 1px solid #cbd5e1;
-            padding: 4px 2px;
+            padding: 3px 2px;
             font-weight: 700;
-            font-size: 8px;
+            font-size: 7.5px;
             color: #166534;
         }
 
@@ -931,7 +932,7 @@
 
                 <div id="hr-dashboard-box" class="hidden">
                     
-                    <!-- ==================== BAGIAN SLIP GAJI (MODERN DESIGN) ==================== -->
+                    <!-- ==================== BAGIAN SLIP GAJI (PORTRAIT DESIGN) ==================== -->
                     <div style="text-align: center; margin-bottom: 12px;">
                         <h3 style="font-size: 16px;">Slip Gaji Mingguan</h3>
                         <p style="font-size: 11px; color: #38bdf8;" id="slip-periode-label">Periode Kerja</p>
@@ -943,14 +944,14 @@
                             <table class="header-table">
                                 <tr>
                                     <td style="width: 30%; background: #f1f5f9;">
-                                        <span style="font-size: 9px; color: #64748b; text-transform: uppercase;">Slip Gaji Mingguan</span><br>
-                                        <span style="font-size: 10.5px; color: #0f172a;" id="slip-tgl-label">24 Oktober 2026</span>
+                                        <span style="font-size: 8px; color: #64748b; text-transform: uppercase;">Slip Gaji</span><br>
+                                        <span style="font-size: 9.5px; color: #0f172a;" id="slip-tgl-label">24 Oktober 2026</span>
                                     </td>
-                                    <td style="width: 42%; font-size: 13px; color: #2563eb; font-weight: 800; letter-spacing: 0.5px;">
+                                    <td style="width: 42%; font-size: 12px; color: #2563eb; font-weight: 800; letter-spacing: 0.5px;">
                                         CV. WIJAYA.GRUP
                                     </td>
-                                    <td style="width: 28%; font-size: 8px; color: #64748b; background: #f1f5f9;">
-                                        Dokumen Resmi Payroll<br>
+                                    <td style="width: 28%; font-size: 7.5px; color: #64748b; background: #f1f5f9;">
+                                        Payroll Doc<br>
                                         <strong style="color: #0f172a;">Confidential</strong>
                                     </td>
                                 </tr>
@@ -965,26 +966,26 @@
                                         <th style="width: 17%;">Nama</th>
                                         <th style="width: 9%;">Jabatan</th>
                                         <th style="width: 17%;">Periode</th>
-                                        <th style="width: 9%;">Total Masuk</th>
-                                        <th style="width: 9%;">Total Izin</th>
-                                        <th style="width: 9%;">Total Alfa</th>
-                                        <th style="width: 9%;">Total Telat</th>
-                                        <th style="width: 9%;">Total Point</th>
-                                        <th style="width: 9%;">Total Komisi</th>
+                                        <th style="width: 9%;">Masuk</th>
+                                        <th style="width: 9%;">Izin</th>
+                                        <th style="width: 9%;">Alfa</th>
+                                        <th style="width: 9%;">Telat</th>
+                                        <th style="width: 9%;">Point</th>
+                                        <th style="width: 9%;">Komisi</th>
                                     </tr>
                                 </thead>
 
                                 <tbody>
                                     <tr>
                                         <td>1</td>
-                                        <td style="text-align: left; font-weight: bold; padding-left: 6px;" id="slip-nama">Muhammad Fejri Febriyan</td>
+                                        <td style="text-align: left; font-weight: bold; padding-left: 4px;" id="slip-nama">Muhammad Fejri Febriyan</td>
                                         <td>Staff</td>
-                                        <td id="slip-periode">-</td>
+                                        <td id="slip-periode" style="font-size: 7.5px;">-</td>
                                         <td style="font-weight: bold; color: #2563eb;" id="slip-hk">0 Hari</td>
                                         <td style="font-weight: bold; color: #7e22ce;" id="slip-izin">0 Hari</td>
                                         <td style="font-weight: bold; color: #ca8a04;" id="slip-alfa">0 Hari</td>
                                         <td style="font-weight: bold; color: #e11d48;" id="slip-telat">0 Kali</td>
-                                        <td id="slip-point" style="font-weight: bold; color: #16a34a;">0 Point</td>
+                                        <td id="slip-point" style="font-weight: bold; color: #16a34a;">0 Pt</td>
                                         <td id="slip-tamu" style="font-weight: bold; color: #d97706;">0 Tamu</td>
                                     </tr>
                                 </tbody>
@@ -998,8 +999,8 @@
                                         <th style="width: 20%;">Upah Pokok</th>
                                         <th style="width: 20%;">Rp Point</th>
                                         <th style="width: 20%;">Rp Komisi</th>
-                                        <th style="width: 20%; color: #991b1b;">Total Potongan</th>
-                                        <th style="width: 20%; color: #1e3a8a;">Gaji Bersih (Net)</th>
+                                        <th style="width: 20%; color: #991b1b;">Potongan</th>
+                                        <th style="width: 20%; color: #1e3a8a;">Gaji Bersih</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -1008,26 +1009,26 @@
                                         <td id="slip-total-point" style="font-weight: 600;">Rp0</td>
                                         <td id="slip-total-komisi" style="font-weight: 600;">Rp0</td>
                                         <td style="font-weight: bold; color: #dc2626; background: #fef2f2;" id="slip-total-denda">Rp0</td>
-                                        <td style="font-weight: 800; font-size: 11px; color: #1e3a8a; background: #eff6ff;" id="slip-grand-total">Rp0</td>
+                                        <td style="font-weight: 800; font-size: 10px; color: #1e3a8a; background: #eff6ff;" id="slip-grand-total">Rp0</td>
                                     </tr>
                                 </tbody>
                             </table>
 
                             <div class="signature-grid">
                                 <div class="signature-box">
-                                    <div class="signature-title">Disetujui oleh</div>
+                                    <div class="signature-title">Disetujui</div>
                                     <div class="signature-space"></div>
                                     <div class="signature-footer">Finance</div>
                                 </div>
                                 <div class="signature-box">
-                                    <div class="signature-title">Mengetahui Oleh</div>
+                                    <div class="signature-title">Mengetahui</div>
                                     <div class="signature-space"></div>
-                                    <div class="signature-footer">Project Cordinator</div>
+                                    <div class="signature-footer">Coordinator</div>
                                 </div>
                                 <div class="signature-box">
-                                    <div class="signature-title">Diperiksa Oleh</div>
+                                    <div class="signature-title">Diperiksa</div>
                                     <div class="signature-space"></div>
-                                    <div class="signature-footer">Project Manager</div>
+                                    <div class="signature-footer">Manager</div>
                                 </div>
                                 <div class="signature-box">
                                     <div class="signature-title">Diterima</div>
@@ -1777,15 +1778,15 @@
             }
         }
 
-        // Pengaturan PDF agar tampil FULL tanpa terpotong
+        // Pengaturan PDF diubah ke PORTRAIT agar muat penuh 1 halaman tanpa terpotong
         function downloadSlipPDF() {
             const element = document.getElementById('slip-pdf-wrapper');
             const opt = {
                 margin: [5, 5, 5, 5],
                 filename: `SLIP_GAJI_CV_WIJAYA_GRUP.pdf`,
                 image: { type: 'jpeg', quality: 0.98 },
-                html2canvas: { scale: 2, useCORS: true, letterRendering: true, windowWidth: 800 },
-                jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' }
+                html2canvas: { scale: 2, useCORS: true, letterRendering: true, windowWidth: 550 },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
             };
             html2pdf().set(opt).from(element).save();
         }
