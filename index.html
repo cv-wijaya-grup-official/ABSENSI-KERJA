@@ -1072,13 +1072,23 @@
                         </div>
                     </div>
 
-                    <div class="stat-card">
+                                        <div class="stat-card">
                         <div class="stat-icon" style="background: #581c87; color: #c084fc;">
                             <i class="fa-solid fa-bed"></i>
                         </div>
                         <div class="stat-info">
-                            <div class="title">Total Izin/Alfa</div>
+                            <div class="title">Total Izin</div>
                             <div class="value" id="hk-val-izin">0 Hari</div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: #450a0a; color: #f87171;">
+                            <i class="fa-solid fa-user-xmark"></i>
+                        </div>
+                        <div class="stat-info">
+                            <div class="title">Total Alfa</div>
+                            <div class="value" id="hk-val-alfa">0 Hari</div>
                         </div>
                     </div>
 
@@ -1176,7 +1186,7 @@
     <!-- ==================== LOGIKA JAVASCRIPT ==================== -->
     <script>
         // URL WEB APP GAS ANDA
-        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzYNCiNWPwN0SYkvN6YDqohIaUB6sddpQqcSItr0KyOxMbvKIpxPCeZPEeubo46OkaqMg/exec';
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyHi6R2O9Jf0-ZVMlVY4dvvT5bEKsC2OwqWiu2NNeAZi03I3OoXmTm_2xq9TdTkqNSvjw/exec';
 
         const TARGET_LAT = -6.7220192;
         const TARGET_LNG = 108.5364692;
@@ -1549,9 +1559,10 @@
                 document.getElementById('hk-val-tamu').innerText = (res.totalTamu || 0) + " Tamu";
                 document.getElementById('hk-val-sakit').innerText = (res.totalSakit || 0) + " Hari";
                 
-                document.getElementById('hk-val-point').innerText = (res.totalPoint || 0) + " Point";
-                document.getElementById('hk-val-izin').innerText = (res.totalIzinAlfa || 0) + " Hari";
-                document.getElementById('hk-val-telat').innerText = (res.totalTelat || 0) + " Kali";
+   document.getElementById('hk-val-point').innerText = (res.totalPoint || 0) + " Point";
+document.getElementById('hk-val-izin').innerText = (res.totalIzin || 0) + " Hari";
+document.getElementById('hk-val-alfa').innerText = (res.totalAlfa || 0) + " Hari";
+document.getElementById('hk-val-telat').innerText = (res.totalTelat || 0) + " Kali";
                 document.getElementById('hk-ket-telat').innerText = res.detailTelat || "-";
             }
         }
