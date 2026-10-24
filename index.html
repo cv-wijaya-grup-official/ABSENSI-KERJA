@@ -394,6 +394,38 @@
             display: none !important;
         }
 
+        /* Custom Neon Pulse Modal Popup */
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 15px rgba(56, 189, 248, 0.4); border-color: #38bdf8; }
+            50% { box-shadow: 0 0 35px rgba(56, 189, 248, 0.9); border-color: #60a5fa; }
+            100% { box-shadow: 0 0 15px rgba(56, 189, 248, 0.4); border-color: #38bdf8; }
+        }
+
+        .custom-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(11, 19, 41, 0.85);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            padding: 20px;
+        }
+
+        .custom-modal-box {
+            background: #111c3a;
+            border: 2px solid #38bdf8;
+            border-radius: 16px;
+            padding: 24px;
+            width: 100%;
+            max-width: 360px;
+            text-align: center;
+            animation: pulseGlow 2s infinite ease-in-out;
+        }
+
         /* Bottom Nav Bar */
         .bottom-nav {
             position: fixed;
@@ -693,24 +725,24 @@
         .history-table {
             width: 100%;
             border-collapse: collapse;
-            min-width: 320px;
+            min-width: 400px;
             text-align: left;
         }
         
         .history-table th {
             background: #1e293b;
             color: #94a3b8;
-            font-size: 10px;
-            padding: 10px 8px;
+            font-size: 8.5px;
+            padding: 10px 4px;
             border-bottom: 1px solid #334155;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
         
         .history-table td {
-            padding: 8px;
+            padding: 8px 4px;
             border-bottom: 1px solid #1e293b;
-            font-size: 11px;
+            font-size: 10px;
             color: #cbd5e1;
             vertical-align: middle;
         }
@@ -723,25 +755,26 @@
             font-weight: 700;
             color: #fff;
             white-space: nowrap;
+            font-size: 9.5px;
         }
         
         .td-photo img {
-            width: 36px;
-            height: 36px;
-            border-radius: 8px;
+            width: 30px;
+            height: 30px;
+            border-radius: 6px;
             object-fit: cover;
             border: 1px solid #334155;
         }
         
         .td-photo .photo-fallback {
-            width: 36px;
-            height: 36px;
-            border-radius: 8px;
+            width: 30px;
+            height: 30px;
+            border-radius: 6px;
             background: #1e293b;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 14px;
+            font-size: 11px;
             color: #64748b;
         }
         
@@ -750,11 +783,12 @@
         }
         
         .td-status .badge {
-            font-size: 9px;
+            font-size: 8px;
             font-weight: 700;
-            padding: 3px 6px;
-            border-radius: 6px;
+            padding: 2px 4px;
+            border-radius: 4px;
             display: inline-block;
+            margin-bottom: 2px;
         }
         
         .td-status .hadir { background: #064e3b; color: #34d399; border: 1px solid #047857; }
@@ -764,10 +798,9 @@
         .td-status .alfa { background: #450a0a; color: #ef4444; border: 1px solid #7f1d1d; }
         
         .td-time {
-            font-size: 10px;
+            font-size: 9px;
             color: #94a3b8;
-            line-height: 1.4;
-            margin-top: 4px;
+            line-height: 1.3;
         }
     </style>
 </head>
@@ -1069,7 +1102,8 @@
                             <thead>
                                 <tr>
                                     <th>TANGGAL</th>
-                                    <th style="text-align: center;">FOTO</th>
+                                    <th style="text-align: center;">FOTO MASUK</th>
+                                    <th style="text-align: center;">FOTO PULANG</th>
                                     <th>STATUS</th>
                                 </tr>
                             </thead>
@@ -1233,6 +1267,20 @@
         </div>
     </div>
 
+    <!-- CUSTOM NEON MODAL POPUP -->
+    <div id="custom-modal-popup" class="custom-modal-overlay hidden">
+        <div class="custom-modal-box">
+            <div id="custom-modal-icon" style="font-size: 32px; color: #38bdf8; margin-bottom: 10px;">
+                <i class="fa-solid fa-circle-check"></i>
+            </div>
+            <h3 id="custom-modal-title" style="font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 8px;">Informasi Presensi</h3>
+            <p id="custom-modal-message" style="font-size: 12px; color: #cbd5e1; margin-bottom: 20px; line-height: 1.4;"></p>
+            <button class="btn" onclick="closeCustomModal()" style="background: #2563eb; width: 100%; padding: 10px; border-radius: 10px; font-weight: 600; cursor: pointer;">
+                OK
+            </button>
+        </div>
+    </div>
+
     <!-- ==================== LOGIKA JAVASCRIPT ==================== -->
     <script>
         const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwvBK9S9363pOfMg7TIueyv_Z0l11db5jeorFPFUi98BB94sxDY0lN9QJiU_1WZuzqfQw/exec';
@@ -1304,8 +1352,19 @@
         }
 
         // ==========================================
-        // LOGIKA NOTIFIKASI & POP-UP
+        // LOGIKA NOTIFIKASI & MODAL CUSTOM NEON
         // ==========================================
+        function showCustomModal(title, message) {
+            const modal = document.getElementById('custom-modal-popup');
+            document.getElementById('custom-modal-title').innerText = title;
+            document.getElementById('custom-modal-message').innerText = message;
+            modal.classList.remove('hidden');
+        }
+
+        function closeCustomModal() {
+            document.getElementById('custom-modal-popup').classList.add('hidden');
+        }
+
         function addNotification(title, message, time, status) {
             const notif = { title, message, time, status, date: new Date().toLocaleDateString('id-ID', {day: 'numeric', month: 'short', year: 'numeric'}) };
             appNotifications.unshift(notif);
@@ -1589,7 +1648,7 @@
             }
         }
 
-        // Fungsi Absen dengan Proteksi Tombol & Pop-up Notifikasi
+        // Fungsi Absen dengan Proteksi Tombol & Pop-up Custom Neon
         async function submitAbsen(tipe) {
             if (!currentLat || !currentLng) {
                 showStatus('absen-status', 'Gagal: Koordinat GPS belum terdeteksi!', 'error');
@@ -1615,14 +1674,19 @@
             if (res.success) {
                 showStatus('absen-status', res.message, 'success');
                 
-                alert(res.message);
+                // Menampilkan Modal Custom Menyala Berdenyut
+                showCustomModal(`Presensi ${tipe} Berhasil`, res.message);
 
                 const timeNow = new Date().toLocaleTimeString('id-ID', { hour12: false });
                 const statusKeterangan = res.message.includes(':') ? res.message.split(':')[1].trim() : 'Berhasil';
                 addNotification(`Absen ${tipe} Berhasil`, `Anda telah berhasil melakukan pencatatan absen ${tipe.toLowerCase()}.`, timeNow, statusKeterangan);
 
+                // Refresh history otomatis setelah absen
+                setTimeout(() => { loadHistory31Days(); }, 1500);
+
             } else {
                 showStatus('absen-status', res.message, 'error');
+                showCustomModal("Gagal Presensi", res.message);
                 if (res.applyDendaPulangAwal) {
                     callGAS('recordPulangAwalViolation');
                 }
@@ -1639,9 +1703,11 @@
 
             if (res.success) {
                 showStatus('izin-status', res.message, 'success');
+                showCustomModal("Pengajuan Izin", res.message);
                 document.getElementById('alasan-izin').value = '';
             } else {
                 showStatus('izin-status', res.message, 'error');
+                showCustomModal("Gagal Izin", res.message);
             }
         }
 
@@ -1684,7 +1750,7 @@
 
         // Helper untuk mengubah Google Drive URL agar bisa langsung dirender & dibuka
         function getDriveDirectUrl(url) {
-            if (!url || url === "-") return "";
+            if (!url || url === "-" || url === "") return "";
             if (url.includes("drive.google.com/file/d/")) {
                 const match = url.match(/\/d\/(.*?)\//);
                 if (match && match[1]) {
@@ -1692,6 +1758,25 @@
                 }
             }
             return url;
+        }
+
+        // Helper untuk memformat waktu ke 24 jam (Jam:Menit:Detik) yang bersih dari format UTC
+        function formatTimeOnly(timeStr) {
+            if (!timeStr || timeStr === "-" || timeStr === "") return "-";
+            
+            // Jika string mengandung waktu standar ISO atau format Date
+            if (timeStr.includes("T") || timeStr.includes("Z") || timeStr.includes("1899-") || timeStr.includes("-")) {
+                const date = new Date(timeStr);
+                if (!isNaN(date.getTime())) {
+                    const h = String(date.getHours()).padStart(2, '0');
+                    const m = String(date.getMinutes()).padStart(2, '0');
+                    const s = String(date.getSeconds()).padStart(2, '0');
+                    return `${h}:${m}:${s}`;
+                }
+            }
+            
+            // Jika string sudah format waktu jam, bersihkan jika ada karakter berlebih
+            return timeStr;
         }
 
         function renderHistoryTable(filterType) {
@@ -1707,7 +1792,7 @@
             if (filteredData.length === 0) {
                 tBody.innerHTML = `
                     <tr>
-                        <td colspan="3" style="text-align:center; padding: 20px;">
+                        <td colspan="4" style="text-align:center; padding: 20px;">
                             Tidak ada catatan ${filterType !== "SEMUA" ? filterType.toLowerCase() : "absen"} ditemukan.
                         </td>
                     </tr>
@@ -1732,19 +1817,33 @@
                     badgeClass = "alfa"; badgeText = "Alfa";
                 }
 
-                let directFotoUrl = getDriveDirectUrl(item.foto);
-                let fotoHtml = directFotoUrl 
-                    ? `<a href="${directFotoUrl}" target="_blank" title="Ketuk untuk buka foto"><img src="${directFotoUrl}" alt="Foto Absen"></a>` 
+                // Foto Masuk (Mendukung properti foto, fotoMasuk, atau fotoIn)
+                let rawFotoMasuk = item.foto || item.fotoMasuk || item.fotoIn || "-";
+                let directFotoMasuk = getDriveDirectUrl(rawFotoMasuk);
+                let fotoMasukHtml = directFotoMasuk 
+                    ? `<a href="${directFotoMasuk}" target="_blank" title="Buka Foto Masuk"><img src="${directFotoMasuk}" alt="Foto Masuk"></a>` 
                     : `<div class="photo-fallback"><i class="fa-solid fa-image"></i></div>`;
+
+                // Foto Pulang (Mendukung properti fotoPulang, fotoOut, atau fotoKeluar)
+                let rawFotoPulang = item.fotoPulang || item.fotoOut || item.fotoKeluar || "-";
+                let directFotoPulang = getDriveDirectUrl(rawFotoPulang);
+                let fotoPulangHtml = directFotoPulang 
+                    ? `<a href="${directFotoPulang}" target="_blank" title="Buka Foto Pulang"><img src="${directFotoPulang}" alt="Foto Pulang"></a>` 
+                    : `<div class="photo-fallback"><i class="fa-solid fa-image"></i></div>`;
+
+                // Format Waktu In & Out 24 Jam
+                let inTimeFormatted = formatTimeOnly(item.masuk);
+                let outTimeFormatted = formatTimeOnly(item.pulang);
 
                 let rowHtml = `
                     <tr>
                         <td class="td-date">${item.tanggalDisplay}</td>
-                        <td class="td-photo" style="text-align: center;">${fotoHtml}</td>
+                        <td class="td-photo" style="text-align: center;">${fotoMasukHtml}</td>
+                        <td class="td-photo" style="text-align: center;">${fotoPulangHtml}</td>
                         <td class="td-status">
                             <span class="badge ${badgeClass}">${badgeText}</span>
                             <div class="td-time">
-                                In: ${item.masuk}<br>Out: ${item.pulang}
+                                In: ${inTimeFormatted}<br>Out: ${outTimeFormatted}
                             </div>
                         </td>
                     </tr>
@@ -1778,7 +1877,7 @@
             }
         }
 
-        // Pengaturan PDF diubah ke PORTRAIT agar muat penuh 1 halaman tanpa terpotong
+        // Pengaturan PDF Portrait
         function downloadSlipPDF() {
             const element = document.getElementById('slip-pdf-wrapper');
             const opt = {
