@@ -504,6 +504,19 @@
             margin-bottom: 2px;
         }
 
+        /* Notification Swipe Card Styles */
+        .notif-card-item {
+            background: #0f172a;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            transition: transform 0.2s ease, opacity 0.2s ease;
+            touch-action: pan-y;
+            user-select: none;
+            position: relative;
+            overflow: hidden;
+        }
+
         /* ========================================================
            DESAIN SLIP GAJI MODERN & ELEGAN (PORTRAIT OPTIMIZED)
            ======================================================== */
@@ -869,7 +882,7 @@
                 <!-- MODAL / MENU NOTIFIKASI -->
                 <div id="notif-modal" class="card hidden" style="position: absolute; top: 60px; left: 0; right: 0; z-index: 1000; max-height: 380px; overflow-y: auto; background: #1e293b; border: 1px solid #334155; box-shadow: 0 10px 25px rgba(0,0,0,0.5);">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; border-bottom: 1px solid #334155; padding-bottom: 8px;">
-                        <h3 style="font-size: 13px; color: #fff;"><i class="fa-solid fa-bell" style="color: #38bdf8;"></i> Riwayat Notifikasi Absen</h3>
+                        <h3 style="font-size: 13px; color: #fff;"><i class="fa-solid fa-bell" style="color: #38bdf8;"></i> Riwayat Notifikasi Absen (Geser untuk Hapus)</h3>
                         <i class="fa-solid fa-xmark" style="cursor: pointer; font-size: 16px; color: #94a3b8;" onclick="closeNotifications()"></i>
                     </div>
                     <div id="notif-list" style="font-size: 11px; color: #cbd5e1;">
@@ -1283,7 +1296,7 @@
 
     <!-- ==================== LOGIKA JAVASCRIPT ==================== -->
     <script>
-        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx3xwjSV3u7J6LPj0CsX1iW6eU9L-uoH_8mK8e-qyE9ZsTUtBRdqpP5hephRsGkJ-M6sg/exec';
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwu0VP8uYiYchza1elorvQ5BUa30CBixRSo9ovM002HQh5BODaDJc7b_o-szejs6lU-fQ/exec';
 
         const TARGET_LAT = -6.7220192;
         const TARGET_LNG = 108.5364692;
@@ -1380,6 +1393,53 @@
             }
         }
 
+        // SWIPE TO DELETE NOTIFICATION LOGIC
+        function setupNotificationSwipe() {
+            const items = document.querySelectorAll('.notif-card-item');
+            items.forEach((card, index) => {
+                let startX = 0;
+                let currentX = 0;
+                let isDragging = false;
+
+                card.addEventListener('touchstart', (e) => {
+                    startX = e.touches[0].clientX;
+                    isDragging = true;
+                    card.style.transition = 'none';
+                });
+
+                card.addEventListener('touchmove', (e) => {
+                    if (!isDragging) return;
+                    currentX = e.touches[0].clientX;
+                    let diffX = currentX - startX;
+                    card.style.transform = `translateX(${diffX}px)`;
+                    card.style.opacity = `${1 - Math.abs(diffX) / 200}`;
+                });
+
+                card.addEventListener('touchend', (e) => {
+                    if (!isDragging) return;
+                    isDragging = false;
+                    let diffX = currentX - startX;
+                    card.style.transition = 'transform 0.3s ease, opacity 0.3s ease';
+
+                    if (Math.abs(diffX) > 100) {
+                        // Geser lebih dari 100px: Hapus notifikasi
+                        card.style.transform = `translateX(${diffX > 0 ? 300 : -300}px)`;
+                        card.style.opacity = '0';
+                        setTimeout(() => {
+                            appNotifications.splice(index, 1);
+                            localStorage.setItem('app_notifications', JSON.stringify(appNotifications));
+                            updateNotificationBadge();
+                            openNotifications(); // Refresh list
+                        }, 300);
+                    } else {
+                        // Kembali ke posisi semula
+                        card.style.transform = 'translateX(0px)';
+                        card.style.opacity = '1';
+                    }
+                });
+            });
+        }
+
         function openNotifications() {
             const modal = document.getElementById('notif-modal');
             const list = document.getElementById('notif-list');
@@ -1390,16 +1450,18 @@
                 return;
             }
             
-            list.innerHTML = appNotifications.map(n => `
-                <div style="background: #0f172a; padding: 10px; border-radius: 8px; margin-bottom: 8px; border-left: 4px solid ${n.status.toLowerCase().includes('terlambat') || n.status.toLowerCase().includes('alfa') ? '#ef4444' : '#10b981'};">
+            list.innerHTML = appNotifications.map((n, index) => `
+                <div class="notif-card-item" data-index="${index}" style="border-left: 4px solid ${n.status.toLowerCase().includes('terlambat') || n.status.toLowerCase().includes('alfa') || n.status.toLowerCase().includes('belum') ? '#ef4444' : '#10b981'};">
                     <div style="font-weight: bold; color: #fff; margin-bottom: 2px; display: flex; justify-content: space-between;">
                         <span>${n.title}</span>
                         <span style="font-size: 10px; color: #94a3b8;">${n.date}</span>
                     </div>
                     <div style="color: #cbd5e1; margin-bottom: 4px;">${n.message}</div>
-                    <div style="font-size: 10px; color: #38bdf8;">🕒 Jam: <b>${n.time} WIB</b> | Status: <b style="color: ${n.status.toLowerCase().includes('terlambat') ? '#fca5a5' : '#34d399'};">${n.status}</b></div>
+                    <div style="font-size: 10px; color: #38bdf8;">🕒 Jam: <b>${n.time} WIB</b> | Status: <b style="color: ${n.status.toLowerCase().includes('terlambat') || n.status.toLowerCase().includes('belum') ? '#fca5a5' : '#34d399'};">${n.status}</b></div>
                 </div>
             `).join('');
+
+            setupNotificationSwipe();
         }
 
         function closeNotifications() {
@@ -1750,18 +1812,14 @@
             return url;
         }
 
-        // AMBIL TEKS MENTAH DARI SHEET TANPA KONVERSI APAPUN
         function formatTimeOnly(timeStr) {
             if (!timeStr || timeStr === "-" || timeStr === "") return "-";
-            
-            // Jika string dari sheet mengandung format tanggal/ISO, potong ambil bagian jamnya saja secara mentah
             if (timeStr.includes("T")) {
                 const parts = timeStr.split("T");
                 if (parts.length > 1) {
-                    return parts[1].split(".")[0]; // Ambil format HH:mm:ss mentah
+                    return parts[1].split(".")[0];
                 }
             }
-            
             return timeStr;
         }
 
@@ -1794,7 +1852,7 @@
                 let badgeText = "Hadir";
                 
                 if (item.kategori === "TERLAMBAT") {
-                    badgeClass = "terlambat"; badgeText = "Terlambat";
+                    badgeClass = "terlambat"; badgeText = "Terlambat / Dini";
                 } else if (item.kategori === "IZIN") {
                     badgeClass = "izin"; badgeText = "Izin";
                 } else if (item.kategori === "SAKIT") {
