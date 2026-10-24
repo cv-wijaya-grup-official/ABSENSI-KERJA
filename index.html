@@ -472,23 +472,63 @@
             margin-bottom: 2px;
         }
 
-        /* Slip Gaji & Custom Scroll */
+        /* ========================================================
+           DESAIN SLIP GAJI MODERN & ELEGAN
+           ======================================================== */
         .slip-scroll-container {
             width: 100%;
             overflow-x: auto;
             border: 1px solid #334155;
-            border-radius: 8px;
-            background: #fff;
+            border-radius: 12px;
+            background: #ffffff;
             margin-bottom: 14px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         }
 
         #slip-pdf-wrapper {
             background: #ffffff;
-            padding: 12px;
-            color: #000;
-            font-family: Arial, sans-serif;
-            font-size: 10px;
+            padding: 20px;
+            color: #1e293b;
+            font-family: 'Inter', Arial, sans-serif;
+            font-size: 10.5px;
             min-width: 760px;
+        }
+
+        .header-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 12px;
+        }
+
+        .header-table td {
+            border-bottom: 1px solid #cbd5e1;
+            border-right: 1px solid #cbd5e1;
+            padding: 8px 10px;
+            font-weight: bold;
+            text-align: center;
+            background: #f8fafc;
+            color: #334155;
+        }
+
+        .header-table td:last-child {
+            border-right: none;
+        }
+
+        .slip-section-header {
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            color: #ffffff;
+            font-weight: 700;
+            text-align: center;
+            padding: 6px;
+            font-size: 10.5px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            border-radius: 6px 6px 0 0;
+            margin-top: 10px;
         }
 
         .slip-table {
@@ -498,44 +538,37 @@
             text-align: center;
         }
 
-        .slip-table th,
-        .slip-table td {
-            border: 1px solid #000;
-            padding: 5px 3px;
+        .slip-table th {
+            background: #f1f5f9;
+            color: #475569;
+            font-weight: 700;
+            border: 1px solid #cbd5e1;
+            padding: 7px 4px;
             font-size: 9.5px;
+            text-transform: uppercase;
         }
 
-        .slip-section-header {
-            background-color: #d9ea22;
-            font-weight: bold;
-            text-align: center;
-            border: 1px solid #000;
-            padding: 4px;
+        .slip-table td {
+            border: 1px solid #cbd5e1;
+            padding: 7px 4px;
             font-size: 10px;
-        }
-
-        .header-table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        .header-table td {
-            border: 1px solid #000;
-            padding: 6px;
-            font-weight: bold;
-            text-align: center;
+            color: #1e293b;
+            background: #ffffff;
         }
 
         .signature-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            border: 1px solid #000;
-            margin-top: -1px;
+            border: 1px solid #cbd5e1;
+            margin-top: 12px;
             text-align: center;
+            border-radius: 0 0 8px 8px;
+            overflow: hidden;
         }
 
         .signature-box {
-            border-right: 1px solid #000;
+            border-right: 1px solid #cbd5e1;
+            background: #ffffff;
         }
 
         .signature-box:last-child {
@@ -543,22 +576,25 @@
         }
 
         .signature-title {
-            font-weight: bold;
-            border-bottom: 1px solid #000;
-            padding: 3px;
+            font-weight: 700;
+            background: #f1f5f9;
+            border-bottom: 1px solid #cbd5e1;
+            padding: 5px;
             font-size: 9.5px;
+            color: #475569;
         }
 
         .signature-space {
-            height: 35px;
+            height: 40px;
         }
 
         .signature-footer {
-            background: #dcfce7;
-            border-top: 1px solid #000;
-            padding: 4px 2px;
-            font-weight: bold;
+            background: #f0fdf4;
+            border-top: 1px solid #cbd5e1;
+            padding: 5px 3px;
+            font-weight: 700;
             font-size: 8.5px;
+            color: #166534;
         }
 
         .status-msg {
@@ -895,7 +931,7 @@
 
                 <div id="hr-dashboard-box" class="hidden">
                     
-                    <!-- ==================== BAGIAN SLIP GAJI ==================== -->
+                    <!-- ==================== BAGIAN SLIP GAJI (MODERN DESIGN) ==================== -->
                     <div style="text-align: center; margin-bottom: 12px;">
                         <h3 style="font-size: 16px;">Slip Gaji Mingguan</h3>
                         <p style="font-size: 11px; color: #38bdf8;" id="slip-periode-label">Periode Kerja</p>
@@ -906,14 +942,16 @@
 
                             <table class="header-table">
                                 <tr>
-                                    <td style="width: 30%;">
-                                        SLIP GAJI MINGGUAN<br>
-                                        <span style="font-weight: normal; font-size: 8.5px;" id="slip-tgl-label">24 Oktober 2026</span>
+                                    <td style="width: 30%; background: #f1f5f9;">
+                                        <span style="font-size: 9px; color: #64748b; text-transform: uppercase;">Slip Gaji Mingguan</span><br>
+                                        <span style="font-size: 11px; color: #0f172a;" id="slip-tgl-label">24 Oktober 2026</span>
                                     </td>
-                                    <td style="width: 42%; font-size: 14px; color: #2563eb; font-weight: bold;">CV. WIJAYA.GRUP</td>
-                                    <td style="width: 28%; font-size: 8.5px; font-weight: normal;">
+                                    <td style="width: 42%; font-size: 14px; color: #2563eb; font-weight: 800; letter-spacing: 0.5px;">
+                                        CV. WIJAYA.GRUP
+                                    </td>
+                                    <td style="width: 28%; font-size: 8.5px; color: #64748b; background: #f1f5f9;">
                                         Dokumen Resmi Payroll<br>
-                                        <em>Confidential</em>
+                                        <strong style="color: #0f172a;">Confidential</strong>
                                     </td>
                                 </tr>
                             </table>
@@ -922,55 +960,55 @@
 
                             <table class="slip-table">
                                 <thead>
-                                    <tr style="background: #d9ea22;">
+                                    <tr>
                                         <th style="width: 4%;">NO</th>
                                         <th style="width: 17%;">Nama</th>
                                         <th style="width: 9%;">Jabatan</th>
                                         <th style="width: 17%;">Periode</th>
-                                        <th style="width: 9%; background: #93c5fd;">Total Masuk</th>
-                                        <th style="width: 9%; background: #c084fc;">Total Izin</th>
-                                        <th style="width: 9%; background: #fef08a;">Total Alfa</th>
-                                        <th style="width: 9%; background: #fca5a5;">Total Telat</th>
-                                        <th style="width: 9%; background: #86efac;">Total Point</th>
-                                        <th style="width: 9%; background: #fde047;">Total Komisi</th>
+                                        <th style="width: 9%;">Total Masuk</th>
+                                        <th style="width: 9%;">Total Izin</th>
+                                        <th style="width: 9%;">Total Alfa</th>
+                                        <th style="width: 9%;">Total Telat</th>
+                                        <th style="width: 9%;">Total Point</th>
+                                        <th style="width: 9%;">Total Komisi</th>
                                     </tr>
                                 </thead>
 
                                 <tbody>
                                     <tr>
                                         <td>1</td>
-                                        <td style="text-align: left; font-weight: bold; padding-left: 4px;" id="slip-nama">Muhammad Fejri Febriyan</td>
+                                        <td style="text-align: left; font-weight: bold; padding-left: 6px;" id="slip-nama">Muhammad Fejri Febriyan</td>
                                         <td>Staff</td>
                                         <td id="slip-periode">-</td>
-                                        <td style="font-weight: bold; background: #eff6ff;" id="slip-hk">0 Hari</td>
-                                        <td style="font-weight: bold; background: #f5f3ff; color: #7e22ce;" id="slip-izin">0 Hari</td>
-                                        <td style="font-weight: bold; background: #fefce8; color: #ca8a04;" id="slip-alfa">0 Hari</td>
-                                        <td style="font-weight: bold; background: #fff1f2; color: #e11d48;" id="slip-telat">0 Kali</td>
-                                        <td id="slip-point">0 Point</td>
-                                        <td id="slip-tamu">0 Tamu</td>
+                                        <td style="font-weight: bold; color: #2563eb;" id="slip-hk">0 Hari</td>
+                                        <td style="font-weight: bold; color: #7e22ce;" id="slip-izin">0 Hari</td>
+                                        <td style="font-weight: bold; color: #ca8a04;" id="slip-alfa">0 Hari</td>
+                                        <td style="font-weight: bold; color: #e11d48;" id="slip-telat">0 Kali</td>
+                                        <td id="slip-point" style="font-weight: bold; color: #16a34a;">0 Point</td>
+                                        <td id="slip-tamu" style="font-weight: bold; color: #d97706;">0 Tamu</td>
                                     </tr>
                                 </tbody>
                             </table>
 
-                            <div class="slip-section-header" style="margin-top: -1px;">Rincian Upah & Hasil Akhir</div>
+                            <div class="slip-section-header">Rincian Upah & Hasil Akhir</div>
 
                             <table class="slip-table">
                                 <thead>
-                                    <tr style="background: #d9ea22;">
-                                        <th style="width: 10%;">Upah Pokok</th>
-                                        <th style="width: 10%;">Rp Point</th>
-                                        <th style="width: 11%;">Rp Komisi</th>
-                                        <th style="width: 13%; background: #fecaca; color: #991b1b;">Total Potongan</th>
-                                        <th style="width: 16%; background: #bfdbfe; color: #1e3a8a;">Gaji Bersih (Net)</th>
+                                    <tr>
+                                        <th style="width: 20%;">Upah Pokok</th>
+                                        <th style="width: 20%;">Rp Point</th>
+                                        <th style="width: 20%;">Rp Komisi</th>
+                                        <th style="width: 20%; color: #991b1b;">Total Potongan</th>
+                                        <th style="width: 20%; color: #1e3a8a;">Gaji Bersih (Net)</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td id="slip-total-hk">Rp0</td>
-                                        <td id="slip-total-point">Rp0</td>
-                                        <td id="slip-total-komisi">Rp0</td>
-                                        <td style="font-weight: bold; background: #fef2f2; color: #dc2626;" id="slip-total-denda">Rp0</td>
-                                        <td style="font-weight: bold; font-size: 11px; background: #bfdbfe; color: #1e3a8a;" id="slip-grand-total">Rp0</td>
+                                        <td id="slip-total-hk" style="font-weight: 600;">Rp0</td>
+                                        <td id="slip-total-point" style="font-weight: 600;">Rp0</td>
+                                        <td id="slip-total-komisi" style="font-weight: 600;">Rp0</td>
+                                        <td style="font-weight: bold; color: #dc2626; background: #fef2f2;" id="slip-total-denda">Rp0</td>
+                                        <td style="font-weight: 800; font-size: 11.5px; color: #1e3a8a; background: #eff6ff;" id="slip-grand-total">Rp0</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -987,14 +1025,14 @@
                                     <div class="signature-footer">Project Cordinator</div>
                                 </div>
                                 <div class="signature-box">
-                                    <div class="signature-title">Dipriksa Oleh</div>
+                                    <div class="signature-title">Diperiksa Oleh</div>
                                     <div class="signature-space"></div>
                                     <div class="signature-footer">Project Manager</div>
                                 </div>
                                 <div class="signature-box">
                                     <div class="signature-title">Diterima</div>
                                     <div class="signature-space"></div>
-                                    <div class="signature-footer">DANA : 082262839119<br>Pegawai</div>
+                                    <div class="signature-footer">DANA: 082262839119<br>Pegawai</div>
                                 </div>
                             </div>
                         </div>
@@ -1196,7 +1234,7 @@
 
     <!-- ==================== LOGIKA JAVASCRIPT ==================== -->
     <script>
-        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw-HcixO7pUCY9X5EWqzvc8wYJNvljDXbJZ8DAJVoNeV7H-dR_ftMIlIUcpmGydl3zPWA/exec';
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwvBK9S9363pOfMg7TIueyv_Z0l11db5jeorFPFUi98BB94sxDY0lN9QJiU_1WZuzqfQw/exec';
 
         const TARGET_LAT = -6.7220192;
         const TARGET_LNG = 108.5364692;
@@ -1485,13 +1523,17 @@
             }
         }
 
+        // FOTO DENGAN AUTO-COMPRESS & WATERMARK
         function capturePhotoWithWatermark() {
             const video = document.getElementById('webcam');
             const canvas = document.createElement('canvas');
-            canvas.width = video.videoWidth || 640;
-            canvas.height = video.videoHeight || 640;
+            
+            const maxWidth = 480;
+            const scale = maxWidth / (video.videoWidth || 640);
+            canvas.width = maxWidth;
+            canvas.height = (video.videoHeight || 640) * scale;
+            
             const ctx = canvas.getContext('2d');
-
             ctx.translate(canvas.width, 0);
             ctx.scale(-1, 1);
             ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
@@ -1503,20 +1545,20 @@
             const coordsStr = currentLat && currentLng ? `(${currentLat.toFixed(6)}, ${currentLng.toFixed(6)})` : '';
 
             ctx.fillStyle = "rgba(15, 23, 42, 0.85)";
-            ctx.fillRect(12, canvas.height - 68, canvas.width - 24, 56);
+            ctx.fillRect(12, canvas.height - 50, canvas.width - 24, 42);
 
             ctx.fillStyle = "#38bdf8";
-            ctx.fillRect(12, canvas.height - 68, 6, 56);
+            ctx.fillRect(12, canvas.height - 50, 4, 42);
 
             ctx.fillStyle = "#ffffff";
-            ctx.font = "bold 13px Inter, Arial, sans-serif";
-            ctx.fillText(`📍 ${currentAddress} ${coordsStr}`, 26, canvas.height - 44);
+            ctx.font = "bold 10px Inter, Arial, sans-serif";
+            ctx.fillText(`📍 ${currentAddress} ${coordsStr}`, 20, canvas.height - 32);
 
             ctx.fillStyle = "#cbd5e1";
-            ctx.font = "12px Inter, Arial, sans-serif";
-            ctx.fillText(`🕒 ${dateStr} - ${timeStr} WIB`, 26, canvas.height - 22);
+            ctx.font = "9px Inter, Arial, sans-serif";
+            ctx.fillText(`🕒 ${dateStr} - ${timeStr} WIB`, 20, canvas.height - 14);
 
-            return canvas.toDataURL('image/jpeg', 0.88);
+            return canvas.toDataURL('image/jpeg', 0.6);
         }
 
         function selectIzinCategory(type, element) {
@@ -1558,7 +1600,6 @@
                 return;
             }
 
-            // Kunci tombol agar tidak bisa diklik 2x
             const btnClass = tipe === 'MASUK' ? '.btn-absen-masuk' : '.btn-absen-pulang';
             const actionBtn = document.querySelector(btnClass);
             if (actionBtn) actionBtn.disabled = true;
@@ -1573,10 +1614,8 @@
             if (res.success) {
                 showStatus('absen-status', res.message, 'success');
                 
-                // Munculkan Pop-up Berhasil
                 alert(res.message);
 
-                // Masukkan ke Menu Notifikasi
                 const timeNow = new Date().toLocaleTimeString('id-ID', { hour12: false });
                 const statusKeterangan = res.message.includes(':') ? res.message.split(':')[1].trim() : 'Berhasil';
                 addNotification(`Absen ${tipe} Berhasil`, `Anda telah berhasil melakukan pencatatan absen ${tipe.toLowerCase()}.`, timeNow, statusKeterangan);
@@ -1642,6 +1681,18 @@
             renderHistoryTable(type);
         }
 
+        // Helper untuk mengubah Google Drive URL agar bisa langsung dirender & dibuka
+        function getDriveDirectUrl(url) {
+            if (!url || url === "-") return "";
+            if (url.includes("drive.google.com/file/d/")) {
+                const match = url.match(/\/d\/(.*?)\//);
+                if (match && match[1]) {
+                    return `https://lh3.googleusercontent.com/d/${match[1]}`;
+                }
+            }
+            return url;
+        }
+
         function renderHistoryTable(filterType) {
             const tBody = document.getElementById('history-table-body');
             tBody.innerHTML = "";
@@ -1680,8 +1731,9 @@
                     badgeClass = "alfa"; badgeText = "Alfa";
                 }
 
-                let fotoHtml = item.foto && item.foto !== "-" 
-                    ? `<img src="${item.foto}" alt="Foto Absen">` 
+                let directFotoUrl = getDriveDirectUrl(item.foto);
+                let fotoHtml = directFotoUrl 
+                    ? `<a href="${directFotoUrl}" target="_blank" title="Ketuk untuk buka foto"><img src="${directFotoUrl}" alt="Foto Absen"></a>` 
                     : `<div class="photo-fallback"><i class="fa-solid fa-image"></i></div>`;
 
                 let rowHtml = `
@@ -1725,13 +1777,14 @@
             }
         }
 
+        // Pengaturan PDF agar pas memenuhi ukuran kertas landscape
         function downloadSlipPDF() {
             const element = document.getElementById('slip-pdf-wrapper');
             const opt = {
                 margin: [5, 5, 5, 5],
                 filename: `SLIP_GAJI_CV_WIJAYA_GRUP.pdf`,
                 image: { type: 'jpeg', quality: 0.98 },
-                html2canvas: { scale: 2, useCORS: true },
+                html2canvas: { scale: 3, useCORS: true, letterRendering: true },
                 jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' }
             };
             html2pdf().set(opt).from(element).save();
