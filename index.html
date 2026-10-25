@@ -532,9 +532,9 @@
                         </div>
                     </div>
 
-                    <!-- KONTAINER SLIP GAJI LANDSCAPE 4:3 -->
-                    <div style="width: 100%; overflow-x: auto; margin-bottom: 14px; background: #ffffff; border-radius: 12px; padding: 4px;">
-                        <div id="slip-pdf-wrapper" style="background: white; color: #0f172a; padding: 16px; width: 100%; max-width: 1152px; aspect-ratio: 4 / 3; display: flex; flex-direction: column; justify-content: space-between; box-sizing: border-box; font-family: 'Inter', sans-serif;">
+                    <!-- KONTAINER SLIP GAJI LANDSCAPE 4:3 (DENGAN SCROLL HORIZONTAL AGAR UTUH) -->
+                    <div style="width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; margin-bottom: 14px; background: #ffffff; border-radius: 12px; padding: 4px;">
+                        <div id="slip-pdf-wrapper" style="background: white; color: #0f172a; padding: 20px; width: 1050px; min-width: 1050px; aspect-ratio: 4 / 3; display: flex; flex-direction: column; justify-content: space-between; box-sizing: border-box; font-family: 'Inter', sans-serif; margin: 0 auto;">
                             
                             <div>
                                 <!-- Header Slip -->
@@ -1261,7 +1261,7 @@
                 scale: 3,
                 useCORS: true,
                 letterRendering: true,
-                windowWidth: 1152
+                windowWidth: 1050
             }).then(canvas => {
                 const link = document.createElement('a');
                 link.download = `SLIP_GAJI_CV_WIJAYA_GRUP.jpg`;
@@ -1280,7 +1280,7 @@
                 scale: 2,
                 useCORS: true,
                 letterRendering: true,
-                windowWidth: 1152
+                windowWidth: 1050
             }).then(async function(canvas) {
                 const imgDataUri = canvas.toDataURL('image/jpeg', 1.0);
                 const res = await callGAS('sendSlipGajiEmail', { pdfDataUri: imgDataUri });
