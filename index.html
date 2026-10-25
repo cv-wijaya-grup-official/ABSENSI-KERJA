@@ -535,7 +535,7 @@
             padding: 10px;
             color: #1e293b;
             font-family: 'Inter', Arial, sans-serif;
-            font-size: 8.5px;
+            font-size: 8px;
             width: 100%;
             max-width: 550px;
         }
@@ -570,7 +570,7 @@
             font-weight: 700;
             text-align: center;
             padding: 4px;
-            font-size: 9px;
+            font-size: 8.5px;
             letter-spacing: 0.5px;
             text-transform: uppercase;
             border-radius: 4px 4px 0 0;
@@ -590,14 +590,14 @@
             font-weight: 700;
             border: 1px solid #cbd5e1;
             padding: 4px 2px;
-            font-size: 8px;
+            font-size: 7.5px;
             text-transform: uppercase;
         }
 
         .slip-table td {
             border: 1px solid #cbd5e1;
             padding: 4px 2px;
-            font-size: 8.5px;
+            font-size: 8px;
             color: #1e293b;
             background: #ffffff;
         }
@@ -626,12 +626,12 @@
             background: #f1f5f9;
             border-bottom: 1px solid #cbd5e1;
             padding: 3px;
-            font-size: 8px;
+            font-size: 7.5px;
             color: #475569;
         }
 
         .signature-space {
-            height: 28px;
+            height: 26px;
         }
 
         .signature-footer {
@@ -639,7 +639,7 @@
             border-top: 1px solid #cbd5e1;
             padding: 3px 2px;
             font-weight: 700;
-            font-size: 7.5px;
+            font-size: 7px;
             color: #166534;
         }
 
@@ -738,7 +738,7 @@
         .history-table {
             width: 100%;
             border-collapse: collapse;
-            min-width: 400px;
+            min-width: 480px;
             text-align: left;
         }
         
@@ -755,7 +755,7 @@
         .history-table td {
             padding: 8px 4px;
             border-bottom: 1px solid #1e293b;
-            font-size: 10px;
+            font-size: 9.5px;
             color: #cbd5e1;
             vertical-align: middle;
         }
@@ -768,26 +768,26 @@
             font-weight: 700;
             color: #fff;
             white-space: nowrap;
-            font-size: 9.5px;
+            font-size: 9px;
         }
         
         .td-photo img {
-            width: 30px;
-            height: 30px;
+            width: 28px;
+            height: 28px;
             border-radius: 6px;
             object-fit: cover;
             border: 1px solid #334155;
         }
         
         .td-photo .photo-fallback {
-            width: 30px;
-            height: 30px;
+            width: 28px;
+            height: 28px;
             border-radius: 6px;
             background: #1e293b;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 11px;
+            font-size: 10px;
             color: #64748b;
         }
         
@@ -795,8 +795,8 @@
             white-space: nowrap;
         }
         
-        .td-status .badge {
-            font-size: 8px;
+        .badge {
+            font-size: 7.5px;
             font-weight: 700;
             padding: 2px 4px;
             border-radius: 4px;
@@ -804,16 +804,19 @@
             margin-bottom: 2px;
         }
         
-        .td-status .hadir { background: #064e3b; color: #34d399; border: 1px solid #047857; }
-        .td-status .terlambat { background: #7f1d1d; color: #fca5a5; border: 1px solid #991b1b; }
-        .td-status .izin { background: #581c87; color: #d8b4fe; border: 1px solid #6b21a8; }
-        .td-status .sakit { background: #1e3a8a; color: #93c5fd; border: 1px solid #1e40af; }
-        .td-status .alfa { background: #450a0a; color: #ef4444; border: 1px solid #7f1d1d; }
+        .badge.hadir { background: #064e3b; color: #34d399; border: 1px solid #047857; }
+        .badge.terlambat { background: #7f1d1d; color: #fca5a5; border: 1px solid #991b1b; }
+        .badge.izin { background: #581c87; color: #d8b4fe; border: 1px solid #6b21a8; }
+        .badge.sakit { background: #1e3a8a; color: #93c5fd; border: 1px solid #1e40af; }
+        .badge.alfa { background: #450a0a; color: #ef4444; border: 1px solid #7f1d1d; }
+        .badge.tepat-waktu { background: #064e3b; color: #34d399; border: 1px solid #047857; }
+        .badge.pulang-awal { background: #7f1d1d; color: #fca5a5; border: 1px solid #991b1b; }
+        .badge.tidak-absen { background: #450a0a; color: #fca5a5; border: 1px solid #7f1d1d; }
         
         .td-time {
-            font-size: 9px;
+            font-size: 8.5px;
             color: #94a3b8;
-            line-height: 1.3;
+            line-height: 1.2;
         }
     </style>
 </head>
@@ -990,13 +993,13 @@
                             <table class="header-table">
                                 <tr>
                                     <td style="width: 30%; background: #f1f5f9;">
-                                        <span style="font-size: 8px; color: #64748b; text-transform: uppercase;">Slip Gaji</span><br>
-                                        <span style="font-size: 9.5px; color: #0f172a;" id="slip-tgl-label">24 Oktober 2026</span>
+                                        <span style="font-size: 7.5px; color: #64748b; text-transform: uppercase;">Slip Gaji</span><br>
+                                        <span style="font-size: 9px; color: #0f172a;" id="slip-tgl-label">24 Oktober 2026</span>
                                     </td>
-                                    <td style="width: 42%; font-size: 12px; color: #2563eb; font-weight: 800; letter-spacing: 0.5px;">
+                                    <td style="width: 42%; font-size: 11px; color: #2563eb; font-weight: 800; letter-spacing: 0.5px;">
                                         CV. WIJAYA.GRUP
                                     </td>
-                                    <td style="width: 28%; font-size: 7.5px; color: #64748b; background: #f1f5f9;">
+                                    <td style="width: 28%; font-size: 7px; color: #64748b; background: #f1f5f9;">
                                         Payroll Doc<br>
                                         <strong style="color: #0f172a;">Confidential</strong>
                                     </td>
@@ -1008,45 +1011,47 @@
                             <table class="slip-table">
                                 <thead>
                                     <tr>
-                                        <th style="width: 4%;">NO</th>
-                                        <th style="width: 17%;">Nama</th>
-                                        <th style="width: 9%;">Jabatan</th>
-                                        <th style="width: 17%;">Periode</th>
-                                        <th style="width: 9%;">Masuk</th>
-                                        <th style="width: 9%;">Izin</th>
-                                        <th style="width: 9%;">Alfa</th>
-                                        <th style="width: 9%;">Telat</th>
-                                        <th style="width: 9%;">Point</th>
-                                        <th style="width: 9%;">Komisi</th>
+                                        <th style="width: 3%;">NO</th>
+                                        <th style="width: 15%;">Nama</th>
+                                        <th style="width: 8%;">Jabatan</th>
+                                        <th style="width: 15%;">Periode</th>
+                                        <th style="width: 7%;">Masuk</th>
+                                        <th style="width: 7%;">Izin</th>
+                                        <th style="width: 7%;">Alfa</th>
+                                        <th style="width: 7%;">Telat</th>
+                                        <th style="width: 7%;">No Out</th>
+                                        <th style="width: 7%;">Point</th>
+                                        <th style="width: 8%;">Komisi</th>
                                     </tr>
                                 </thead>
 
                                 <tbody>
                                     <tr>
                                         <td>1</td>
-                                        <td style="text-align: left; font-weight: bold; padding-left: 4px;" id="slip-nama">Muhammad Fejri Febriyan</td>
+                                        <td style="text-align: left; font-weight: bold; padding-left: 3px;" id="slip-nama">Muhammad Fejri Febriyan</td>
                                         <td>Staff</td>
-                                        <td id="slip-periode" style="font-size: 7.5px;">-</td>
+                                        <td id="slip-periode" style="font-size: 7px;">-</td>
                                         <td style="font-weight: bold; color: #2563eb;" id="slip-hk">0 Hari</td>
                                         <td style="font-weight: bold; color: #7e22ce;" id="slip-izin">0 Hari</td>
                                         <td style="font-weight: bold; color: #ca8a04;" id="slip-alfa">0 Hari</td>
                                         <td style="font-weight: bold; color: #e11d48;" id="slip-telat">0 Kali</td>
+                                        <td style="font-weight: bold; color: #dc2626;" id="slip-no-pulang">0 Kali</td>
                                         <td id="slip-point" style="font-weight: bold; color: #16a34a;">0 Pt</td>
                                         <td id="slip-tamu" style="font-weight: bold; color: #d97706;">0 Tamu</td>
                                     </tr>
                                 </tbody>
                             </table>
 
-                            <div class="slip-section-header">Rincian Upah & Hasil Akhir</div>
+                            <div class="slip-section-header">Rincian Upah, Potongan & Hasil Akhir</div>
 
                             <table class="slip-table">
                                 <thead>
                                     <tr>
-                                        <th style="width: 20%;">Upah Pokok</th>
-                                        <th style="width: 20%;">Rp Point</th>
-                                        <th style="width: 20%;">Rp Komisi</th>
-                                        <th style="width: 20%; color: #991b1b;">Potongan</th>
-                                        <th style="width: 20%; color: #1e3a8a;">Gaji Bersih</th>
+                                        <th style="width: 18%;">Upah Pokok</th>
+                                        <th style="width: 15%;">Rp Point</th>
+                                        <th style="width: 15%;">Rp Komisi</th>
+                                        <th style="width: 22%; color: #991b1b;">Total Potongan</th>
+                                        <th style="width: 30%; color: #1e3a8a;">Gaji Bersih</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -1055,10 +1060,15 @@
                                         <td id="slip-total-point" style="font-weight: 600;">Rp0</td>
                                         <td id="slip-total-komisi" style="font-weight: 600;">Rp0</td>
                                         <td style="font-weight: bold; color: #dc2626; background: #fef2f2;" id="slip-total-denda">Rp0</td>
-                                        <td style="font-weight: 800; font-size: 10px; color: #1e3a8a; background: #eff6ff;" id="slip-grand-total">Rp0</td>
+                                        <td style="font-weight: 800; font-size: 9.5px; color: #1e3a8a; background: #eff6ff;" id="slip-grand-total">Rp0</td>
                                     </tr>
                                 </tbody>
                             </table>
+
+                            <!-- Kolom Keterangan Detail Potongan -->
+                            <div style="background: #f8fafc; border: 1px solid #cbd5e1; border-top: none; padding: 4px 6px; text-align: left; font-size: 7.5px; color: #334155;">
+                                <strong>Rincian Potongan:</strong> <span id="slip-rincian-potongan" style="color: #e11d48;">Tidak ada potongan</span>
+                            </div>
 
                             <div class="signature-grid">
                                 <div class="signature-box">
@@ -1115,9 +1125,10 @@
                             <thead>
                                 <tr>
                                     <th>TANGGAL</th>
-                                    <th style="text-align: center;">FOTO MASUK</th>
-                                    <th style="text-align: center;">FOTO PULANG</th>
-                                    <th>STATUS</th>
+                                    <th style="text-align: center;">FOTO IN</th>
+                                    <th style="text-align: center;">FOTO OUT</th>
+                                    <th>STATUS IN</th>
+                                    <th>STATUS OUT</th>
                                 </tr>
                             </thead>
                             <tbody id="history-table-body">
@@ -1210,6 +1221,17 @@
                             <div class="value" id="hk-val-sakit">0 Hari</div>
                         </div>
                     </div>
+
+                    <!-- KOTAK BARU YANG DIMINTA: Total Tidak Absen Pulang (Menempati area dilingkari) -->
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: #450a0a; color: #f87171;">
+                            <i class="fa-solid fa-triangle-exclamation"></i>
+                        </div>
+                        <div class="stat-info">
+                            <div class="title">Tidak Absen Pulang</div>
+                            <div class="value" id="hk-val-nopulang">0 Kali</div>
+                        </div>
+                    </div>
                 </div>
 
                 <button class="btn btn-secondary" style="margin-bottom: 10px;" onclick="loadHariKerjaStats()">
@@ -1296,7 +1318,7 @@
 
     <!-- ==================== LOGIKA JAVASCRIPT ==================== -->
     <script>
-        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxbZevpKb5tzfrVloWy9vruVqHwuMcT4u4VlpMpfLi_gPa4Hw9htxuNFsmgMOvK5y3B0A/exec';
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz5QbDBPicb9FbnISn1Jm_LdsGaN4QIOj84kCeesDva3WYfu4Deap0OsTgODiUIQfTM7A/exec';
 
         const TARGET_LAT = -6.7220192;
         const TARGET_LNG = 108.5364692;
@@ -1311,6 +1333,7 @@
         let videoStream = null;
         let globalHistoryData = [];
         let appNotifications = JSON.parse(localStorage.getItem('app_notifications') || '[]');
+        let allowForcePulang = false;
 
         async function callGAS(action, dataObj = null) {
             const formData = new URLSearchParams();
@@ -1724,12 +1747,18 @@
 
             showStatus('absen-status', 'Merekam presensi ke server, mohon tunggu...', 'success');
             
+            let force = false;
+            if (tipe === 'PULANG' && allowForcePulang) {
+                force = true;
+            }
+
             const photoData = capturePhotoWithWatermark();
-            const payload = { lat: currentLat, lng: currentLng, tipe: tipe, image: photoData };
+            const payload = { lat: currentLat, lng: currentLng, tipe: tipe, image: photoData, force: force };
 
             const res = await callGAS('processAbsen', payload);
 
             if (res.success) {
+                allowForcePulang = false;
                 showStatus('absen-status', res.message, 'success');
                 showCustomModal(`Presensi ${tipe} Berhasil`, res.message, 'fa-circle-check', '#38bdf8');
 
@@ -1741,8 +1770,10 @@
             } else {
                 showStatus('absen-status', res.message, 'error');
                 if (res.isWarningOnly) {
+                    allowForcePulang = true;
                     showCustomModal("Peringatan Jam Pulang", res.message, 'fa-triangle-exclamation', '#f59e0b');
                 } else {
+                    allowForcePulang = false;
                     showCustomModal("Gagal Presensi", res.message, 'fa-circle-xmark', '#ef4444');
                 }
                 if (actionBtn) actionBtn.disabled = false;
@@ -1779,6 +1810,7 @@
                 document.getElementById('hk-val-izin').innerText = (res.totalIzin || 0) + " Hari";
                 document.getElementById('hk-val-alfa').innerText = (res.totalAlfa || 0) + " Hari";
                 document.getElementById('hk-val-telat').innerText = (res.totalTelat || 0) + " Kali";
+                document.getElementById('hk-val-nopulang').innerText = (res.totalTidakAbsenPulang || 0) + " Kali";
                 document.getElementById('hk-ket-telat').innerText = res.detailTelat || "-";
             }
         }
@@ -1830,7 +1862,6 @@
             tBody.innerHTML = "";
             
             let filteredData = globalHistoryData;
-            
             if (filterType !== "SEMUA") {
                 filteredData = globalHistoryData.filter(item => item.filterType === filterType);
             }
@@ -1838,7 +1869,7 @@
             if (filteredData.length === 0) {
                 tBody.innerHTML = `
                     <tr>
-                        <td colspan="4" style="text-align:center; padding: 20px;">
+                        <td colspan="5" style="text-align:center; padding: 20px;">
                             Tidak ada catatan ${filterType !== "SEMUA" ? filterType.toLowerCase() : "absen"} ditemukan.
                         </td>
                     </tr>
@@ -1850,27 +1881,32 @@
             document.getElementById('filter-summary').innerText = `Menampilkan Total ${filterType}: ${filteredData.length} Hari`;
 
             filteredData.forEach(item => {
-                let badgeClass = "hadir";
-                let badgeText = "Hadir";
-                
-                if (item.kategori === "TERLAMBAT") {
-                    badgeClass = "terlambat"; badgeText = "Terlambat / Dini";
-                } else if (item.kategori === "IZIN") {
-                    badgeClass = "izin"; badgeText = "Izin";
-                } else if (item.kategori === "SAKIT") {
-                    badgeClass = "sakit"; badgeText = "Sakit";
-                } else if (item.kategori === "ALFA") {
-                    badgeClass = "alfa"; badgeText = "Alfa";
-                }
+                // Status In Badge
+                let inStatusText = item.statusIn || "-";
+                let inBadgeClass = "hadir";
+                let inUpper = inStatusText.toUpperCase();
+                if (inUpper.includes("TERLAMBAT")) inBadgeClass = "terlambat";
+                else if (inUpper.includes("IZIN")) inBadgeClass = "izin";
+                else if (inUpper.includes("SAKIT")) inBadgeClass = "sakit";
+                else if (inUpper.includes("ALFA")) inBadgeClass = "alfa";
+                else if (inUpper.includes("TEPAT WAKTU") || inUpper.includes("HADIR")) inBadgeClass = "hadir";
+
+                // Status Out Badge
+                let outStatusText = item.statusOut || "-";
+                let outBadgeClass = "tepat-waktu";
+                let outUpper = outStatusText.toUpperCase();
+                if (outUpper.includes("BELUM WAKTUNYA")) outBadgeClass = "pulang-awal";
+                else if (outUpper.includes("TIDAK ABSEN PULANG")) outBadgeClass = "tidak-absen";
+                else if (outUpper.includes("TEPAT WAKTU")) outBadgeClass = "tepat-waktu";
 
                 let directFotoMasuk = getDriveDirectUrl(item.foto);
                 let fotoMasukHtml = directFotoMasuk 
-                    ? `<a href="${directFotoMasuk}" target="_blank" title="Buka Foto Masuk"><img src="${directFotoMasuk}" alt="Foto Masuk"></a>` 
+                    ? `<a href="${directFotoMasuk}" target="_blank" title="Buka Foto In"><img src="${directFotoMasuk}" alt="Foto In"></a>` 
                     : `<div class="photo-fallback"><i class="fa-solid fa-image"></i></div>`;
 
                 let directFotoPulang = getDriveDirectUrl(item.fotoPulang);
                 let fotoPulangHtml = directFotoPulang 
-                    ? `<a href="${directFotoPulang}" target="_blank" title="Buka Foto Pulang"><img src="${directFotoPulang}" alt="Foto Pulang"></a>` 
+                    ? `<a href="${directFotoPulang}" target="_blank" title="Buka Foto Out"><img src="${directFotoPulang}" alt="Foto Out"></a>` 
                     : `<div class="photo-fallback"><i class="fa-solid fa-image"></i></div>`;
 
                 let inTimeFormatted = formatTimeOnly(item.masuk);
@@ -1882,10 +1918,12 @@
                         <td class="td-photo" style="text-align: center;">${fotoMasukHtml}</td>
                         <td class="td-photo" style="text-align: center;">${fotoPulangHtml}</td>
                         <td class="td-status">
-                            <span class="badge ${badgeClass}">${badgeText}</span>
-                            <div class="td-time">
-                                In: ${inTimeFormatted}<br>Out: ${outTimeFormatted}
-                            </div>
+                            <span class="badge ${inBadgeClass}">${inStatusText}</span>
+                            <div class="td-time">In: ${inTimeFormatted}</div>
+                        </td>
+                        <td class="td-status">
+                            <span class="badge ${outBadgeClass}">${outStatusText}</span>
+                            <div class="td-time">Out: ${outTimeFormatted}</div>
                         </td>
                     </tr>
                 `;
@@ -1905,6 +1943,7 @@
                 document.getElementById('slip-izin').innerText = (res.totalIzin || 0) + " Hari";
                 document.getElementById('slip-alfa').innerText = (res.totalAlfa || 0) + " Hari";
                 document.getElementById('slip-telat').innerText = (res.totalTelat || 0) + " Kali";
+                document.getElementById('slip-no-pulang').innerText = (res.totalTidakAbsenPulang || 0) + " Kali";
                 document.getElementById('slip-point').innerText = res.totalPoint + " Point";
                 document.getElementById('slip-tamu').innerText = res.totalTamu + " Tamu";
 
@@ -1913,6 +1952,7 @@
                 document.getElementById('slip-total-komisi').innerText = `Rp${res.komisiTamu.toLocaleString('id-ID')}`;
                 document.getElementById('slip-total-denda').innerText = `Rp${res.totalDenda.toLocaleString('id-ID')}`;
                 document.getElementById('slip-grand-total').innerText = `Rp${res.gajiBersih.toLocaleString('id-ID')}`;
+                document.getElementById('slip-rincian-potongan').innerText = res.rincianPotongan || "Tidak ada potongan";
             } else {
                 console.error("Gagal memuat slip gaji / Data masih kosong");
             }
