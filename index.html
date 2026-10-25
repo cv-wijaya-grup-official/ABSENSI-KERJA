@@ -13,7 +13,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <!-- html2canvas untuk unduh gambar JPG -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
     <style>
         :root {
@@ -676,10 +677,10 @@
                         </div>
                     </div>
 
-                    <!-- Tombol Aksi PDF & Email -->
+                    <!-- Tombol Aksi Gambar JPG & Email -->
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 25px;">
-                        <button class="btn" style="background: #10b981;" onclick="downloadSlipPDF()">
-                            <i class="fa-solid fa-file-pdf"></i> Unduh PDF (HD)
+                        <button class="btn" style="background: #10b981;" onclick="downloadSlipJPG()">
+                            <i class="fa-solid fa-file-image"></i> Unduh Gambar (JPG)
                         </button>
                         <button class="btn" style="background: #ea580c;" onclick="sendSlipToGmail()">
                             <i class="fa-solid fa-paper-plane"></i> Kirim Email
@@ -1254,31 +1255,39 @@
         function loadSlipGajiCustom(val) { if (val) loadSlipGaji(val); }
         function loadSlipGajiCurrentWeek() { document.getElementById('picker-tanggal-slip').value = ""; loadSlipGaji(null); }
 
-        function downloadSlipPDF() {
+        function downloadSlipJPG() {
             const element = document.getElementById('slip-pdf-wrapper');
-            const opt = {
-                margin: 5,
-                filename: `SLIP_GAJI_CV_WIJAYA_GRUP.pdf`,
-                image: { type: 'jpeg', quality: 1.0 },
-                html2canvas: { scale: 2, useCORS: true, letterRendering: true, windowWidth: 1152 },
-                jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' }
-            };
-            html2pdf().set(opt).from(element).save();
+            html2canvas(element, {
+                scale: 3,
+                useCORS: true,
+                letterRendering: true,
+                windowWidth: 1152
+            }).then(canvas => {
+                const link = document.createElement('a');
+                link.download = `SLIP_GAJI_CV_WIJAYA_GRUP.jpg`;
+                link.href = canvas.toDataURL('image/jpeg', 1.0);
+                link.click();
+            }).catch(err => {
+                console.error('Gagal mengunduh gambar:', err);
+                alert('Gagal mengunduh gambar slip gaji.');
+            });
         }
 
         async function sendSlipToGmail() {
-            showStatus('email-status', 'Menyiapkan PDF untuk dikirim ke email...', 'success');
+            showStatus('email-status', 'Menyiapkan gambar untuk dikirim ke email...', 'success');
             const element = document.getElementById('slip-pdf-wrapper');
-            html2pdf().set({
-                margin: 5,
-                filename: `SLIP_GAJI_CV_WIJAYA_GRUP.pdf`,
-                image: { type: 'jpeg', quality: 1.0 },
-                html2canvas: { scale: 2, useCORS: true, letterRendering: true, windowWidth: 1152 },
-                jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' }
-            }).outputPdf('datauristring').then(async function(pdfDataUri) {
-                const res = await callGAS('sendSlipGajiEmail', { pdfDataUri: pdfDataUri });
+            html2canvas(element, {
+                scale: 2,
+                useCORS: true,
+                letterRendering: true,
+                windowWidth: 1152
+            }).then(async function(canvas) {
+                const imgDataUri = canvas.toDataURL('image/jpeg', 1.0);
+                const res = await callGAS('sendSlipGajiEmail', { pdfDataUri: imgDataUri });
                 if (res.success) { showStatus('email-status', res.message, 'success'); }
                 else { showStatus('email-status', res.message, 'error'); }
+            }).catch(err => {
+                showStatus('email-status', 'Gagal memproses gambar untuk email.', 'error');
             });
         }
 
