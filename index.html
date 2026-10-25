@@ -1002,14 +1002,14 @@
 
                             <table class="header-table">
                                 <tr>
-                                    <td style="width: 30%; background: #f1f5f9;">
+                                    <td style="width: 30%; background: #f8fafc;">
                                         <span style="font-size: 7.5px; color: #64748b; text-transform: uppercase;">Slip Gaji</span><br>
                                         <span style="font-size: 9px; color: #0f172a;" id="slip-tgl-label">24 Oktober 2026</span>
                                     </td>
                                     <td style="width: 42%; font-size: 11px; color: #2563eb; font-weight: 800; letter-spacing: 0.5px;">
                                         CV. WIJAYA.GRUP
                                     </td>
-                                    <td style="width: 28%; font-size: 7px; color: #64748b; background: #f1f5f9;">
+                                    <td style="width: 28%; font-size: 7px; color: #64748b; background: #f8fafc;">
                                         Payroll Doc<br>
                                         <strong style="color: #0f172a;">Confidential</strong>
                                     </td>
@@ -1891,7 +1891,6 @@
             document.getElementById('filter-summary').innerText = `Menampilkan Total ${filterType}: ${filteredData.length} Hari`;
 
             filteredData.forEach(item => {
-                // Status In Badge
                 let inStatusText = item.statusIn || "-";
                 let inBadgeClass = "hadir";
                 let inUpper = inStatusText.toUpperCase();
@@ -1901,7 +1900,6 @@
                 else if (inUpper.includes("ALFA")) inBadgeClass = "alfa";
                 else if (inUpper.includes("TEPAT WAKTU") || inUpper.includes("HADIR")) inBadgeClass = "hadir";
 
-                // Status Out Badge
                 let outStatusText = item.statusOut || "-";
                 let outBadgeClass = "tepat-waktu";
                 let outUpper = outStatusText.toUpperCase();
