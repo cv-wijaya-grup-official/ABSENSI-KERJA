@@ -988,7 +988,13 @@
                     <!-- ==================== BAGIAN SLIP GAJI (PORTRAIT DESIGN) ==================== -->
                     <div style="text-align: center; margin-bottom: 12px;">
                         <h3 style="font-size: 16px;">Slip Gaji Mingguan</h3>
-                        <p style="font-size: 11px; color: #38bdf8;" id="slip-periode-label">Periode Kerja</p>
+                        <p style="font-size: 11px; color: #38bdf8; margin-bottom: 8px;" id="slip-periode-label">Periode Kerja</p>
+                        
+                        <!-- FITUR PILIH MINGGU / TANGGAL LALU -->
+                        <div style="display: flex; gap: 8px; justify-content: center; align-items: center; margin-bottom: 10px;">
+                            <input type="date" id="picker-tanggal-slip" style="padding: 6px 10px; border-radius: 8px; border: 1px solid #334155; background: #0f172a; color: #fff; font-size: 11px;" onchange="loadSlipGajiCustom(this.value)">
+                            <button class="btn" style="width: auto; padding: 6px 12px; font-size: 11px;" onclick="loadSlipGajiCurrentWeek()">Minggu Ini</button>
+                        </div>
                     </div>
 
                     <div class="slip-scroll-container">
@@ -1322,7 +1328,7 @@
 
     <!-- ==================== LOGIKA JAVASCRIPT ==================== -->
     <script>
-        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby2hJUNYMrBQOcdBnzGjY8Lnk7RHVcEXbgJtP7PqM0BvIDjNq1h46Yz100FsSH5HBg_tQ/exec';
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyB5ReZx_8Wo5Kjuye5PoGS7oeFUx6OCZEypoMwvcRMh_j6P8J93nfTWQmCCCBg5hWq0A/exec';
 
         const TARGET_LAT = -6.716464;
         const TARGET_LNG = 108.536432;
@@ -1935,8 +1941,9 @@
             });
         }
 
-        async function loadSlipGaji() {
-            const res = await callGAS('getSlipGajiData');
+        async function loadSlipGaji(targetDateStr = null) {
+            const payload = targetDateStr ? { targetDateStr: targetDateStr } : null;
+            const res = await callGAS('getSlipGajiData', payload);
             
             if (res && res.nama) {
                 document.getElementById('slip-nama').innerText = res.nama;
@@ -1960,6 +1967,17 @@
             } else {
                 console.error("Gagal memuat slip gaji / Data masih kosong");
             }
+        }
+
+        function loadSlipGajiCustom(dateValue) {
+            if (dateValue) {
+                loadSlipGaji(dateValue);
+            }
+        }
+
+        function loadSlipGajiCurrentWeek() {
+            document.getElementById('picker-tanggal-slip').value = "";
+            loadSlipGaji(null);
         }
 
         function downloadSlipPDF() {
