@@ -531,7 +531,7 @@
                         </div>
                     </div>
 
-                    <!-- KONTAINER SLIP GAJI LANDSCAPE 4:3 -->
+                    <!-- KONTAINER SLIP GAJI SKALA 4:3 -->
                     <div style="width: 100%; overflow-x: auto; margin-bottom: 14px; background: #ffffff; border-radius: 12px; padding: 4px;">
                         <div id="slip-pdf-wrapper" style="background: white; color: #0f172a; padding: 12px; width: 100%; max-width: 1152px; aspect-ratio: 4 / 3; display: flex; flex-direction: column; justify-content: space-between; box-sizing: border-box; font-family: 'Inter', sans-serif;">
                             
@@ -1229,7 +1229,7 @@
             if (res && res.nama) {
                 document.getElementById('slip-nama').innerText = res.nama;
                 document.getElementById('slip-nama-row').innerText = res.nama;
-                document.getElementById('slip-minggu-ke').innerText = "-"; // Diatur menjadi - sesuai permintaan
+                document.getElementById('slip-minggu-ke').innerText = "-";
                 document.getElementById('slip-tgl-label').innerText = res.tanggalCetak;
                 document.getElementById('slip-periode-label').innerText = "Periode Kerja: " + res.periode;
                 document.getElementById('slip-periode').innerText = res.periode;
@@ -1257,11 +1257,11 @@
         function downloadSlipPDF() {
             const element = document.getElementById('slip-pdf-wrapper');
             const opt = {
-                margin: 2,
+                margin: [10, 10, 10, 10],
                 filename: `SLIP_GAJI_CV_WIJAYA_GRUP.pdf`,
                 image: { type: 'jpeg', quality: 1.0 },
                 html2canvas: { scale: 2, useCORS: true, letterRendering: true, windowWidth: 1152 },
-                jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' }
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
             };
             html2pdf().set(opt).from(element).save();
         }
@@ -1270,11 +1270,11 @@
             showStatus('email-status', 'Menyiapkan PDF untuk dikirim ke email...', 'success');
             const element = document.getElementById('slip-pdf-wrapper');
             html2pdf().set({
-                margin: 2,
+                margin: [10, 10, 10, 10],
                 filename: `SLIP_GAJI_CV_WIJAYA_GRUP.pdf`,
                 image: { type: 'jpeg', quality: 1.0 },
                 html2canvas: { scale: 2, useCORS: true, letterRendering: true, windowWidth: 1152 },
-                jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' }
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
             }).outputPdf('datauristring').then(async function(pdfDataUri) {
                 const res = await callGAS('sendSlipGajiEmail', { pdfDataUri: pdfDataUri });
                 if (res.success) { showStatus('email-status', res.message, 'success'); }
