@@ -1222,7 +1222,7 @@
                         </div>
                     </div>
 
-                    <!-- KOTAK BARU YANG DIMINTA: Total Tidak Absen Pulang (Menempati area dilingkari) -->
+                    <!-- Kotak Total Tidak Absen Pulang -->
                     <div class="stat-card">
                         <div class="stat-icon" style="background: #450a0a; color: #f87171;">
                             <i class="fa-solid fa-triangle-exclamation"></i>
@@ -1318,7 +1318,7 @@
 
     <!-- ==================== LOGIKA JAVASCRIPT ==================== -->
     <script>
-        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz5QbDBPicb9FbnISn1Jm_LdsGaN4QIOj84kCeesDva3WYfu4Deap0OsTgODiUIQfTM7A/exec';
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzXaUyp8BPV0X9yLDM39tKjDT_fqYs2ZwDj7HO_w3TZaJDxVVvILoHL7LYTJSwyXym8VQ/exec';
 
         const TARGET_LAT = -6.7220192;
         const TARGET_LNG = 108.5364692;
@@ -1895,9 +1895,9 @@
                 let outStatusText = item.statusOut || "-";
                 let outBadgeClass = "tepat-waktu";
                 let outUpper = outStatusText.toUpperCase();
-                if (outUpper.includes("BELUM WAKTUNYA")) outBadgeClass = "pulang-awal";
+                if (outUpper.includes("LEBIH CEPAT") || outUpper.includes("BELUM WAKTUNYA")) outBadgeClass = "pulang-awal";
                 else if (outUpper.includes("TIDAK ABSEN PULANG")) outBadgeClass = "tidak-absen";
-                else if (outUpper.includes("TEPAT WAKTU")) outBadgeClass = "tepat-waktu";
+                else if (outUpper.includes("PULANG TEPAT") || outUpper.includes("TEPAT WAKTU")) outBadgeClass = "tepat-waktu";
 
                 let directFotoMasuk = getDriveDirectUrl(item.foto);
                 let fotoMasukHtml = directFotoMasuk 
