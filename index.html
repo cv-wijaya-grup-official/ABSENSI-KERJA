@@ -532,11 +532,11 @@
                         </div>
                     </div>
 
-                    <!-- KONTAINER SLIP GAJI DENGAN LOGO DIHILANGKAN & TEKS CV. WIJAYA GRUP DIPERBESAR DAN DISENTRALKAN -->
+                    <!-- KONTAINER SLIP GAJI (LOGO DIHILANGKAN, TEKS CV. WIJAYA GRUP DIPERBESAR DI TENGAH, KOLOM SAKIT DITAMBAHKAN) -->
                     <div style="width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; margin-bottom: 14px; background: #ffffff; border-radius: 12px; padding: 4px;">
                         <div id="slip-pdf-wrapper" style="background: white; color: #0f172a; padding: 28px 32px; width: 1000px; min-width: 1000px; display: flex; flex-direction: column; justify-content: flex-start; gap: 18px; box-sizing: border-box; font-family: 'Inter', sans-serif; margin: 0 auto;">
                             
-                            <!-- Header Slip (Logo Dihilangkan, Teks CV. WIJAYA GRUP Diperbesar di Tengah) -->
+                            <!-- Header Slip -->
                             <table style="width: 100%; border-collapse: collapse; border: none; margin-bottom: 2px;">
                                 <tr>
                                     <td style="width: 30%; text-align: left; vertical-align: middle; border: none; border-bottom: 2px solid #0f172a; padding: 0 0 12px 0;">
@@ -553,7 +553,7 @@
                                 </tr>
                             </table>
 
-                            <!-- Info Karyawan (Center Sempurna) -->
+                            <!-- Info Karyawan -->
                             <table style="width: 100%; border-collapse: collapse; border: 1px solid #cbd5e1; font-size: 13px; text-align: center;">
                                 <tr>
                                     <td style="border: 1px solid #cbd5e1; background: #f8fafc; font-weight: 600; padding: 10px 14px; width: 15%; color: #334155; vertical-align: middle !important; text-align: center !important;">Nama</td>
@@ -569,7 +569,7 @@
                                 </tr>
                             </table>
 
-                            <!-- Bagian Kehadiran -->
+                            <!-- Bagian Kehadiran (Dengan Kolom SAKIT berlatar belakang putih) -->
                             <div>
                                 <div style="background: #0f172a; color: white; font-size: 12px; font-weight: bold; padding: 8px 14px; text-transform: uppercase; letter-spacing: 0.5px; text-align: center;">
                                     Hari Kerja & Kehadiran
@@ -578,16 +578,17 @@
                                     <thead>
                                         <tr style="background: #f1f5f9; color: #334155; font-weight: 700;">
                                             <th style="border: 1px solid #cbd5e1; padding: 9px 2px; width: 4%; vertical-align: middle !important; text-align: center !important;">NO</th>
-                                            <th style="border: 1px solid #cbd5e1; padding: 9px 6px; width: 22%; vertical-align: middle !important; text-align: center !important;">NAMA</th>
+                                            <th style="border: 1px solid #cbd5e1; padding: 9px 6px; width: 20%; vertical-align: middle !important; text-align: center !important;">NAMA</th>
                                             <th style="border: 1px solid #cbd5e1; padding: 9px 4px; width: 8%; vertical-align: middle !important; text-align: center !important;">JABATAN</th>
-                                            <th style="border: 1px solid #cbd5e1; padding: 9px 4px; width: 20%; vertical-align: middle !important; text-align: center !important;">PERIODE</th>
+                                            <th style="border: 1px solid #cbd5e1; padding: 9px 4px; width: 18%; vertical-align: middle !important; text-align: center !important;">PERIODE</th>
                                             <th style="border: 1px solid #cbd5e1; padding: 9px 2px; width: 5%; vertical-align: middle !important; text-align: center !important;">MASUK</th>
                                             <th style="border: 1px solid #cbd5e1; padding: 9px 2px; width: 5%; vertical-align: middle !important; text-align: center !important;">IZIN</th>
+                                            <th style="border: 1px solid #cbd5e1; padding: 9px 2px; width: 5%; vertical-align: middle !important; text-align: center !important; background: #ffffff;">SAKIT</th>
                                             <th style="border: 1px solid #cbd5e1; padding: 9px 2px; width: 5%; background: #fee2e2; color: #991b1b; vertical-align: middle !important; text-align: center !important;">ALFA</th>
                                             <th style="border: 1px solid #cbd5e1; padding: 9px 2px; width: 5%; background: #fee2e2; color: #991b1b; vertical-align: middle !important; text-align: center !important;">TELAT</th>
                                             <th style="border: 1px solid #cbd5e1; padding: 9px 2px; width: 6%; background: #fee2e2; color: #991b1b; vertical-align: middle !important; text-align: center !important;">NO OUT</th>
-                                            <th style="border: 1px solid #cbd5e1; padding: 9px 4px; width: 10%; vertical-align: middle !important; text-align: center !important; white-space: nowrap;">POINT</th>
-                                            <th style="border: 1px solid #cbd5e1; padding: 9px 4px; width: 10%; vertical-align: middle !important; text-align: center !important; white-space: nowrap;">KOMISI</th>
+                                            <th style="border: 1px solid #cbd5e1; padding: 9px 4px; width: 9%; vertical-align: middle !important; text-align: center !important; white-space: nowrap;">POINT</th>
+                                            <th style="border: 1px solid #cbd5e1; padding: 9px 4px; width: 9%; vertical-align: middle !important; text-align: center !important; white-space: nowrap;">KOMISI</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -598,6 +599,7 @@
                                             <td style="border: 1px solid #cbd5e1; padding: 10px 4px; vertical-align: middle !important; text-align: center !important; font-weight: 600;" id="slip-periode-row">25 Oct 2026 - 31 Oct 2026</td>
                                             <td style="border: 1px solid #cbd5e1; padding: 10px 2px; vertical-align: middle !important; text-align: center !important; font-weight: 700;" id="slip-hk">2 Hari</td>
                                             <td style="border: 1px solid #cbd5e1; padding: 10px 2px; vertical-align: middle !important; text-align: center !important; font-weight: 700;" id="slip-izin">0 Hari</td>
+                                            <td style="border: 1px solid #cbd5e1; padding: 10px 2px; vertical-align: middle !important; text-align: center !important; font-weight: 700; background: #ffffff;" id="slip-sakit">0 Hari</td>
                                             <td style="border: 1px solid #cbd5e1; padding: 10px 2px; vertical-align: middle !important; text-align: center !important; background: #fee2e2; color: #991b1b; font-weight: 700;" id="slip-alfa">0 Hari</td>
                                             <td style="border: 1px solid #cbd5e1; padding: 10px 2px; vertical-align: middle !important; text-align: center !important; background: #fee2e2; color: #991b1b; font-weight: 700;" id="slip-telat">1 Kali</td>
                                             <td style="border: 1px solid #cbd5e1; padding: 10px 2px; vertical-align: middle !important; text-align: center !important; background: #fee2e2; color: #991b1b; font-weight: 700;" id="slip-no-pulang">1 Kali</td>
@@ -831,7 +833,7 @@
 
     <!-- LOGIKA JAVASCRIPT -->
     <script>
-        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyB5ReZx_8Wo5Kjuye5PoGS7oeFUx6OCZEypoMwvcRMh_j6P8J93nfTWQmCCCBg5hWq0A/exec';
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwC-eOLdenc4QSKl0GzPsMBQQf6VVR0zD72b3oy4KslR34ywewBm5669TFAENC-Zf2FIw/exec';
 
         const TARGET_LAT = -6.716464;
         const TARGET_LNG = 108.536432;
@@ -1230,6 +1232,7 @@
                 document.getElementById('slip-periode-row').innerText = res.periode;
                 document.getElementById('slip-hk').innerText = res.totalMasuk + " Hari";
                 document.getElementById('slip-izin').innerText = (res.totalIzin || 0) + " Hari";
+                document.getElementById('slip-sakit').innerText = (res.totalSakit || 0) + " Hari";
                 document.getElementById('slip-alfa').innerText = (res.totalAlfa || 0) + " Hari";
                 document.getElementById('slip-telat').innerText = (res.totalTelat || 0) + " Kali";
                 document.getElementById('slip-no-pulang').innerText = (res.totalTidakAbsenPulang || 0) + " Kali";
@@ -1242,7 +1245,6 @@
                 document.getElementById('slip-total-denda').innerText = `Rp${res.totalDenda.toLocaleString('id-ID')}`;
                 document.getElementById('slip-grand-total').innerText = `Rp${res.gajiBersih.toLocaleString('id-ID')}`;
                 
-                // Format rincian potongan dengan warna merah pada kata kunci penting
                 let rawPotongan = res.rincianPotongan || 'Tidak ada potongan';
                 let formattedPotongan = rawPotongan
                     .replace(/TERLAMBAT/g, '<span style="color: #dc2626; font-weight: 700;">TERLAMBAT</span>')
