@@ -532,153 +532,151 @@
                         </div>
                     </div>
 
-                    <!-- KONTAINER PRATINJAU SLIP DENGAN FITUR RESPONSIVE FIT-TO-SCREEN -->
-                    <div style="width: 100%; overflow: hidden; border-radius: 12px; background: #ffffff; margin-bottom: 14px; padding: 4px;">
-                        <div style="width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch;">
-                            <div id="slip-pdf-wrapper" style="background: white; color: #0f172a; padding: 28px 32px; width: 1000px; min-width: 1000px; display: flex; flex-direction: column; justify-content: flex-start; gap: 18px; box-sizing: border-box; font-family: 'Inter', sans-serif; margin: 0 auto;">
-                                
-                                <!-- Header Slip (Grid 3 Kolom Agar Logo Pas di Tengah) -->
-                                <div style="display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; padding-bottom: 12px; border-bottom: 2px solid #0f172a; margin-bottom: 2px;">
-                                    <div>
-                                        <h1 style="font-size: 20px; font-weight: bold; color: #0f172a; margin: 0; text-transform: uppercase; letter-spacing: 0.5px;">SLIP GAJI</h1>
-                                        <p style="font-size: 13px; color: #475569; margin: 2px 0 0 0; font-weight: 500;" id="slip-tgl-label">01 November 2026</p>
-                                    </div>
-                                    <div style="display: flex; align-items: center; gap: 10px; justify-content: center;">
-                                        <!-- LOGO KOTAK SUDUT TUMPUL DENGAN HURUF W -->
-                                        <div style="background: #0f172a; color: white; width: 34px; height: 34px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 16px;">W</div>
-                                        <span style="font-size: 20px; font-weight: 800; color: #0f172a; letter-spacing: -0.3px; text-transform: uppercase;">CV. WIJAYA GRUP</span>
-                                    </div>
-                                    <div style="text-align: right; font-size: 12px; color: #64748b; line-height: 1.3;">
-                                        <p style="font-weight: 600; color: #334155; margin: 0;">Payroll Doc</p>
-                                        <p style="margin: 0;">Confidential</p>
-                                    </div>
-                                </div>
-
-                                <!-- Info Karyawan -->
-                                <table style="width: 100%; border-collapse: collapse; border: 1px solid #cbd5e1; font-size: 13px; text-align: center;">
-                                    <tr>
-                                        <td style="border: 1px solid #cbd5e1; background: #f8fafc; font-weight: 600; padding: 10px 14px; width: 15%; color: #334155; vertical-align: middle; text-align: center;">Nama</td>
-                                        <td style="border: 1px solid #cbd5e1; padding: 10px 14px; width: 35%; color: #0f172a; font-weight: 600; vertical-align: middle; text-align: center;" id="slip-nama">Muhammad Fejri Febriyan</td>
-                                        <td style="border: 1px solid #cbd5e1; background: #f8fafc; font-weight: 600; padding: 10px 14px; width: 15%; color: #334155; vertical-align: middle; text-align: center;">Minggu</td>
-                                        <td style="border: 1px solid #cbd5e1; padding: 10px 14px; width: 35%; color: #0f172a; font-weight: 600; vertical-align: middle; text-align: center;" id="slip-minggu-ke">-</td>
-                                    </tr>
-                                    <tr>
-                                        <td style="border: 1px solid #cbd5e1; background: #f8fafc; font-weight: 600; padding: 10px 14px; color: #334155; vertical-align: middle; text-align: center;">Jabatan</td>
-                                        <td style="border: 1px solid #cbd5e1; padding: 10px 14px; color: #0f172a; font-weight: 600; vertical-align: middle; text-align: center;">Staff</td>
-                                        <td style="border: 1px solid #cbd5e1; background: #f8fafc; font-weight: 600; padding: 10px 14px; color: #334155; vertical-align: middle; text-align: center;">Periode</td>
-                                        <td style="border: 1px solid #cbd5e1; padding: 10px 14px; color: #0f172a; font-weight: 600; vertical-align: middle; text-align: center;" id="slip-periode">25 Oct 2026 - 31 Oct 2026</td>
-                                    </tr>
-                                </table>
-
-                                <!-- Bagian Kehadiran -->
+                    <!-- KONTAINER SLIP GAJI DENGAN PERATAAN CENTER MUTLAK & KOLOM NAMA DIPERLEBAR -->
+                    <div style="width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; margin-bottom: 14px; background: #ffffff; border-radius: 12px; padding: 4px;">
+                        <div id="slip-pdf-wrapper" style="background: white; color: #0f172a; padding: 28px 32px; width: 1000px; min-width: 1000px; display: flex; flex-direction: column; justify-content: flex-start; gap: 18px; box-sizing: border-box; font-family: 'Inter', sans-serif; margin: 0 auto;">
+                            
+                            <!-- Header Slip (Grid 3 Kolom Agar Logo Pas di Tengah) -->
+                            <div style="display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; padding-bottom: 12px; border-bottom: 2px solid #0f172a; margin-bottom: 2px;">
                                 <div>
-                                    <div style="background: #0f172a; color: white; font-size: 12px; font-weight: bold; padding: 8px 14px; text-transform: uppercase; letter-spacing: 0.5px;">
-                                        Hari Kerja & Kehadiran
-                                    </div>
-                                    <table style="width: 100%; border-collapse: collapse; border: 1px solid #cbd5e1; font-size: 11.5px; text-align: center;">
-                                        <thead>
-                                            <tr style="background: #f1f5f9; color: #334155; font-weight: 700;">
-                                                <th style="border: 1px solid #cbd5e1; padding: 9px 2px; width: 4%; vertical-align: middle; text-align: center;">NO</th>
-                                                <th style="border: 1px solid #cbd5e1; padding: 9px 4px; width: 16%; vertical-align: middle; text-align: center;">NAMA</th>
-                                                <th style="border: 1px solid #cbd5e1; padding: 9px 4px; width: 9%; vertical-align: middle; text-align: center;">JABATAN</th>
-                                                <th style="border: 1px solid #cbd5e1; padding: 9px 4px; width: 21%; vertical-align: middle; text-align: center;">PERIODE</th>
-                                                <th style="border: 1px solid #cbd5e1; padding: 9px 2px; width: 6%; vertical-align: middle; text-align: center;">MASUK</th>
-                                                <th style="border: 1px solid #cbd5e1; padding: 9px 2px; width: 6%; vertical-align: middle; text-align: center;">IZIN</th>
-                                                <th style="border: 1px solid #cbd5e1; padding: 9px 2px; width: 6%; background: #fee2e2; color: #991b1b; vertical-align: middle; text-align: center;">ALFA</th>
-                                                <th style="border: 1px solid #cbd5e1; padding: 9px 2px; width: 6%; background: #fee2e2; color: #991b1b; vertical-align: middle; text-align: center;">TELAT</th>
-                                                <th style="border: 1px solid #cbd5e1; padding: 9px 2px; width: 7%; background: #fee2e2; color: #991b1b; vertical-align: middle; text-align: center;">NO OUT</th>
-                                                <th style="border: 1px solid #cbd5e1; padding: 9px 4px; width: 9%; vertical-align: middle; text-align: center; white-space: nowrap;">POINT</th>
-                                                <th style="border: 1px solid #cbd5e1; padding: 9px 4px; width: 10%; vertical-align: middle; text-align: center; white-space: nowrap;">KOMISI</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr style="color: #1e293b;">
-                                                <td style="border: 1px solid #cbd5e1; padding: 10px 2px; vertical-align: middle; text-align: center;">1</td>
-                                                <td style="border: 1px solid #cbd5e1; padding: 10px 4px; vertical-align: middle; text-align: center; font-weight: 600;" id="slip-nama-row">Muhammad Fejri Febriyan</td>
-                                                <td style="border: 1px solid #cbd5e1; padding: 10px 4px; vertical-align: middle; text-align: center; font-weight: 600;">Staff</td>
-                                                <td style="border: 1px solid #cbd5e1; padding: 10px 4px; vertical-align: middle; text-align: center; font-weight: 600;" id="slip-periode-row">25 Oct 2026 - 31 Oct 2026</td>
-                                                <td style="border: 1px solid #cbd5e1; padding: 10px 2px; vertical-align: middle; text-align: center; font-weight: 700;" id="slip-hk">2 Hari</td>
-                                                <td style="border: 1px solid #cbd5e1; padding: 10px 2px; vertical-align: middle; text-align: center; font-weight: 700;" id="slip-izin">0 Hari</td>
-                                                <td style="border: 1px solid #cbd5e1; padding: 10px 2px; vertical-align: middle; text-align: center; background: #fee2e2; color: #991b1b; font-weight: 700;" id="slip-alfa">0 Hari</td>
-                                                <td style="border: 1px solid #cbd5e1; padding: 10px 2px; vertical-align: middle; text-align: center; background: #fee2e2; color: #991b1b; font-weight: 700;" id="slip-telat">1 Kali</td>
-                                                <td style="border: 1px solid #cbd5e1; padding: 10px 2px; vertical-align: middle; text-align: center; background: #fee2e2; color: #991b1b; font-weight: 700;" id="slip-no-pulang">1 Kali</td>
-                                                <td style="border: 1px solid #cbd5e1; padding: 10px 4px; vertical-align: middle; text-align: center; font-weight: 700; white-space: nowrap;" id="slip-point">0 Point</td>
-                                                <td style="border: 1px solid #cbd5e1; padding: 10px 4px; vertical-align: middle; text-align: center; font-weight: 700; white-space: nowrap;" id="slip-tamu">0 Tamu</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                                    <h1 style="font-size: 20px; font-weight: bold; color: #0f172a; margin: 0; text-transform: uppercase; letter-spacing: 0.5px;">SLIP GAJI</h1>
+                                    <p style="font-size: 13px; color: #475569; margin: 2px 0 0 0; font-weight: 500;" id="slip-tgl-label">01 November 2026</p>
                                 </div>
-
-                                <!-- Bagian Upah & Potongan -->
-                                <div>
-                                    <div style="background: #0f172a; color: white; font-size: 12px; font-weight: bold; padding: 8px 14px; text-transform: uppercase; letter-spacing: 0.5px;">
-                                        Rincian Upah, Potongan & Hasil Akhir
-                                    </div>
-                                    <table style="width: 100%; border-collapse: collapse; border: 1px solid #cbd5e1; font-size: 13px; text-align: center;">
-                                        <thead>
-                                            <tr style="background: #f1f5f9; color: #334155; font-weight: 700;">
-                                                <th style="border: 1px solid #cbd5e1; padding: 10px; width: 20%; vertical-align: middle; text-align: center;">UPAH POKOK</th>
-                                                <th style="border: 1px solid #cbd5e1; padding: 10px; width: 20%; vertical-align: middle; text-align: center;">RP POINT</th>
-                                                <th style="border: 1px solid #cbd5e1; padding: 10px; width: 20%; vertical-align: middle; text-align: center;">RP KOMISI</th>
-                                                <th style="border: 1px solid #cbd5e1; padding: 10px; width: 20%; vertical-align: middle; text-align: center;">TOTAL POTONGAN</th>
-                                                <th style="border: 1px solid #cbd5e1; padding: 10px; width: 20%; font-weight: bold; color: #0f172a; vertical-align: middle; text-align: center;">GAJI BERSIH</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr style="color: #1e293b; font-weight: 700;">
-                                                <td style="border: 1px solid #cbd5e1; padding: 12px; vertical-align: middle; text-align: center;" id="slip-total-hk">Rp100.000</td>
-                                                <td style="border: 1px solid #cbd5e1; padding: 12px; vertical-align: middle; text-align: center;" id="slip-total-point">Rp0</td>
-                                                <td style="border: 1px solid #cbd5e1; padding: 12px; vertical-align: middle; text-align: center;" id="slip-total-komisi">Rp0</td>
-                                                <td style="border: 1px solid #cbd5e1; padding: 12px; vertical-align: middle; text-align: center; color: #dc2626; background: #fef2f2;" id="slip-total-denda">Rp40.000</td>
-                                                <td style="border: 1px solid #cbd5e1; padding: 12px; vertical-align: middle; text-align: center; font-weight: 800; color: #0f172a; font-size: 15px;" id="slip-grand-total">Rp60.000</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                                <div style="display: flex; align-items: center; gap: 10px; justify-content: center;">
+                                    <!-- LOGO KOTAK SUDUT TUMPUL DENGAN HURUF W -->
+                                    <div style="background: #0f172a; color: white; width: 34px; height: 34px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 16px;">W</div>
+                                    <span style="font-size: 20px; font-weight: 800; color: #0f172a; letter-spacing: -0.3px; text-transform: uppercase;">CV. WIJAYA GRUP</span>
                                 </div>
-
-                                <!-- Kotak Catatan Potongan -->
-                                <div style="border: 1px solid #cbd5e1; background: #ffffff; padding: 10px 14px; font-size: 12.5px; color: #1e293b; font-weight: 600;">
-                                    <span id="slip-rincian-potongan">Rincian Potongan: Tidak ada potongan</span>
+                                <div style="text-align: right; font-size: 12px; color: #64748b; line-height: 1.3;">
+                                    <p style="font-weight: 600; color: #334155; margin: 0;">Payroll Doc</p>
+                                    <p style="margin: 0;">Confidential</p>
                                 </div>
-
-                                <!-- Tanda Tangan -->
-                                <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; text-align: center; font-size: 12.5px; padding-top: 10px;">
-                                    <div style="display: flex; flex-direction: column; justify-content: space-between;">
-                                        <div><span style="color: #334155; font-weight: 600;">Disetujui</span> <span style="color: #2563eb;">✓</span></div>
-                                        <div style="height: 32px;"></div>
-                                        <div>
-                                            <div style="border-top: 1px solid #94a3b8; margin: 0 auto 6px auto; width: 90%;"></div>
-                                            <p style="font-weight: 700; color: #1e293b; margin: 0;">Finance</p>
-                                        </div>
-                                    </div>
-                                    <div style="display: flex; flex-direction: column; justify-content: space-between;">
-                                        <div><span style="color: #334155; font-weight: 600;">Mengetahui</span></div>
-                                        <div style="height: 32px;"></div>
-                                        <div>
-                                            <div style="border-top: 1px solid #94a3b8; margin: 0 auto 6px auto; width: 90%;"></div>
-                                            <p style="font-weight: 700; color: #1e293b; margin: 0;">Coordinator</p>
-                                        </div>
-                                    </div>
-                                    <div style="display: flex; flex-direction: column; justify-content: space-between;">
-                                        <div><span style="color: #334155; font-weight: 600;">Diperiksa</span></div>
-                                        <div style="height: 32px;"></div>
-                                        <div>
-                                            <div style="border-top: 1px solid #94a3b8; margin: 0 auto 6px auto; width: 90%;"></div>
-                                            <p style="font-weight: 700; color: #1e293b; margin: 0;">Manager</p>
-                                        </div>
-                                    </div>
-                                    <div style="display: flex; flex-direction: column; justify-content: space-between;">
-                                        <div><span style="color: #334155; font-weight: 600;">Diterima</span></div>
-                                        <div style="height: 16px;"></div>
-                                        <div>
-                                            <div style="border-top: 1px solid #94a3b8; margin: 0 auto 4px auto; width: 90%;"></div>
-                                            <p style="font-weight: 700; color: #1e293b; margin: 0;">Pegawai</p>
-                                            <p style="font-size: 11px; color: #1e293b; margin: 0; font-weight: 700;">DANA: 082262839119</p>
-                                        </div>
-                                    </div>
-                                </div>
-
                             </div>
+
+                            <!-- Info Karyawan (Center Sempurna) -->
+                            <table style="width: 100%; border-collapse: collapse; border: 1px solid #cbd5e1; font-size: 13px; text-align: center;">
+                                <tr>
+                                    <td style="border: 1px solid #cbd5e1; background: #f8fafc; font-weight: 600; padding: 10px 14px; width: 15%; color: #334155; vertical-align: middle !important; text-align: center !important;">Nama</td>
+                                    <td style="border: 1px solid #cbd5e1; padding: 10px 14px; width: 35%; color: #0f172a; font-weight: 600; vertical-align: middle !important; text-align: center !important;" id="slip-nama">Muhammad Fejri Febriyan</td>
+                                    <td style="border: 1px solid #cbd5e1; background: #f8fafc; font-weight: 600; padding: 10px 14px; width: 15%; color: #334155; vertical-align: middle !important; text-align: center !important;">Minggu</td>
+                                    <td style="border: 1px solid #cbd5e1; padding: 10px 14px; width: 35%; color: #0f172a; font-weight: 600; vertical-align: middle !important; text-align: center !important;" id="slip-minggu-ke">-</td>
+                                </tr>
+                                <tr>
+                                    <td style="border: 1px solid #cbd5e1; background: #f8fafc; font-weight: 600; padding: 10px 14px; color: #334155; vertical-align: middle !important; text-align: center !important;">Jabatan</td>
+                                    <td style="border: 1px solid #cbd5e1; padding: 10px 14px; color: #0f172a; font-weight: 600; vertical-align: middle !important; text-align: center !important;">Staff</td>
+                                    <td style="border: 1px solid #cbd5e1; background: #f8fafc; font-weight: 600; padding: 10px 14px; color: #334155; vertical-align: middle !important; text-align: center !important;">Periode</td>
+                                    <td style="border: 1px solid #cbd5e1; padding: 10px 14px; color: #0f172a; font-weight: 600; vertical-align: middle !important; text-align: center !important;" id="slip-periode">25 Oct 2026 - 31 Oct 2026</td>
+                                </tr>
+                            </table>
+
+                            <!-- Bagian Kehadiran (Kolom Nama Diperlebar & Semua Center) -->
+                            <div>
+                                <div style="background: #0f172a; color: white; font-size: 12px; font-weight: bold; padding: 8px 14px; text-transform: uppercase; letter-spacing: 0.5px;">
+                                    Hari Kerja & Kehadiran
+                                </div>
+                                <table style="width: 100%; border-collapse: collapse; border: 1px solid #cbd5e1; font-size: 11.5px; text-align: center;">
+                                    <thead>
+                                        <tr style="background: #f1f5f9; color: #334155; font-weight: 700;">
+                                            <th style="border: 1px solid #cbd5e1; padding: 9px 2px; width: 4%; vertical-align: middle !important; text-align: center !important;">NO</th>
+                                            <th style="border: 1px solid #cbd5e1; padding: 9px 6px; width: 22%; vertical-align: middle !important; text-align: center !important;">NAMA</th>
+                                            <th style="border: 1px solid #cbd5e1; padding: 9px 4px; width: 8%; vertical-align: middle !important; text-align: center !important;">JABATAN</th>
+                                            <th style="border: 1px solid #cbd5e1; padding: 9px 4px; width: 20%; vertical-align: middle !important; text-align: center !important;">PERIODE</th>
+                                            <th style="border: 1px solid #cbd5e1; padding: 9px 2px; width: 5%; vertical-align: middle !important; text-align: center !important;">MASUK</th>
+                                            <th style="border: 1px solid #cbd5e1; padding: 9px 2px; width: 5%; vertical-align: middle !important; text-align: center !important;">IZIN</th>
+                                            <th style="border: 1px solid #cbd5e1; padding: 9px 2px; width: 5%; background: #fee2e2; color: #991b1b; vertical-align: middle !important; text-align: center !important;">ALFA</th>
+                                            <th style="border: 1px solid #cbd5e1; padding: 9px 2px; width: 5%; background: #fee2e2; color: #991b1b; vertical-align: middle !important; text-align: center !important;">TELAT</th>
+                                            <th style="border: 1px solid #cbd5e1; padding: 9px 2px; width: 6%; background: #fee2e2; color: #991b1b; vertical-align: middle !important; text-align: center !important;">NO OUT</th>
+                                            <th style="border: 1px solid #cbd5e1; padding: 9px 4px; width: 10%; vertical-align: middle !important; text-align: center !important; white-space: nowrap;">POINT</th>
+                                            <th style="border: 1px solid #cbd5e1; padding: 9px 4px; width: 10%; vertical-align: middle !important; text-align: center !important; white-space: nowrap;">KOMISI</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr style="color: #1e293b;">
+                                            <td style="border: 1px solid #cbd5e1; padding: 10px 2px; vertical-align: middle !important; text-align: center !important;">1</td>
+                                            <td style="border: 1px solid #cbd5e1; padding: 10px 6px; vertical-align: middle !important; text-align: center !important; font-weight: 600; font-size: 11px; line-height: 1.3;" id="slip-nama-row">Muhammad Fejri Febriyan</td>
+                                            <td style="border: 1px solid #cbd5e1; padding: 10px 4px; vertical-align: middle !important; text-align: center !important; font-weight: 600;">Staff</td>
+                                            <td style="border: 1px solid #cbd5e1; padding: 10px 4px; vertical-align: middle !important; text-align: center !important; font-weight: 600;" id="slip-periode-row">25 Oct 2026 - 31 Oct 2026</td>
+                                            <td style="border: 1px solid #cbd5e1; padding: 10px 2px; vertical-align: middle !important; text-align: center !important; font-weight: 700;" id="slip-hk">2 Hari</td>
+                                            <td style="border: 1px solid #cbd5e1; padding: 10px 2px; vertical-align: middle !important; text-align: center !important; font-weight: 700;" id="slip-izin">0 Hari</td>
+                                            <td style="border: 1px solid #cbd5e1; padding: 10px 2px; vertical-align: middle !important; text-align: center !important; background: #fee2e2; color: #991b1b; font-weight: 700;" id="slip-alfa">0 Hari</td>
+                                            <td style="border: 1px solid #cbd5e1; padding: 10px 2px; vertical-align: middle !important; text-align: center !important; background: #fee2e2; color: #991b1b; font-weight: 700;" id="slip-telat">1 Kali</td>
+                                            <td style="border: 1px solid #cbd5e1; padding: 10px 2px; vertical-align: middle !important; text-align: center !important; background: #fee2e2; color: #991b1b; font-weight: 700;" id="slip-no-pulang">1 Kali</td>
+                                            <td style="border: 1px solid #cbd5e1; padding: 10px 4px; vertical-align: middle !important; text-align: center !important; font-weight: 700; white-space: nowrap;" id="slip-point">0 Point</td>
+                                            <td style="border: 1px solid #cbd5e1; padding: 10px 4px; vertical-align: middle !important; text-align: center !important; font-weight: 700; white-space: nowrap;" id="slip-tamu">0 Tamu</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <!-- Bagian Upah & Potongan -->
+                            <div>
+                                <div style="background: #0f172a; color: white; font-size: 12px; font-weight: bold; padding: 8px 14px; text-transform: uppercase; letter-spacing: 0.5px;">
+                                    Rincian Upah, Potongan & Hasil Akhir
+                                </div>
+                                <table style="width: 100%; border-collapse: collapse; border: 1px solid #cbd5e1; font-size: 13px; text-align: center;">
+                                    <thead>
+                                        <tr style="background: #f1f5f9; color: #334155; font-weight: 700;">
+                                            <th style="border: 1px solid #cbd5e1; padding: 10px; width: 20%; vertical-align: middle !important; text-align: center !important;">UPAH POKOK</th>
+                                            <th style="border: 1px solid #cbd5e1; padding: 10px; width: 20%; vertical-align: middle !important; text-align: center !important;">RP POINT</th>
+                                            <th style="border: 1px solid #cbd5e1; padding: 10px; width: 20%; vertical-align: middle !important; text-align: center !important;">RP KOMISI</th>
+                                            <th style="border: 1px solid #cbd5e1; padding: 10px; width: 20%; vertical-align: middle !important; text-align: center !important;">TOTAL POTONGAN</th>
+                                            <th style="border: 1px solid #cbd5e1; padding: 10px; width: 20%; font-weight: bold; color: #0f172a; vertical-align: middle !important; text-align: center !important;">GAJI BERSIH</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr style="color: #1e293b; font-weight: 700;">
+                                            <td style="border: 1px solid #cbd5e1; padding: 12px; vertical-align: middle !important; text-align: center !important;" id="slip-total-hk">Rp100.000</td>
+                                            <td style="border: 1px solid #cbd5e1; padding: 12px; vertical-align: middle !important; text-align: center !important;" id="slip-total-point">Rp0</td>
+                                            <td style="border: 1px solid #cbd5e1; padding: 12px; vertical-align: middle !important; text-align: center !important;" id="slip-total-komisi">Rp0</td>
+                                            <td style="border: 1px solid #cbd5e1; padding: 12px; vertical-align: middle !important; text-align: center !important; color: #dc2626; background: #fef2f2;" id="slip-total-denda">Rp40.000</td>
+                                            <td style="border: 1px solid #cbd5e1; padding: 12px; vertical-align: middle !important; text-align: center !important; font-weight: 800; color: #0f172a; font-size: 15px;" id="slip-grand-total">Rp60.000</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <!-- Kotak Catatan Potongan -->
+                            <div style="border: 1px solid #cbd5e1; background: #ffffff; padding: 10px 14px; font-size: 12.5px; color: #1e293b; font-weight: 600;">
+                                <span id="slip-rincian-potongan">Rincian Potongan: Tidak ada potongan</span>
+                            </div>
+
+                            <!-- Tanda Tangan -->
+                            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; text-align: center; font-size: 12.5px; padding-top: 10px;">
+                                <div style="display: flex; flex-direction: column; justify-content: space-between;">
+                                    <div><span style="color: #334155; font-weight: 600;">Disetujui</span> <span style="color: #2563eb;">✓</span></div>
+                                    <div style="height: 32px;"></div>
+                                    <div>
+                                        <div style="border-top: 1px solid #94a3b8; margin: 0 auto 6px auto; width: 90%;"></div>
+                                        <p style="font-weight: 700; color: #1e293b; margin: 0;">Finance</p>
+                                    </div>
+                                </div>
+                                <div style="display: flex; flex-direction: column; justify-content: space-between;">
+                                    <div><span style="color: #334155; font-weight: 600;">Mengetahui</span></div>
+                                    <div style="height: 32px;"></div>
+                                    <div>
+                                        <div style="border-top: 1px solid #94a3b8; margin: 0 auto 6px auto; width: 90%;"></div>
+                                        <p style="font-weight: 700; color: #1e293b; margin: 0;">Coordinator</p>
+                                    </div>
+                                </div>
+                                <div style="display: flex; flex-direction: column; justify-content: space-between;">
+                                    <div><span style="color: #334155; font-weight: 600;">Diperiksa</span></div>
+                                    <div style="height: 32px;"></div>
+                                    <div>
+                                        <div style="border-top: 1px solid #94a3b8; margin: 0 auto 6px auto; width: 90%;"></div>
+                                        <p style="font-weight: 700; color: #1e293b; margin: 0;">Manager</p>
+                                    </div>
+                                </div>
+                                <div style="display: flex; flex-direction: column; justify-content: space-between;">
+                                    <div><span style="color: #334155; font-weight: 600;">Diterima</span></div>
+                                    <div style="height: 16px;"></div>
+                                    <div>
+                                        <div style="border-top: 1px solid #94a3b8; margin: 0 auto 4px auto; width: 90%;"></div>
+                                        <p style="font-weight: 700; color: #1e293b; margin: 0;">Pegawai</p>
+                                        <p style="font-size: 11px; color: #1e293b; margin: 0; font-weight: 700;">DANA: 082262839119</p>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
 
