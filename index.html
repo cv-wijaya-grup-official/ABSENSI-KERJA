@@ -339,7 +339,17 @@
         .stat-info .title { font-size: 10px; color: #64748b; }
         .stat-info .value { font-size: 14px; font-weight: 700; color: #fff; }
 
-        .notif-card-item { background: #0f172a; padding: 10px; border-radius: 8px; margin-bottom: 8px; }
+        .notif-card-item {
+            background: #0f172a;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            position: relative;
+            touch-action: pan-y;
+            user-select: none;
+            overflow: hidden;
+            transition: transform 0.2s ease, opacity 0.2s ease;
+        }
         
         .filter-tabs { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 10px; margin-bottom: 15px; }
         .filter-btn { padding: 6px 14px; border-radius: 20px; border: 1px solid #334155; background: #0f172a; color: #94a3b8; font-size: 11px; font-weight: 600; cursor: pointer; white-space: nowrap; }
@@ -905,7 +915,7 @@
 
         function addNotification(title, message, time, status) {
             const notif = { title, message, time, status, date: new Date().toLocaleDateString('id-ID', {day: 'numeric', month: 'short', year: 'numeric'}) };
-            appNotifications.unshift(notif);
+            appNotifications.unshift(notif); // Menyimpan yang terbaru di paling atas
             if (appNotifications.length > 20) appNotifications.pop();
             localStorage.setItem('app_notifications', JSON.stringify(appNotifications));
             updateNotificationBadge();
@@ -921,21 +931,81 @@
 
         function openNotifications() {
             const modal = document.getElementById('notif-modal');
-            const list = document.getElementById('notif-list');
             modal.classList.remove('hidden');
+            renderNotificationList();
+        }
+
+        function renderNotificationList() {
+            const list = document.getElementById('notif-list');
+            if (!list) return;
             if (appNotifications.length === 0) {
                 list.innerHTML = '<p style="color: #64748b; text-align: center; padding: 10px;">Belum ada notifikasi.</p>';
                 return;
             }
-            list.innerHTML = appNotifications.map((n) => `
-                <div class="notif-card-item" style="border-left: 4px solid ${n.status.toLowerCase().includes('terlambat') || n.status.toLowerCase().includes('alfa') ? '#ef4444' : '#10b981'};">
+            list.innerHTML = appNotifications.map((n, index) => `
+                <div class="notif-card-item" id="notif-item-${index}" 
+                     style="border-left: 4px solid ${n.status.toLowerCase().includes('terlambat') || n.status.toLowerCase().includes('alfa') ? '#ef4444' : '#10b981'};"
+                     data-index="${index}"
+                     ontouchstart="handleTouchStart(event, ${index})"
+                     ontouchmove="handleTouchMove(event, ${index})"
+                     ontouchend="handleTouchEnd(event, ${index})"
+                     onmousedown="handleTouchStart(event, ${index})"
+                     onmousemove="handleTouchMove(event, ${index})"
+                     onmouseup="handleTouchEnd(event, ${index})"
+                     onmouseleave="handleTouchEnd(event, ${index})">
                     <div style="font-weight: bold; color: #fff; display: flex; justify-content: space-between;">
                         <span>${n.title}</span><span style="font-size: 10px; color: #94a3b8;">${n.date}</span>
                     </div>
                     <div style="color: #cbd5e1;">${n.message}</div>
-                    <div style="font-size: 10px; color: #38bdf8;">🕒 Jam: <b>${n.time} WIB</b> | Status: <b>${n.status}</b></div>
+                    <div style="font-size: 10px; color: #38bdf8; display: flex; justify-content: space-between; align-items: center; margin-top: 2px;">
+                        <span>🕒 Jam: <b>${n.time} WIB</b> | Status: <b>${n.status}</b></span>
+                        <span style="font-size: 8px; color: #64748b; font-style: italic;">← Geser hapus →</span>
+                    </div>
                 </div>
             `).join('');
+        }
+
+        // Logika Geser / Swipe untuk Hapus Notifikasi (Kiri atau Kanan)
+        let swipeData = { index: null, startX: 0, currentX: 0, isDragging: false };
+
+        function handleTouchStart(e, index) {
+            swipeData.index = index;
+            swipeData.startX = e.touches ? e.touches[0].clientX : e.clientX;
+            swipeData.isDragging = true;
+        }
+
+        function handleTouchMove(e, index) {
+            if (!swipeData.isDragging || swipeData.index !== index) return;
+            const currentXCoord = e.touches ? e.touches[0].clientX : e.clientX;
+            swipeData.currentX = currentXCoord - swipeData.startX;
+            const item = document.getElementById(`notif-item-${index}`);
+            if (item) {
+                item.style.transform = `translateX(${swipeData.currentX}px)`;
+                item.style.opacity = `${Math.max(0.2, 1 - Math.abs(swipeData.currentX) / 200)}`;
+            }
+        }
+
+        function handleTouchEnd(e, index) {
+            if (!swipeData.isDragging || swipeData.index !== index) return;
+            const item = document.getElementById(`notif-item-${index}`);
+            if (item) {
+                if (Math.abs(swipeData.currentX) > 80) {
+                    item.style.transform = `translateX(${swipeData.currentX > 0 ? 350 : -350}px)`;
+                    item.style.opacity = '0';
+                    setTimeout(() => {
+                        appNotifications.splice(index, 1);
+                        localStorage.setItem('app_notifications', JSON.stringify(appNotifications));
+                        updateNotificationBadge();
+                        renderNotificationList();
+                    }, 200);
+                } else {
+                    item.style.transform = 'translateX(0px)';
+                    item.style.opacity = '1';
+                }
+            }
+            swipeData.isDragging = false;
+            swipeData.index = null;
+            swipeData.currentX = 0;
         }
 
         function closeNotifications() { document.getElementById('notif-modal').classList.add('hidden'); }
@@ -1115,7 +1185,8 @@
                 allowForcePulang = false;
                 showStatus('absen-status', res.message, 'success');
                 showCustomModal(`Presensi ${tipe} Berhasil`, res.message, 'fa-circle-check', '#38bdf8');
-                addNotification(`Absen ${tipe} Berhasil`, `Pencatatan absen ${tipe.toLowerCase()} sukses.`, new Date().toLocaleTimeString('id-ID', {hour12: false}), 'Berhasil');
+                // Masuk ke notifikasi terbaru
+                addNotification(`Absen ${tipe} Berhasil`, `Pencatatan absen ${tipe.toLowerCase()} sukses (${res.message}).`, new Date().toLocaleTimeString('id-ID', {hour12: false}), res.message.includes('Terlambat') ? 'Terlambat' : 'Berhasil');
                 setTimeout(() => loadHistory31Days(), 1500);
             } else {
                 showStatus('absen-status', res.message, 'error');
@@ -1137,6 +1208,8 @@
             if (res.success) {
                 showStatus('izin-status', res.message, 'success');
                 showCustomModal("Pengajuan Izin", res.message, 'fa-circle-check', '#38bdf8');
+                // Otomatis masukkan pengajuan (Sakit / Izin / Alfa) ke riwayat notifikasi terbaru
+                addNotification(`Pengajuan ${selectedIzinType}`, `Keterangan: ${alasan || 'Tanpa keterangan'}`, new Date().toLocaleTimeString('id-ID', {hour12: false}), selectedIzinType);
                 document.getElementById('alasan-izin').value = '';
             } else {
                 showStatus('izin-status', res.message, 'error');
@@ -1294,7 +1367,7 @@
         }
 
         function handleLogout() {
-            localStorage.removeItem('app_user_session');
+            localStorage.getItem('app_user_session') && localStorage.removeItem('app_user_session');
             lockHRAccess();
             if (videoStream) { videoStream.getTracks().forEach(track => track.stop()); videoStream = null; }
             document.getElementById('main-app').classList.add('hidden');
