@@ -5,9 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Attendance Andara Wijaya Pro</title>
+    
+    <!-- Logo & PWA Meta Tag -->
+    <link rel="icon" type="image/png" href="https://lh3.googleusercontent.com/d/1qX5RAJgU8VuEBgEGLsga6oKZLvbde8AZ">
+    <link rel="apple-touch-icon" href="https://lh3.googleusercontent.com/d/1qX5RAJgU8VuEBgEGLsga6oKZLvbde8AZ">
     <meta property="og:title" content="ABSENSI KERJA - Wijaya Grup" />
     <meta property="og:description" content="ABSENSI PRO." />
-    <meta property="og:image" content="https://cv-wijaya-grup-official.github.io/ABSENSI-KERJA/482526%20(1).png" />
+    <meta property="og:image" content="https://lh3.googleusercontent.com/d/1qX5RAJgU8VuEBgEGLsga6oKZLvbde8AZ" />
 
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -81,6 +85,13 @@
             justify-content: center;
             color: #38bdf8;
             font-size: 18px;
+            overflow: hidden;
+        }
+        
+        .avatar-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         .user-meta h3 {
@@ -362,7 +373,6 @@
         .history-table td { padding: 8px 4px; border-bottom: 1px solid #1e293b; font-size: 9.5px; color: #cbd5e1; }
         .td-date { font-weight: 700; color: #fff; white-space: nowrap; font-size: 9px; }
         .td-photo img { width: 28px; height: 28px; border-radius: 6px; object-fit: cover; border: 1px solid #334155; }
-        .td-photo .photo-fallback { width: 28px; height: 28px; border-radius: 6px; background: #1e293b; display: flex; align-items: center; justify-content: center; font-size: 10px; color: #64748b; }
         
         .badge { font-size: 7.5px; font-weight: 700; padding: 2px 4px; border-radius: 4px; display: inline-block; margin-bottom: 2px; }
         .badge.hadir { background: #064e3b; color: #34d399; border: 1px solid #047857; }
@@ -390,11 +400,11 @@
         <!-- ==================== FORM LOGIN KARYAWAN ==================== -->
         <div id="login-view" class="card" style="margin-top: auto; margin-bottom: auto;">
             <div style="text-align: center; margin-bottom: 20px;">
-                <div style="width: 50px; height: 50px; background: #1e293b; border-radius: 16px; display: inline-flex; align-items: center; justify-content: center; color: #38bdf8; font-size: 22px; margin-bottom: 10px;">
-                    <i class="fa-solid fa-fingerprint"></i>
+                <div style="width: 60px; height: 60px; background: #1e293b; border-radius: 16px; display: inline-flex; align-items: center; justify-content: center; overflow: hidden; margin-bottom: 10px; border: 1px solid #334155;">
+                    <img src="https://lh3.googleusercontent.com/d/1qX5RAJgU8VuEBgEGLsga6oKZLvbde8AZ" alt="Logo" style="width: 100%; height: 100%; object-fit: cover;">
                 </div>
                 <h2 style="font-size: 18px; font-weight: 700;">Attendance Pro</h2>
-                <p style="font-size: 12px; color: #64748b;">Masuk untuk melakukan presensi</p>
+                <p style="font-size: 12px; color: #64748b;">CV. Andara Wijaya</p>
             </div>
 
             <div class="form-group">
@@ -427,7 +437,7 @@
             <div class="app-topbar">
                 <div class="user-profile-header">
                     <div class="avatar-icon">
-                        <i class="fa-solid fa-user-astronaut"></i>
+                        <img src="https://lh3.googleusercontent.com/d/1qX5RAJgU8VuEBgEGLsga6oKZLvbde8AZ" alt="Logo">
                     </div>
                     <div class="user-meta">
                         <h3 id="topbar-user-name">Muhammad Fejri Febriyan</h3>
@@ -542,7 +552,7 @@
                         </div>
                     </div>
 
-                    <!-- KONTAINER SLIP GAJI (LOGO DIHILANGKAN, TEKS CV. WIJAYA GRUP DIPERBESAR DI TENGAH, KOLOM SAKIT DITAMBAHKAN) -->
+                    <!-- KONTAINER SLIP GAJI -->
                     <div style="width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; margin-bottom: 14px; background: #ffffff; border-radius: 12px; padding: 4px;">
                         <div id="slip-pdf-wrapper" style="background: white; color: #0f172a; padding: 28px 32px; width: 1000px; min-width: 1000px; display: flex; flex-direction: column; justify-content: flex-start; gap: 18px; box-sizing: border-box; font-family: 'Inter', sans-serif; margin: 0 auto;">
                             
@@ -579,7 +589,7 @@
                                 </tr>
                             </table>
 
-                            <!-- Bagian Kehadiran (Dengan Kolom SAKIT berlatar belakang putih) -->
+                            <!-- Bagian Kehadiran -->
                             <div>
                                 <div style="background: #0f172a; color: white; font-size: 12px; font-weight: bold; padding: 8px 14px; text-transform: uppercase; letter-spacing: 0.5px; text-align: center;">
                                     Hari Kerja & Kehadiran
@@ -843,10 +853,10 @@
 
     <!-- LOGIKA JAVASCRIPT -->
     <script>
-        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxOG-5nfwHLttcgHqjHY3iVN8ro-AtRkT2nqYKacjuI4EQNDdBhyQ-8BR-OclGcmtw4TA/exec';
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyMOtBNdHllcgolMo--_yNvukLa7mZA8VQivuB2R_F-oI6u8VXG8gLpgPiOe5t-VarRVg/exec';
 
-        const TARGET_LAT =-6.718875;
-        const TARGET_LNG =108.533493;
+        const TARGET_LAT = -6.718875;
+        const TARGET_LNG = 108.533493;
         const MAX_ALLOWED_RADIUS = 15.0;
 
         let isHRAuthenticated = false;
@@ -915,7 +925,7 @@
 
         function addNotification(title, message, time, status) {
             const notif = { title, message, time, status, date: new Date().toLocaleDateString('id-ID', {day: 'numeric', month: 'short', year: 'numeric'}) };
-            appNotifications.unshift(notif); // Menyimpan yang terbaru di paling atas
+            appNotifications.unshift(notif);
             if (appNotifications.length > 20) appNotifications.pop();
             localStorage.setItem('app_notifications', JSON.stringify(appNotifications));
             updateNotificationBadge();
@@ -965,7 +975,6 @@
             `).join('');
         }
 
-        // Logika Geser / Swipe untuk Hapus Notifikasi (Kiri atau Kanan)
         let swipeData = { index: null, startX: 0, currentX: 0, isDragging: false };
 
         function handleTouchStart(e, index) {
@@ -1185,7 +1194,6 @@
                 allowForcePulang = false;
                 showStatus('absen-status', res.message, 'success');
                 showCustomModal(`Presensi ${tipe} Berhasil`, res.message, 'fa-circle-check', '#38bdf8');
-                // Masuk ke notifikasi terbaru
                 addNotification(`Absen ${tipe} Berhasil`, `Pencatatan absen ${tipe.toLowerCase()} sukses (${res.message}).`, new Date().toLocaleTimeString('id-ID', {hour12: false}), res.message.includes('Terlambat') ? 'Terlambat' : 'Berhasil');
                 setTimeout(() => loadHistory31Days(), 1500);
             } else {
@@ -1207,12 +1215,13 @@
             const res = await callGAS('processIzin', { jenis: selectedIzinType, alasan: alasan });
             if (res.success) {
                 showStatus('izin-status', res.message, 'success');
-                showCustomModal("Pengajuan Izin", res.message, 'fa-circle-check', '#38bdf8');
-                // Otomatis masukkan pengajuan (Sakit / Izin / Alfa) ke riwayat notifikasi terbaru
+                showCustomModal("Pengajuan Izin Berhasil", res.message, 'fa-circle-check', '#38bdf8');
                 addNotification(`Pengajuan ${selectedIzinType}`, `Keterangan: ${alasan || 'Tanpa keterangan'}`, new Date().toLocaleTimeString('id-ID', {hour12: false}), selectedIzinType);
                 document.getElementById('alasan-izin').value = '';
+                setTimeout(() => loadHistory31Days(), 1500);
             } else {
                 showStatus('izin-status', res.message, 'error');
+                showCustomModal("Gagal Mengajukan Izin", res.message, 'fa-circle-xmark', '#ef4444');
             }
         }
 
@@ -1277,7 +1286,7 @@
             document.getElementById('filter-summary').innerText = `Menampilkan Total ${filterType}: ${filteredData.length} Hari`;
             filteredData.forEach(item => {
                 let inStatus = item.statusIn || "-";
-                let inClass = inStatus.toUpperCase().includes("TERLAMBAT") ? "terlambat" : "hadir";
+                let inClass = inStatus.toUpperCase().includes("TERLAMBAT") ? "terlambat" : (inStatus.toUpperCase().includes("SAKIT") ? "sakit" : (inStatus.toUpperCase().includes("IZIN") ? "izin" : (inStatus.toUpperCase().includes("ALFA") ? "alfa" : "hadir")));
                 let outStatus = item.statusOut || "-";
                 let outClass = outStatus.toUpperCase().includes("TIDAK ABSEN") ? "tidak-absen" : "tepat-waktu";
 
